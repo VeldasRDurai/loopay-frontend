@@ -5,7 +5,7 @@ import {
 	switchedToMobile,
 	switchedToTablet,
 	switchedToLaptop
-} from './redux-store/page-size/page-size-actions';
+} from './redux-store/device/device-actions';
 import { 
 	MAX_MOBILE_WIDTH, 
 	MAX_TABLET_WIDTH 

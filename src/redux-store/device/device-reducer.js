@@ -1,4 +1,4 @@
-import { ON_MOBILE, ON_TABLET, ON_LAPTOP } from './page-size-types';
+import { ON_MOBILE, ON_TABLET, ON_LAPTOP } from './device-types';
 
 const initialState = {
     currentDevice  : ON_MOBILE
