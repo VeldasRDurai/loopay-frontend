@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import store from './redux-store/store';
-import DeviceDecider from './device-decider';
+import store from './reduxStore/store';
+import DeviceDecider from './deviceDecider';
 
 import Devices from './Device';
 const App = () => {

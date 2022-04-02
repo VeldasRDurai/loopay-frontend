@@ -1,7 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 
-import profileReducer  from './profile/profile-reducer';
-import pageSizeReducer from './device/device-reducer';
+import profileReducer  from './profile/profileReducer';
+import pageSizeReducer from './device/deviceReducer';
 
 const rootReducer = combineReducers({
     profile  : profileReducer,

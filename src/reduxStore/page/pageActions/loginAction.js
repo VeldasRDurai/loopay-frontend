@@ -3,7 +3,7 @@ import {
     FORGET_PASSWORD, 
     FORGET_PASSWORD_OTP, 
     NEW_PASSWORD,
-} from '../page-types';
+} from '../pageTypes';
 
 
 const redirectToLogin = () => ({ type : LOGIN });

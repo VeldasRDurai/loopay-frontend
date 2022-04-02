@@ -1,4 +1,4 @@
-import { ABOUT } from '../page-types';
+import { ABOUT } from '../pageTypes';
 
 const redirectToAbout = () => ({ type : ABOUT });
 

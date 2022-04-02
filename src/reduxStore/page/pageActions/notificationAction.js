@@ -1,6 +1,6 @@
 import {
     NOTIFICATION
-} from '../page-types';
+} from '../pageTypes';
 
 const redirectToNotification = () => ({ type : NOTIFICATION });
 

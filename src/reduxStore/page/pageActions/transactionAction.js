@@ -4,7 +4,7 @@ import {
     MAP_CHAT, 
     SCAN_QR, 
     FEEDBACK
-} from '../page-types';
+} from '../pageTypes';
 
 const redirectToSearch = () => ({ type : SEARCH });
 const redirectToUserProfile = () => ({ type : USER_PROFILE });

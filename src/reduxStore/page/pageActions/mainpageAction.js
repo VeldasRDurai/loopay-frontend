@@ -1,6 +1,6 @@
 import {
     MAINPAGE
-} from '../page-types';
+} from '../pageTypes';
 
 const redirectToMainpage = () => ({ type : MAINPAGE });
 

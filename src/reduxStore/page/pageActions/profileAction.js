@@ -6,7 +6,7 @@ import {
     USER_SETTINGS, 
     APPLICATION_SUPPORT, 
     APPLICATION_FEEDBACK,
-} from '../page-types';
+} from '../pageTypes';
 
 const redirectToProfile = () => ({ type : PROFILE });
 const redirectToEditDetails = () => ({ type : EDIT_DETAILS });

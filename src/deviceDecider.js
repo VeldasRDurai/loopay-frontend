@@ -5,11 +5,11 @@ import {
 	switchedToMobile,
 	switchedToTablet,
 	switchedToLaptop
-} from './redux-store/device/device-actions';
+} from './reduxStore/device/deviceActions';
 import { 
 	MAX_MOBILE_WIDTH, 
 	MAX_TABLET_WIDTH 
-} from './constants/device-width';
+} from './constants/deviceWidth';
 
 
 const DeviceDecider = () => {

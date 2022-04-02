@@ -1,4 +1,4 @@
-import { ON_MOBILE, ON_TABLET, ON_LAPTOP } from './device-types';
+import { ON_MOBILE, ON_TABLET, ON_LAPTOP } from './deviceTypes';
 
 const switchedToMobile = () => ({ type : ON_MOBILE });
 const switchedToTablet = () => ({ type : ON_TABLET });

@@ -2,7 +2,7 @@ import {
     SIGNUP, 
     SIGNUP_OTP, 
     SIGNUP_PERSONAL_DETAILS
-} from '../page-types';
+} from '../pageTypes';
 
 const redirectToSignup = () => ({ type : SIGNUP });
 const redirectToSignupOtp = () => ({ type : SIGNUP_OTP });

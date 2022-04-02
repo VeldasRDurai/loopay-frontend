@@ -1,4 +1,4 @@
-import { ON_MOBILE, ON_TABLET, ON_LAPTOP } from './device-types';
+import { ON_MOBILE, ON_TABLET, ON_LAPTOP } from './deviceTypes';
 
 const initialState = {
     currentDevice  : ON_MOBILE

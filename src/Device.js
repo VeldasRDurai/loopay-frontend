@@ -5,7 +5,7 @@ import {
 	ON_MOBILE, 
 	ON_TABLET, 
 	ON_LAPTOP 
-} from './redux-store/device/device-types';
+} from './reduxStore/device/deviceTypes';
 
 import Mobile from './components/Mobile/Mobile';
 const Devices = () => {

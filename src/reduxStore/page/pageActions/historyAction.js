@@ -2,7 +2,7 @@ import {
     HISTORY, 
     HISTORY_TRANSACTION, 
     HISTORY_TRANSACTION_CHAT
-} from '../page-types';
+} from '../pageTypes';
 
 
 const redirectToHistory = () => ({ type : HISTORY });

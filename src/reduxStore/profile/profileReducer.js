@@ -1,4 +1,4 @@
-import { LOGED_IN, LOGED_OUT } from './profile-types';
+import { LOGED_IN, LOGED_OUT } from './profileTypes';
 
 const initialState = { 
     isloged : false ,
