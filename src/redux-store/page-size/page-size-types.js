@@ -1,0 +1,5 @@
+const ON_MOBILE  = 'ON_MOBILE';
+const ON_TABLET  = 'ON_TABLET';
+const ON_LAPTOP  = 'ON_LAPTOP';
+ 
+export { ON_MOBILE, ON_TABLET, ON_LAPTOP };
