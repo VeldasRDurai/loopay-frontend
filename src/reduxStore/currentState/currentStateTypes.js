@@ -9,7 +9,7 @@ const FOUND_USER = 'FOUND_USER';
 // const CANT_FOUND = 'CANT_FOUND';
 // const NOT_SCANNED = 'NOT_SCANNED';
 // const SCANNED = 'SCANNED';
-const FEEDBACK = 'FEEDBACK';
+const FEEDBACK_STATE = 'FEEDBACK_STATE';
 
 export {
     SEARCHED,
@@ -18,5 +18,5 @@ export {
     SAVED,
     REQUEST_CAME,
     FOUND_USER,
-    FEEDBACK
+    FEEDBACK_STATE
 };

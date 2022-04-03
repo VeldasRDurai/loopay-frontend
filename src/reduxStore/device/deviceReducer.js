@@ -4,7 +4,7 @@ const initialState = {
     currentDevice  : ON_MOBILE
 }
 
-const pageSizeReducer = ( state = initialState , action ) => {
+const deviceReducer = ( state = initialState , action ) => {
     switch( action.type ){
         case ON_MOBILE : 
         case ON_TABLET : 
@@ -17,4 +17,4 @@ const pageSizeReducer = ( state = initialState , action ) => {
     }
 }
 
-export default pageSizeReducer;
+export default deviceReducer;

@@ -9,6 +9,7 @@ const SIGNUP_OTP = 'SIGNUP_OTP';
 const SIGNUP_PERSONAL_DETAILS = 'SIGNUP_PERSONAL_DETAILS';
 
 const MAINPAGE = 'MAINPAGE';
+const LOADING  = 'LOADING';
 
 const PROFILE = 'PROFILE';
 const EDIT_DETAILS = 'EDIT_DETAILS';
@@ -28,7 +29,7 @@ const SEARCH = 'SEARCH';
 const USER_PROFILE = 'USER_PROFILE';
 const MAP_CHAT = 'MAP_CHAT';
 const SCAN_QR = 'SCAN_QR';
-const FEEDBACK = 'FEEDBACK';
+const FEEDBACK_PAGE = 'FEEDBACK_PAGE';
 
 export {
     ABOUT, 
@@ -55,5 +56,6 @@ export {
     USER_PROFILE, 
     MAP_CHAT, 
     SCAN_QR, 
-    FEEDBACK
-}
+    FEEDBACK_PAGE,
+    LOADING
+};

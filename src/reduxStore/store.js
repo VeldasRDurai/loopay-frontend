@@ -1,11 +1,13 @@
 import { combineReducers, createStore } from 'redux';
 
 import profileReducer  from './profile/profileReducer';
-import pageSizeReducer from './device/deviceReducer';
+import deviceReducer from './device/deviceReducer';
+import pageReducer from './page/pageReducer';
 
 const rootReducer = combineReducers({
     profile  : profileReducer,
-    pageSize : pageSizeReducer
+    device : deviceReducer,
+    page : pageReducer
 });
 
 const store = createStore( rootReducer );

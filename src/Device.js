@@ -9,8 +9,8 @@ import {
 
 import Mobile from './components/Mobile/Mobile';
 const Devices = () => {
-	const { currentDevice } = useSelector( state => state.pageSize );
-
+	const { currentDevice } = useSelector( state => state.device );
+	console.log( 'currentDevice : ', currentDevice );
 	return (
 		<div>
 			{

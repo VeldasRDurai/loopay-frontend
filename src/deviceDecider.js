@@ -1,11 +1,16 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { 
 	switchedToMobile,
 	switchedToTablet,
 	switchedToLaptop
 } from './reduxStore/device/deviceActions';
+import { 
+	ON_MOBILE, 
+	ON_TABLET, 
+	ON_LAPTOP 
+} from './reduxStore/device/deviceTypes';
 import { 
 	MAX_MOBILE_WIDTH, 
 	MAX_TABLET_WIDTH 
@@ -14,25 +19,27 @@ import {
 
 const DeviceDecider = () => {
 
-	var timeOutController;
+	// var timeOutController;
 	const dispatch = useDispatch();
-	const deviceDeciderCore = () => 
+	const { currentDevice } = useSelector( state => state.device );
+	const deviceDeciderCore = () => {
+		console.log( 'currentDevice : ', currentDevice );
 		window.innerWidth > MAX_MOBILE_WIDTH ?  
 			(window.innerWidth > MAX_TABLET_WIDTH ?
 				// Greter than mobile and tablet width 
-				dispatch( switchedToLaptop() ) : 
+				( currentDevice !== ON_LAPTOP && dispatch(switchedToLaptop()) ): 
 				// Greter than mobile and less than tablet width
-				dispatch( switchedToTablet() )): 
+				( currentDevice !== ON_TABLET && dispatch(switchedToTablet()) ) ): 
 			// Less than mobile width
-			dispatch( switchedToMobile() ) ;
-		
+			( currentDevice !== ON_MOBILE && dispatch( switchedToMobile() ) );
+		}	
 	deviceDeciderCore();
-    window.addEventListener( "resize", () => {
-		// Inorder to avoid glitch [1][2][3]
-		clearTimeout(timeOutController); 
-		timeOutController = setTimeout( deviceDeciderCore, 1000);
-	});
-	return( <div></div> );
+    // window.addEventListener( "resize", () => {
+	// 	// Inorder to avoid glitch [1][2][3]
+	// 	clearTimeout(timeOutController); 
+	// 	timeOutController = setTimeout( deviceDeciderCore, 1000);
+	// });
+	return( <div style={{display:'none'}}></div> );
 }
 
 export default DeviceDecider ;
