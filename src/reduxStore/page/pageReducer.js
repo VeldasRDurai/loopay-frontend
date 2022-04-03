@@ -28,16 +28,13 @@ import {
 } from './pageTypes';
 
 const initialState = {
-    // currentPage : undefined,
     mobilePageStat : LOADING,
+
     loginPageStat  : LOGIN,
     forgetPasswordPageStat : FORGET_PASSWORD,
     forgetPasswordOtpPageStat : FORGET_PASSWORD_OTP,
-    // loginPageStat  : FORGET_PASSWORD,
 
-    // forgetPasswordClick : undefined,
-    // forgetPasswordOtpClick : undefined,
-    // newPasswordClick : undefined
+    signupPageStat : SIGNUP,
 }
 
 const pageReducer = ( state = initialState, action ) => {
@@ -55,24 +52,21 @@ const pageReducer = ( state = initialState, action ) => {
                 mobilePageStat : LOGIN,
                 loginPageStat : undefined,
                 forgetPasswordPageStat : undefined,
-                forgetPasswordOtpPageStat : undefined,
-                // forgetPasswordClick : undefined   
+                forgetPasswordOtpPageStat : undefined
             }
             case FORGET_PASSWORD :
                 return { ...state,
                     mobilePageStat : LOGIN,
                     loginPageStat : FORGET_PASSWORD,
                     forgetPasswordPageStat : undefined,
-                    forgetPasswordOtpPageStat : undefined,
-                    // forgetPasswordClick : action.forgetPasswordClick
+                    forgetPasswordOtpPageStat : undefined
                 }
                 case FORGET_PASSWORD_OTP :
                     return { ...state,
                         mobilePageStat : LOGIN,
                         loginPageStat : FORGET_PASSWORD,
                         forgetPasswordPageStat : FORGET_PASSWORD_OTP,
-                        forgetPasswordOtpPageStat : undefined,
-                        // forgetPasswordOtpClick : action.forgetPasswordOtpClick,
+                        forgetPasswordOtpPageStat : undefined
                     }
                     case NEW_PASSWORD :
                     return { ...state,
@@ -80,13 +74,22 @@ const pageReducer = ( state = initialState, action ) => {
                         loginPageStat : FORGET_PASSWORD,
                         forgetPasswordPageStat : FORGET_PASSWORD_OTP,
                         forgetPasswordOtpPageStat : NEW_PASSWORD,
-                        // newPasswordClick : action.newPasswordClick,
                     }
         case SIGNUP : 
             return { ...state,
-                mobilePageStat : SIGNUP   
+                mobilePageStat : SIGNUP,
+                signupPageStat : undefined   
             }
-
+            case SIGNUP_OTP:
+                return { ...state,
+                    mobilePageStat : SIGNUP,
+                    signupPageStat : SIGNUP_OTP
+                }
+            case SIGNUP_PERSONAL_DETAILS :
+                return { ...state,
+                    mobilePageStat : SIGNUP,
+                    signupPageStat : SIGNUP_PERSONAL_DETAILS
+                }
         default : 
             return state;
     }

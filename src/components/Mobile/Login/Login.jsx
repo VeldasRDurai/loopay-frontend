@@ -6,9 +6,8 @@ import { redirectToLoading } from '../../../reduxStore/page/pageActions/mainpage
 import { redirectToSignup } from '../../../reduxStore/page/pageActions/signupAction';
 import { redirectToForgetPassword } from "../../../reduxStore/page/pageActions/loginAction";
 
-import { FORGET_PASSWORD } from '../../../reduxStore/page/pageTypes'
-
 import ForgetPassword from './ForgetPassword/ForgetPassword';
+import { FORGET_PASSWORD } from '../../../reduxStore/page/pageTypes'
 
 const LoginStyled = styled.div`
     height: 100%;
@@ -35,17 +34,10 @@ const Login = () => {
             <div onClick={()=> dispatch( redirectToLoading() )} > 
                 Log in
             </div>
-            <div onClick={ event => 
-                dispatch( redirectToForgetPassword(
-                    // {
-                    //     clientX: event.clientX,
-                    //     clientY: event.clientY
-                    // }
-                ) 
-            )} > 
+            <div onClick={ () => dispatch( redirectToForgetPassword() )} > 
                 forget password 
             </div>
-            <div onClick={()=> dispatch( redirectToSignup() )} >
+            <div onClick={() => dispatch( redirectToSignup() )} >
                 Sign Up 
             </div>
             { loginPageStat === FORGET_PASSWORD && <ForgetPassword /> }

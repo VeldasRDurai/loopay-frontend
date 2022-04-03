@@ -8,6 +8,7 @@ import timeOut  from '../../../functions/timeOut';
 
 
 const Loading = () => {
+  console.log('Loading');
   const dispatch = useDispatch();
   useEffect( () => {
       const userAuthentication = async () => {

@@ -2,21 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { NEW_PASSWORD } from '../../../../../reduxStore/page/pageTypes'
 
 import { 
     redirectToForgetPassword,
     redirectToNewPassword
 } from '../../../../../reduxStore/page/pageActions/loginAction';
 
-// import bounceOutBallAnimation from '../../../../../animation/bounceOutBall';
 
 import NewPassword from './NewPassword/NewPassword';
+import { NEW_PASSWORD } from '../../../../../reduxStore/page/pageTypes'
 
-// animation: ${ 
-//     ({forgetPasswordOtpClick}) => 
-//         bounceOutBallAnimation(forgetPasswordOtpClick) } 
-//         0.8s ease-in-out alternate both;	
 const ForgetPasswordOtpStyled = styled.div`
 	position: absolute;
 	top:0;bottom:0;left:0;right:0;
@@ -29,25 +24,16 @@ const ForgetPasswordOtpStyled = styled.div`
 const ForgetPasswordOtp = () => {
 	console.log( 'forget-password-otp' );
 	const dispatch = useDispatch();
-	const { forgetPasswordOtpPageStat
-        // , forgetPasswordOtpClick 
-    } = useSelector( state => state.page );
+	const { forgetPasswordOtpPageStat } = useSelector( state => state.page );
 
 	return (
-		<ForgetPasswordOtpStyled 
-            // forgetPasswordOtpClick={forgetPasswordOtpClick} 
-            >
+		<ForgetPasswordOtpStyled>
 				ForgetPasswordOtp
 				<input type="text" placeholder='OTP' />
 				<div onClick={ () => dispatch( redirectToForgetPassword() ) } >
 					back
 				</div>
-				<div onClick={ event => dispatch( redirectToNewPassword(
-                    // {
-                    // clientX: event.clientX,
-                    // clientY: event.clientY
-				    // }
-                )) } > 
+				<div onClick={ event => dispatch( redirectToNewPassword()) } > 
 					Click 
 				</div>
             { forgetPasswordOtpPageStat === NEW_PASSWORD && <NewPassword /> }
