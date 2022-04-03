@@ -29,7 +29,15 @@ import {
 
 const initialState = {
     // currentPage : undefined,
-    mobilePageStat : LOADING
+    mobilePageStat : LOADING,
+    loginPageStat  : LOGIN,
+    forgetPasswordPageStat : FORGET_PASSWORD,
+    forgetPasswordOtpPageStat : FORGET_PASSWORD_OTP,
+    // loginPageStat  : FORGET_PASSWORD,
+
+    // forgetPasswordClick : undefined,
+    // forgetPasswordOtpClick : undefined,
+    // newPasswordClick : undefined
 }
 
 const pageReducer = ( state = initialState, action ) => {
@@ -44,12 +52,41 @@ const pageReducer = ( state = initialState, action ) => {
             }
         case LOGIN : 
             return { ...state,
-                mobilePageStat : LOGIN   
+                mobilePageStat : LOGIN,
+                loginPageStat : undefined,
+                forgetPasswordPageStat : undefined,
+                forgetPasswordOtpPageStat : undefined,
+                // forgetPasswordClick : undefined   
             }
+            case FORGET_PASSWORD :
+                return { ...state,
+                    mobilePageStat : LOGIN,
+                    loginPageStat : FORGET_PASSWORD,
+                    forgetPasswordPageStat : undefined,
+                    forgetPasswordOtpPageStat : undefined,
+                    // forgetPasswordClick : action.forgetPasswordClick
+                }
+                case FORGET_PASSWORD_OTP :
+                    return { ...state,
+                        mobilePageStat : LOGIN,
+                        loginPageStat : FORGET_PASSWORD,
+                        forgetPasswordPageStat : FORGET_PASSWORD_OTP,
+                        forgetPasswordOtpPageStat : undefined,
+                        // forgetPasswordOtpClick : action.forgetPasswordOtpClick,
+                    }
+                    case NEW_PASSWORD :
+                    return { ...state,
+                        mobilePageStat : LOGIN,
+                        loginPageStat : FORGET_PASSWORD,
+                        forgetPasswordPageStat : FORGET_PASSWORD_OTP,
+                        forgetPasswordOtpPageStat : NEW_PASSWORD,
+                        // newPasswordClick : action.newPasswordClick,
+                    }
         case SIGNUP : 
             return { ...state,
                 mobilePageStat : SIGNUP   
             }
+
         default : 
             return state;
     }

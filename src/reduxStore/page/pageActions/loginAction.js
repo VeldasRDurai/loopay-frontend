@@ -11,6 +11,19 @@ const redirectToForgetPassword = () => ({ type : FORGET_PASSWORD });
 const redirectToForgetPasswordOtp = () => ({ type : FORGET_PASSWORD_OTP });
 const redirectToNewPassword = () => ({ type : NEW_PASSWORD });
 
+// const redirectToForgetPassword = forgetPasswordClick => ({ 
+//     type : FORGET_PASSWORD,
+//     forgetPasswordClick
+// });
+// const redirectToForgetPasswordOtp = forgetPasswordOtpClick => ({ 
+//     type : FORGET_PASSWORD_OTP,
+//     forgetPasswordOtpClick
+// });
+// const redirectToNewPassword = newPasswordClick => ({ 
+//     type : NEW_PASSWORD,
+//     newPasswordClick
+// });
+
 export {
     redirectToLogin,
     redirectToForgetPassword,
