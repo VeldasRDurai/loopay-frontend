@@ -2,8 +2,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { redirectToSignupPersonalDetails } from '../../../../reduxStore/page/pageActions/signupAction';
-import { redirectToSignup } from '../../../../reduxStore/page/pageActions/signupAction';
+// import { redirectToSignupPersonalDetails } from '../../../../reduxStore/page/pageActions/signupAction';
+// import { redirectToSignup } from '../../../../reduxStore/page/pageActions/signupAction';
+
+import { 
+	redirectToPersonalDetails,
+	redirectToSignup
+} from '../../../../reduxStore/authenticationPage/authenticationPageAction';
 
 const SignupOtpStyled = styled.div`
 	position: absolute;
@@ -21,7 +26,7 @@ const SignupOtp = () => {
 	return <SignupOtpStyled>
 		SignupOtp
 		<input type="text" placeholder='OTP' />
-		<div onClick={ () => dispatch(redirectToSignupPersonalDetails()) } > Click </div>
+		<div onClick={ () => dispatch(redirectToPersonalDetails()) } > Click </div>
 		<div onClick={ () => dispatch(redirectToSignup()) } > Back </div>
 	</SignupOtpStyled> ;
 }

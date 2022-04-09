@@ -2,17 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
+import {
+	redirectToNewPassword,
+	redirectToForgetPassword
+} from '../../../../../reduxStore/authenticationPage/authenticationPageAction';
 
-import { 
-    redirectToForgetPassword,
-    redirectToNewPassword
-} from '../../../../../reduxStore/page/pageActions/loginAction';
-
+// import { 
+//     redirectToForgetPassword,
+//     redirectToNewPassword
+// } from '../../../../../reduxStore/page/pageActions/loginAction';
 
 import NewPassword from './NewPassword/NewPassword';
-import { NEW_PASSWORD } from '../../../../../reduxStore/page/pageTypes'
+import { REDIRECT_TO_NEW_PASSWORD } from '../../../../../reduxStore/authenticationPage/authenticationPageTypes';
+// import { NEW_PASSWORD } from '../../../../../reduxStore/page/pageTypes'
+
+import bounceOutBallAnimation from '../../../../../animation/bounceOutBall';
 
 const ForgetPasswordOtpStyled = styled.div`
+	animation: ${bounceOutBallAnimation} 0.4s ease-in-out forwards;
 	position: absolute;
 	top:0;bottom:0;left:0;right:0;
 	background-color:red;
@@ -24,7 +31,7 @@ const ForgetPasswordOtpStyled = styled.div`
 const ForgetPasswordOtp = () => {
 	console.log( 'forget-password-otp' );
 	const dispatch = useDispatch();
-	const { forgetPasswordOtpPageStat } = useSelector( state => state.page );
+	const { forgotPasswordOtpPageState } = useSelector( state => state.authenticationPage );
 
 	return (
 		<ForgetPasswordOtpStyled>
@@ -33,10 +40,10 @@ const ForgetPasswordOtp = () => {
 				<div onClick={ () => dispatch( redirectToForgetPassword() ) } >
 					back
 				</div>
-				<div onClick={ event => dispatch( redirectToNewPassword()) } > 
+				<div onClick={ () => dispatch( redirectToNewPassword()) } > 
 					Click 
 				</div>
-            { forgetPasswordOtpPageStat === NEW_PASSWORD && <NewPassword /> }
+            { forgotPasswordOtpPageState === REDIRECT_TO_NEW_PASSWORD && <NewPassword /> }
 		</ForgetPasswordOtpStyled>
 	)
 }

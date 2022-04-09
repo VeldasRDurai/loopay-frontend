@@ -2,16 +2,20 @@ import React from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
+// import { 
+//     SIGNUP_OTP, 
+//     SIGNUP_PERSONAL_DETAILS 
+// } from '../../../reduxStore/page/pageTypes';
+import { REDIRECT_TO_SIGNUP_OTP } from '../../../reduxStore/authenticationPage/authenticationPageTypes';
+// import { redirectToSignupOtp  } from '../../../reduxStore/page/pageActions/signupAction';
+// import { redirectToLogin } from '../../../reduxStore/page/pageActions/loginAction';
 import { 
-    SIGNUP_OTP, 
-    SIGNUP_PERSONAL_DETAILS 
-} from '../../../reduxStore/page/pageTypes';
-
-import { redirectToSignupOtp  } from '../../../reduxStore/page/pageActions/signupAction';
-import { redirectToLogin } from '../../../reduxStore/page/pageActions/loginAction';
+    redirectToSignupOtp,
+    redirectToLogin
+} from '../../../reduxStore/authenticationPage/authenticationPageAction';
 
 import SignupOtp from './SignupOtp/SignupOtp';
-import SignupPersonalDetails from './SignupPersonalDetails/SignupPersonalDetails';
+// import SignupPersonalDetails from './SignupPersonalDetails/SignupPersonalDetails';
 
 const SignupStyled = styled.div`
 	height: 100%;
@@ -26,7 +30,7 @@ const SignupStyled = styled.div`
 const Signup = () => {
     console.log( 'signup');
     const dispatch = useDispatch();
-    const { signupPageStat } = useSelector( state => state.page );
+    const { signupPageState } = useSelector( state => state.authenticationPage );
     return <SignupStyled>
         <div> Signup </div>
         <input type="text" placeholder='email' />
@@ -38,10 +42,9 @@ const Signup = () => {
             Click 
         </div>
         { 
-            signupPageStat === SIGNUP_OTP ? 
-                <SignupOtp /> :
-            signupPageStat === SIGNUP_PERSONAL_DETAILS ?
-                <SignupPersonalDetails /> :
+            signupPageState === REDIRECT_TO_SIGNUP_OTP ? <SignupOtp /> :
+            // signupPageStat === SIGNUP_PERSONAL_DETAILS ?
+            //     <SignupPersonalDetails /> :
             undefined
         }
     </SignupStyled>;

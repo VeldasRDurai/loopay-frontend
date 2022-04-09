@@ -2,14 +2,34 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { redirectToLoading } from '../../../reduxStore/page/pageActions/mainpageAction';
-import { redirectToSignup } from '../../../reduxStore/page/pageActions/signupAction';
-import { redirectToForgetPassword } from "../../../reduxStore/page/pageActions/loginAction";
+import {
+    redirectToForgetPassword,
+    redirectToForgetUsername,
+
+    redirectToSignup,
+    redirectToLoading,
+    redirectToPersonalDetails
+} from '../.././../reduxStore/authenticationPage/authenticationPageAction';
+
+import { 
+    REDIRECT_TO_FORGET_PASSWORD,
+    REDIRECT_TO_FORGET_USERNAME
+} from '../../../reduxStore/authenticationPage/authenticationPageTypes';
 
 import ForgetPassword from './ForgetPassword/ForgetPassword';
-import { FORGET_PASSWORD } from '../../../reduxStore/page/pageTypes'
+import ForgotUsername from './ForgotUsername/ForgotUsername';
+// import { redirectToLoading } from '../../../reduxStore/page/pageActions/mainpageAction';
+// import { 
+//     redirectToSignup,
+//     // redirectToSignupPersonalDetails
+// } from '../../../reduxStore/page/pageActions/signupAction';
+// import { redirectToForgetPassword } from "../../../reduxStore/page/pageActions/loginAction";
+
+// import ForgetPassword from './ForgetPassword/ForgetPassword';
+// import { FORGET_PASSWORD } from '../../../reduxStore/page/pageTypes'
 
 const LoginStyled = styled.div`
+    background: linear-gradient(#575dee,white) ;
     height: 100%;
     width: 100%;
     background-color: greenyellow;
@@ -23,7 +43,8 @@ const LoginStyled = styled.div`
 const Login = () => {
     console.log('login');
     const dispatch = useDispatch();
-    const { loginPageStat } = useSelector( state => state.page )
+    const { loginPageState } = useSelector( state => state.authenticationPage );
+    const updatedDetails = true;
     return(
         <LoginStyled> 
             Login Page
@@ -31,16 +52,25 @@ const Login = () => {
             <div> username warnings </div>
             <input type="password" placeholder='password' />
             <div> password warnings </div>
-            <div onClick={()=> dispatch( redirectToLoading() )} > 
+            <div onClick={()=> updatedDetails ?
+                dispatch( redirectToLoading() ): 
+                dispatch( redirectToPersonalDetails() ) } > 
                 Log in
             </div>
             <div onClick={ () => dispatch( redirectToForgetPassword() )} > 
                 forget password 
             </div>
+            <div onClick={ () => dispatch( redirectToForgetUsername() )} > 
+                forget username 
+            </div>
             <div onClick={() => dispatch( redirectToSignup() )} >
                 Sign Up 
             </div>
-            { loginPageStat === FORGET_PASSWORD && <ForgetPassword /> }
+            { 
+                loginPageState === REDIRECT_TO_FORGET_PASSWORD ? <ForgetPassword /> :
+                loginPageState === REDIRECT_TO_FORGET_USERNAME ? <ForgotUsername /> :
+                undefined
+            }
         </LoginStyled>
     );
 }

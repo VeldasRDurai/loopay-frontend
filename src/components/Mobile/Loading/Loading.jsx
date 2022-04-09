@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { redirectToLogin } from '../../../reduxStore/page/pageActions/loginAction';
+// import { redirectToLogin } from '../../../reduxStore/page/pageActions/loginAction';
 // import { redirectToMainpage } from '../../../reduxStore/page/pageActions/mainpageAction';
+import { 
+  redirectToSignup,
+  // redirectToMainpage
+} from '../../../reduxStore/authenticationPage/authenticationPageAction';
+
 
 import timeOut  from '../../../functions/timeOut';
-
 
 const Loading = () => {
   console.log('Loading');
   const dispatch = useDispatch();
   useEffect( () => {
       const userAuthentication = async () => {
-          await timeOut(10);
-          dispatch( redirectToLogin() );
+          await timeOut(2000);
+          dispatch( redirectToSignup() );
           // dispatch( redirectToMainpage() );
       } 
       userAuthentication();

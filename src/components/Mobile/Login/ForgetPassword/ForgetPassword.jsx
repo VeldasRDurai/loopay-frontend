@@ -1,17 +1,26 @@
-import React from 'react';
+import React
+// , { useEffect }
+ from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-
-import { 
-	redirectToLogin, 
-	redirectToForgetPasswordOtp 
-} from '../../../../reduxStore/page/pageActions/loginAction';
+import {
+	redirectToLogin,
+	redirectToForgetPasswordOtp
+} from '../../../../reduxStore/authenticationPage/authenticationPageAction';
+// import { 
+// 	redirectToLogin, 
+// 	redirectToForgetPasswordOtp 
+// } from '../../../../reduxStore/page/pageActions/loginAction';
 
 import ForgetPasswordOtp from './ForgetPasswordOtp/ForgetPasswordOtp';
-import { FORGET_PASSWORD_OTP } from '../../../../reduxStore/page/pageTypes'
+import { REDIRECT_TO_FORGET_PASSWORD_OTP } from '../../../../reduxStore/authenticationPage/authenticationPageTypes';
+// import { FORGET_PASSWORD_OTP } from '../../../../reduxStore/page/pageTypes'
+
+import bounceOutBallAnimation from '../../../../animation/bounceOutBall';
 
 const ForgetPasswordStyled = styled.div`
+	animation: ${bounceOutBallAnimation} 0.4s ease-in-out forwards;
 	position: absolute;
 	top:0;bottom:0;left:0;right:0;
 	background-color:blue;
@@ -21,9 +30,14 @@ const ForgetPasswordStyled = styled.div`
 	flex-direction: column;
 `;
 const ForgetPassword = () => {
-	console.log( 'forget-password' );
+	console.log( 'forget-password');
 	const dispatch = useDispatch();
-	const { forgetPasswordPageStat } = useSelector( state => state.page );
+	const { forgotPasswordPageState } = useSelector( state => state.authenticationPage );
+	// useEffect( () => {
+	// 	return( (() => {
+
+	// 	})() );
+	// } )
 	return (
 		<ForgetPasswordStyled >
 				ForgetPassword
@@ -34,7 +48,7 @@ const ForgetPassword = () => {
 				<div onClick={ () => dispatch( redirectToForgetPasswordOtp()) } > 
 					Click 
 				</div>
-			{ forgetPasswordPageStat === FORGET_PASSWORD_OTP && <ForgetPasswordOtp /> }
+			{ forgotPasswordPageState === REDIRECT_TO_FORGET_PASSWORD_OTP && <ForgetPasswordOtp /> }
 		</ForgetPasswordStyled>
 	);
 }
