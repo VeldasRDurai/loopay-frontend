@@ -16,7 +16,7 @@ const Loading = () => {
   const dispatch = useDispatch();
   useEffect( () => {
       const userAuthentication = async () => {
-          await timeOut(2000);
+          await timeOut(20);
           dispatch( redirectToSignup() );
           // dispatch( redirectToMainpage() );
       } 
