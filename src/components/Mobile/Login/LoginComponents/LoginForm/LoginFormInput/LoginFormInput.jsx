@@ -1,5 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+import {
+    redirectToForgetUsername
+} from '../../../../../../reduxStore/authenticationPage/authenticationPageAction';
+
 
 const LoginFormInputStyled = styled.div`
     display: flex;
@@ -50,6 +56,9 @@ const LoginFormForgotUsername = styled.div`
 `;
 
 function LoginFormInput() {
+
+    const dispatch = useDispatch();
+
     return <LoginFormInputStyled>
         <LoginFormInputLabelStyled>
             Username
@@ -62,7 +71,8 @@ function LoginFormInput() {
             autoCorrect='false'
             spellCheck='false'
         />
-        <LoginFormForgotUsername>
+        <LoginFormForgotUsername
+            onClick={()=> dispatch( redirectToForgetUsername() )} >
             forget username
         </LoginFormForgotUsername>
     </LoginFormInputStyled>

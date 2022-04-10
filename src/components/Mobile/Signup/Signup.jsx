@@ -31,8 +31,6 @@ const Signup = () => {
     console.log( 'signup');
     const dispatch = useDispatch();
 
-    dispatch( redirectToLogin() );
-
     const { signupPageState } = useSelector( state => state.authenticationPage );
     return <SignupStyled>
         <div> Signup </div>

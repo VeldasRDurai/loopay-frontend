@@ -7,8 +7,8 @@ import SlideOutTop from '../../../../../animation/slideOutTop';
 const CurtainStyled = styled.div`
     z-index: 12;
 
-    box-sizing: border-box;
-    /* border: 1px solid black; */
+    /* box-sizing: border-box;
+    border: 1px solid black; */
 
     position: absolute;
     height: 60vh;
@@ -46,8 +46,7 @@ const CurtainCaptionStyled = styled.div`
     font-size: 13px;
 `;
 
-const Curtain = () => {
-    const [ raiseCurtain, setRaiseCurtain ] = useState(false);
+const Curtain = ({ raiseCurtain, setRaiseCurtain }) => {
 
     useEffect(() => {
         window.Particles.init({
@@ -65,7 +64,7 @@ const Curtain = () => {
         <CurtainImageStyled>
             <canvas className='CurtainImage' ></canvas>
         </CurtainImageStyled>
-        <CurtainHeadingStyled onClick={()=>setRaiseCurtain(true)} > 
+        <CurtainHeadingStyled> 
             {/* <CurtainHeadingLogoStyled src={logo} alt="loopay-logo" /> */}
             Loopay 
         </CurtainHeadingStyled>
