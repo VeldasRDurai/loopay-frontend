@@ -24,6 +24,9 @@ import Signup from './Signup/Signup';
 import PersonalDetails from './PersonalDetails/PersonalDetails';
 
 const MobileStyle = styled.div`
+
+    z-index:0;
+
     height: 100vh;
     width: 100vw;
     background-color: #fcc;

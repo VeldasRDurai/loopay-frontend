@@ -8,6 +8,9 @@ import { redirectToLoading } from '../../../../../../reduxStore/authenticationPa
 import bounceOutBallAnimation from '../../../../../../animation/bounceOutBall';
 
 const NewPasswordStyled = styled.div`
+
+	z-index: 40;
+
 	position: absolute;
 	animation: ${bounceOutBallAnimation} 0.4s ease-in-out forwards;
 	top:0;bottom:0;left:0;right:0;

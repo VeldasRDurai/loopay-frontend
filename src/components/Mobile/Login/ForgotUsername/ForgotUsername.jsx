@@ -7,6 +7,9 @@ import { redirectToLogin } from '../../../../reduxStore/authenticationPage/authe
 import bounceOutBallAnimation from '../../../../animation/bounceOutBall';
 
 const ForgetUsernameStyled = styled.div`
+
+	z-index: 20;
+
 	animation: ${bounceOutBallAnimation} 0.4s ease-in-out forwards;
 	position: absolute;
 	top:0;bottom:0;left:0;right:0;

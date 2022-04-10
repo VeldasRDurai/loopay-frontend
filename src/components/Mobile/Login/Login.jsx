@@ -21,6 +21,9 @@ import ForgetPassword from './ForgetPassword/ForgetPassword';
 import ForgotUsername from './ForgotUsername/ForgotUsername';
 
 const LoginStyled = styled.div`
+
+    z-index: 10;
+
     height: 100vh;
     width: 100vw;
     background-color: white;
@@ -39,7 +42,6 @@ const Login = () => {
         <LoginStyled>
             <Curtain />
             <LoginForm />
-            <input type="text" />
             <div style={{
                 display: 'none'
             }} >

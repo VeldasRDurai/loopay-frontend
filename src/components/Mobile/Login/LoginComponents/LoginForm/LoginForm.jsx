@@ -2,10 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 import LoginFormInput from './LoginFormInput/LoginFormInput';
+import LoginFormPassword from './LoginFormPassword/LoginFormPassword';
 
 const LoginFormStyled = styled.div`
-    box-sizing: border-box;
-    border: 1px solid black;
+    z-index: 11;
+
+    /* box-sizing: border-box;
+    border: 1px solid black; */
 
     height: 60vh;
     width: 100vw;
@@ -30,7 +33,7 @@ const LoginForm = () => {
             Log in to account
         </LoginFormHeadingStyled>
         <LoginFormInput />
-        <LoginFormInput />
+        <LoginFormPassword />
   </LoginFormStyled>
 }
 

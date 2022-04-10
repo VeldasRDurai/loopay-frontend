@@ -19,6 +19,9 @@ import { REDIRECT_TO_NEW_PASSWORD } from '../../../../../reduxStore/authenticati
 import bounceOutBallAnimation from '../../../../../animation/bounceOutBall';
 
 const ForgetPasswordOtpStyled = styled.div`
+
+	z-index: 30;
+
 	animation: ${bounceOutBallAnimation} 0.4s ease-in-out forwards;
 	position: absolute;
 	top:0;bottom:0;left:0;right:0;

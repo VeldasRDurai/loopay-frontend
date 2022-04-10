@@ -5,6 +5,8 @@ import styled, { css } from 'styled-components';
 import SlideOutTop from '../../../../../animation/slideOutTop';
 
 const CurtainStyled = styled.div`
+    z-index: 12;
+
     box-sizing: border-box;
     /* border: 1px solid black; */
 
@@ -30,8 +32,9 @@ const CurtainImageStyled = styled.div`
 const CurtainHeadingStyled = styled.div`
     /* to substitute space occupied by the CurtainImageStyled */
     padding-top: 50vh;
-    font-family: 'Righteous', cursive;
+    font-family: 'Montserrat Alternates', sans-serif;
     font-size: 26px;
+    font-weight: 900;
 `;
 
 // const CurtainHeadingLogoStyled = styled.img`
