@@ -1,51 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { 
-//     SIGNUP_OTP, 
-//     SIGNUP_PERSONAL_DETAILS 
-// } from '../../../reduxStore/page/pageTypes';
 import { REDIRECT_TO_SIGNUP_OTP } from '../../../reduxStore/authenticationPage/authenticationPageTypes';
-// import { redirectToSignupOtp  } from '../../../reduxStore/page/pageActions/signupAction';
-// import { redirectToLogin } from '../../../reduxStore/page/pageActions/loginAction';
 import { 
     redirectToSignupOtp,
-    redirectToLogin
+    // redirectToLogin
 } from '../../../reduxStore/authenticationPage/authenticationPageAction';
 
+import Curtain from './SignupComponents/Curtain/Curtain';
+import SignupForm from './SignupComponents/SignupForm/SignupForm';
+import SignupButton from './SignupComponents/SignupButton/SignupButton';
+import OrContinueWith from './SignupComponents/OrContinueWith/OrContinueWith';
+// import GoogleSignin from './GoogleSignin/GoogleSignin';
+import TermsAndConditions from './SignupComponents/TermsAndConditions/TermsAndConditions';
+import AlreadyAccount from './SignupComponents/AlreadyAccount/AlreadyAccount';
+
 import SignupOtp from './SignupOtp/SignupOtp';
-// import SignupPersonalDetails from './SignupPersonalDetails/SignupPersonalDetails';
 
 const SignupStyled = styled.div`
-	height: 100%;
-    width: 100%;
+	z-index: 10;
+
+    height: 100vh;
+    width: 100vw;
+    color: white;
+    background-color: #282b32;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: purple;
+    justify-content: space-between;
+    position: relative;
 `;
 
 const Signup = () => {
     console.log( 'signup');
     const dispatch = useDispatch();
+    const [ raiseCurtain, setRaiseCurtain ] = useState(false);
 
     const { signupPageState } = useSelector( state => state.authenticationPage );
     return <SignupStyled>
-        <div> Signup </div>
-        <input type="text" placeholder='email' />
-        <input type="password" placeholder='password' />
-        <div onClick={ () => dispatch( redirectToLogin() ) } > 
-            Alreday have an account ? Login 
-        </div>
-        <div onClick={ () => dispatch( redirectToSignupOtp() ) } >
-            Click 
-        </div>
+
+            <Curtain 
+                raiseCurtain={raiseCurtain}
+                setRaiseCurtain={setRaiseCurtain} />
+            <SignupForm />
+            <SignupButton onClick={() => raiseCurtain ? 
+                    dispatch(redirectToSignupOtp()) : setRaiseCurtain(true)} />
+            <OrContinueWith />
+            {/* <GoogleSignin /> */}
+            <div> Sign in with google </div>
+            <div></div>
+            <TermsAndConditions />
+            <AlreadyAccount />
         { 
             signupPageState === REDIRECT_TO_SIGNUP_OTP ? <SignupOtp /> :
-            // signupPageStat === SIGNUP_PERSONAL_DETAILS ?
-            //     <SignupPersonalDetails /> :
             undefined
         }
     </SignupStyled>;

@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
-// import logo from '../../../../../../../Loopay logos/1# Loopay logo/loopay-light.png';
 
 import SlideOutTop from '../../../../../animation/slideOutTop';
 
 const CurtainStyled = styled.div`
     z-index: 12;
-
-    /* box-sizing: border-box;
-    border: 1px solid black; */
 
     position: absolute;
     height: 60vh;
@@ -18,7 +14,7 @@ const CurtainStyled = styled.div`
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    background-color: white;
+    background-color: #282b32;
 
     animation: ${ ({raiseCurtain}) => raiseCurtain &&
         css`${SlideOutTop} 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both` };
@@ -30,17 +26,11 @@ const CurtainImageStyled = styled.div`
     width: 300vw;
     `
 const CurtainHeadingStyled = styled.div`
-    /* to substitute space occupied by the CurtainImageStyled */
     padding-top: 50vh;
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 26px;
     font-weight: 900;
 `;
-
-// const CurtainHeadingLogoStyled = styled.img`
-//     height:5vh;
-//     width:5vh;
-// `
 
 const CurtainCaptionStyled = styled.div`
     font-size: 13px;
@@ -54,7 +44,7 @@ const Curtain = ({ raiseCurtain, setRaiseCurtain }) => {
             maxParticles: 100,
             sizeVariations : 5,
             speed : 0.8,
-            color : '#282b32',
+            color : '#ffffff',
             minDistance:100,
             connectParticles: true
         });
