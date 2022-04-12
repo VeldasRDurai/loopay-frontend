@@ -10,7 +10,7 @@ import {
 
 import Curtain from './SignupComponents/Curtain/Curtain';
 import SignupForm from './SignupComponents/SignupForm/SignupForm';
-import SignupButton from './SignupComponents/SignupButton/SignupButton';
+import SignupButton from './SignupButton/SignupButton';
 import OrContinueWith from './SignupComponents/OrContinueWith/OrContinueWith';
 // import GoogleSignin from './GoogleSignin/GoogleSignin';
 import TermsAndConditions from './SignupComponents/TermsAndConditions/TermsAndConditions';

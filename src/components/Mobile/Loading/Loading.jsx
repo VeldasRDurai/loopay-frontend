@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 // import { redirectToLogin } from '../../../reduxStore/page/pageActions/loginAction';
 // import { redirectToMainpage } from '../../../reduxStore/page/pageActions/mainpageAction';
 import { 
-  redirectToLogin,
+  redirectToSignupOtp,
+  // redirectToLogin,
   // redirectToMainpage
 } from '../../../reduxStore/authenticationPage/authenticationPageAction';
 
@@ -17,7 +18,8 @@ const Loading = () => {
   useEffect( () => {
       const userAuthentication = async () => {
           await timeOut(20);
-          dispatch( redirectToLogin() );
+          dispatch( redirectToSignupOtp() );
+          // dispatch( redirectToLogin() );
           // dispatch( redirectToMainpage() );
       } 
       userAuthentication();

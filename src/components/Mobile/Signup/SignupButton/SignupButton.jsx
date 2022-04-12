@@ -16,7 +16,7 @@ const SignupButtonStyled = styled.div`
 `;
 const SignupButton = ({ onClick }) => {
     return <SignupButtonStyled onClick={onClick} >
-        Login with Email
+        Signup with Email
     </SignupButtonStyled>
 }
 
