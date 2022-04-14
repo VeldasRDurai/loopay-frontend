@@ -2,16 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-    // redirectToLoading,
-    // redirectToPersonalDetails
-} from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
-import { loginRaiseCurtain } from '../../../reduxStore/loginState/loginStateAction';
 import { 
     REDIRECT_TO_FORGET_PASSWORD,
     REDIRECT_TO_FORGET_USERNAME
 } from '../../../reduxStore/page/authenticationPage/authenticationPageTypes';
-
+import { LOGIN_PASSWORD_STRONG, LOGIN_PASSWORD_MEDIUM } from '../../../reduxStore/loginState/loginStateTypes'
+import { loginRaiseCurtain } from '../../../reduxStore/loginState/loginStateAction';
 
 import Curtain from './LoginComponents/Curtain/Curtain';
 import LoginForm from './LoginComponents/LoginForm/LoginForm';
@@ -21,7 +17,7 @@ import GoogleSignin from './GoogleSignin/GoogleSignin';
 import TermsAndConditions from './LoginComponents/TermsAndConditions/TermsAndConditions';
 import CreateAccount from './LoginComponents/CreateAccount/CreateAccount';
 
-import ForgetPassword from './ForgetPassword/ForgetPassword';
+import ForgetPassword from './ForgotPassword/ForgotPassword';
 import ForgotUsername from './ForgotUsername/ForgotUsername';
 
 const LoginStyled = styled.div`
@@ -43,8 +39,9 @@ const Login = () => {
     const { loginPageState } = useSelector( state => state.authenticationPage );
     const { 
         raiseCurtain,
+        email,
         emailShowWarning,
-        passwordShowWarning
+        passwordShowWarning,
     } = useSelector( state => state.loginState );
 
     const login = () => {
@@ -53,16 +50,20 @@ const Login = () => {
     }
     const onClick= () => !raiseCurtain ? 
         dispatch( loginRaiseCurtain() ) : login()
+
     return(
         <LoginStyled>
             <Curtain />
             <LoginForm />
-            <LoginButton
+            <LoginButton onClick={onClick} 
                 text={'Login with Email'}
-                onClick={onClick} />
+                disabled={
+                    raiseCurtain && ( !email ||  emailShowWarning ||
+                        !( passwordShowWarning === LOGIN_PASSWORD_STRONG ||
+                            passwordShowWarning === LOGIN_PASSWORD_MEDIUM ))
+                } />
             <OrContinueWith />
             <GoogleSignin />
-            {/* <div> Sign in with google </div> */}
             <div></div>
             <TermsAndConditions />
             <CreateAccount />

@@ -23,6 +23,7 @@ const loginUpdatePassword = ({ password }) => ({
     type : LOGIN_UPDATE_PASSWORD,
     password
 });
+
 const loginRaiseCurtain     = () => typeSetter(LOGIN_RAISE_CURTAIN);
 const loginShowPassword     = () => typeSetter(LOGIN_SHOW_PASSWORD) ;
 const loginNoPassword       = () => typeSetter(LOGIN_NO_PASSWORD) ;
@@ -45,10 +46,11 @@ export {
     loginShowPassword,
     loginNoPassword,
 
-    loginPasswordShowWarning
+    loginPasswordShowWarning,
     // loginPasswordZeroLength,
     // loginPasswordLessLength,
     // loginPasswordWeak,
     // loginPasswordMedium,
     // loginPasswordStrong
+
 }

@@ -2,13 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-// import { 
-//     LOGIN,
-//     SIGNUP,
-//     MAINPAGE, 
-//     LOADING 
-// } from '../../reduxStore/page/pageTypes';
-
 import {
     REDIRECT_TO_LOADING,
     REDIRECT_TO_LOGIN,
@@ -24,18 +17,14 @@ import Signup from './Signup/Signup';
 import PersonalDetails from './PersonalDetails/PersonalDetails';
 
 const MobileStyle = styled.div`
-
     z-index:0;
-
     height: 100vh;
     width: 100vw;
     background-color: #fcc;
 `;
-
 const Mobile = () => {
-    // const { mobilePageStat } = useSelector( state => state.page );
-    const { mobilePageState } = useSelector( state => state.authenticationPage );
     console.log('mobile');
+    const { mobilePageState } = useSelector( state => state.authenticationPage );
     return <MobileStyle>
         {
             mobilePageState === REDIRECT_TO_LOADING  ? <Loading />  :

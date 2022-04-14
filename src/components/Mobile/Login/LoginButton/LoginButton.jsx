@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LoginButtonStyled = styled.div`
+const LoginButtonStyled = styled.button`
     height:5vh;
     width: 80vw;
     background-color:#282b32;
@@ -13,9 +13,15 @@ const LoginButtonStyled = styled.div`
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 13px;
     font-weight: 900;
+    border: none;
+    &:disabled{
+        background-color: #282b3299;
+    }
 `;
-const LoginButton = ({ onClick, text }) => {
-    return <LoginButtonStyled onClick={onClick} >
+const LoginButton = ({ onClick, text, disabled }) => {
+    
+    return <LoginButtonStyled onClick={onClick} 
+        disabled={ disabled===true } >
         { text ? text : 'Submit' }
     </LoginButtonStyled>
 }

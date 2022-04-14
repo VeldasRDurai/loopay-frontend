@@ -32,8 +32,7 @@ const loginStateReducer = ( state = initialState , action ) => {
             }
         case LOGIN_UPDATE_EMAIL :
             return { ...state,
-                email: action.email,
-                emailShowWarning : false
+                email: action.email
             }
         case LOGIN_UPDATE_PASSWORD :
             return { ...state,
