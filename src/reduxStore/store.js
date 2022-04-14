@@ -6,6 +6,7 @@ import deviceReducer from './device/deviceReducer';
 
 import loginStateReducer from './loginState/loginStateReducer';
 import forgotPasswordStateReducer from './loginState/forgotPasswordState/forgotPasswordStateReducer';
+import forgotPasswordOtpStateReducer from './loginState/forgotPasswordOtpState/forgotPasswordOtpStateReducer';
 import authenticationPageReducer from './page/authenticationPage/authenticationPageReducer';
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     // page : pageReducer,
     authenticationPage : authenticationPageReducer,
     loginState : loginStateReducer,
-    forgotPasswordState: forgotPasswordStateReducer
+    forgotPasswordState: forgotPasswordStateReducer,
+    forgotPasswordOtpState: forgotPasswordOtpStateReducer
 });
 
 const store = createStore( rootReducer );

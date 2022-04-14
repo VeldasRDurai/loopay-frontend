@@ -59,7 +59,10 @@ const ForgetPassword = () => {
     const { 
 		forgotPasswordEmail,
 		forgotPasswordEmailShowWarning 
-	} = useSelector( state => state.forgotPasswordState )
+	} = useSelector( state => state.forgotPasswordState );
+	const onClick = () => {
+		dispatch(redirectToForgetPasswordOtp())
+	}
 	return <LoginPasswordStyled>
 		<LoginPasswordBackStyled> 
 			<BackButtonStyled 
@@ -71,12 +74,11 @@ const ForgetPassword = () => {
 			Forget Password 
 		</LoginPasswordHeadingStyled>
 		<ForgotPasswordFormInput />
-		<LoginButton 
+		<LoginButton onClick={onClick}
 			disabled={ 
 				!forgotPasswordEmail ||
 		 		forgotPasswordEmailShowWarning
-			} 
-			onClick={ () => dispatch(redirectToForgetPasswordOtp()) }/>
+			} />
 		{ forgotPasswordPageState === REDIRECT_TO_FORGET_PASSWORD_OTP && <ForgetPasswordOtp /> }
 	</LoginPasswordStyled> ;
 }

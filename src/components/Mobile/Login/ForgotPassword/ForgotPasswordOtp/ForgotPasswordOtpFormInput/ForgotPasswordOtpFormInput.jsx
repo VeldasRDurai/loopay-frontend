@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { emailValidation } from '../../../../../../functions/formValidation';
 import shakeHorizontal from '../../../../../../animation/shakeHorizontal';
-import { 
-    loginUpdateEmail,
-    loginEmailShowWarning,
-    loginEmailNoWarning
-} from '../../../../../../reduxStore/loginState/loginStateAction';
 
-const LoginFormInputStyled = styled.div`
+import {
+    loginForgotPasswordOtpUpdateOtp
+} from '../../../../../../reduxStore/loginState/forgotPasswordOtpState/forgotPasswordOtpStateAction';
+
+const LoginPasswordFormInputStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    margin-bottom: 5vh;
 `;
-const InputLabelStyled = styled.label`
+const LoginPasswordFormInputLabelStyled = styled.label`
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 11px;
     font-weight: 900;
@@ -26,7 +25,7 @@ const InputLabelStyled = styled.label`
         color: red;
     `}
 `;
-const InputTagStyled = styled.input`
+const LoginPasswordFormInputTagStyled = styled.input`
     height: 28px;
     width: 80vw;
     padding-left: 10px;
@@ -60,45 +59,36 @@ const InputTagStyled = styled.input`
     }
 `;
 
-const LoginFormInput = () => {
+const ForgotPasswordFormInput = () => {
     const dispatch = useDispatch();
-    const [ bluredOneTime, setBluredOneTime ] = useState(false);
-    const { email, emailShowWarning } = useSelector( state => state.loginState )
-    const validation = (email) => 
-        emailValidation( email ) ? 
-            dispatch( loginEmailNoWarning() ):
-            dispatch( loginEmailShowWarning() );
-
-    const onBlur = () => {
-        !bluredOneTime && setBluredOneTime(true);
-        validation(email);
-    }
-    const onChange = event => {
-        dispatch( loginUpdateEmail({
-            email: event.target.value.trim()
+    const { 
+        // forgotPasswordOtp, 
+        forgotPasswordOtpShowWarning 
+    } = useSelector( state => state.forgotPasswordOtpState )
+    
+    const onChange = event => 
+        dispatch( loginForgotPasswordOtpUpdateOtp({
+            otp: event.target.value.trim()
         }) );
-        bluredOneTime && validation( event.target.value.trim() );
-    }
-    return <LoginFormInputStyled>
-        <InputLabelStyled 
-            emailShowWarning={emailShowWarning} > {
-                emailShowWarning ? 
-                    'Invalid mail address' : 'Email'
+    return <LoginPasswordFormInputStyled>
+        <LoginPasswordFormInputLabelStyled 
+            emailShowWarning={forgotPasswordOtpShowWarning} > {
+                forgotPasswordOtpShowWarning ? 
+                    'Invalid verification code' : 'Enter Verification code'
             }
-        </InputLabelStyled>
-        <InputTagStyled 
-            type="email" 
-            placeholder='Email your username'
+        </LoginPasswordFormInputLabelStyled>
+        <LoginPasswordFormInputTagStyled 
+            type="number" 
+            placeholder='Enter the 6 digit number'
+            maxLength={6}
             autoCapitalize='false'
             autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
             onChange={onChange}
-            onBlur={onBlur}
-            emailShowWarning={emailShowWarning}
+            emailShowWarning={forgotPasswordOtpShowWarning}
         />
-
-    </LoginFormInputStyled>
+    </LoginPasswordFormInputStyled>
 }
 
-export default LoginFormInput
+export default ForgotPasswordFormInput;
