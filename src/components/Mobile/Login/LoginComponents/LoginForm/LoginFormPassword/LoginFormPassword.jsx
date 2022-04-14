@@ -1,12 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
     redirectToForgetPassword
-} from '../../../../../../reduxStore/authenticationPage/authenticationPageAction';
-
+} from '../../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
+import {
+    LOGIN_PASSWORD_ZERO_LENGTH,
+    LOGIN_PASSWORD_LESS_LENGTH,
+    LOGIN_PASSWORD_WEAK,
+    LOGIN_PASSWORD_MEDIUM,
+    LOGIN_PASSWORD_STRONG
+} from '../../../../../../reduxStore/loginState/loginStateTypes';
 import LoginFormPasswordTagStyled from './LoginFormPasswordTag/LoginFormPasswordTag';
+
+import {shakeHorizontal} from '../../../../../../animation/shakeHorizontal';
 
 const LoginFormPasswordStyled = styled.div`
     display: flex;
@@ -19,6 +27,18 @@ const LoginFormPasswordLabelStyled = styled.label`
     font-size: 11px;
     font-weight: 900;
     margin-bottom: 5px;
+    animation: ${shakeHorizontal} 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    ${({passwordShowWarning}) => 
+        ( passwordShowWarning === LOGIN_PASSWORD_ZERO_LENGTH || 
+        passwordShowWarning === LOGIN_PASSWORD_LESS_LENGTH ||
+        passwordShowWarning === LOGIN_PASSWORD_WEAK ) ? 
+            css`color:red;`: 
+        passwordShowWarning === LOGIN_PASSWORD_MEDIUM ? 
+            css`color:blue;`: 
+        passwordShowWarning === LOGIN_PASSWORD_STRONG ? 
+            css`color:green;`: 
+            css`color:black;`
+    }
 `;
 const LoginFormForgotPassword = styled.div`
     align-self: flex-end ;
@@ -29,16 +49,32 @@ const LoginFormForgotPassword = styled.div`
 
 function LoginFormPassword() {
     const dispatch = useDispatch();
-
+    const { passwordShowWarning } = useSelector( state => state.loginState ); 
+    const onClick = () => 
+        dispatch( redirectToForgetPassword() );
     return <LoginFormPasswordStyled>
-        <LoginFormPasswordLabelStyled>
-            Password
+        <LoginFormPasswordLabelStyled 
+            passwordShowWarning={passwordShowWarning} >{
+            passwordShowWarning === LOGIN_PASSWORD_ZERO_LENGTH ? 
+                `Enter the password`:
+            passwordShowWarning === LOGIN_PASSWORD_LESS_LENGTH ? 
+                `Password is too short`:
+            passwordShowWarning === LOGIN_PASSWORD_WEAK ? 
+                `Weak password`:
+            passwordShowWarning === LOGIN_PASSWORD_MEDIUM ? 
+                `Medium password`:
+            passwordShowWarning === LOGIN_PASSWORD_STRONG ? 
+                `Strong password`: `Password`
+        }
         </LoginFormPasswordLabelStyled>
+
         <LoginFormPasswordTagStyled />
+
         <LoginFormForgotPassword 
-            onClick={()=> dispatch( redirectToForgetPassword() )} >
+            onClick={onClick} >
             forget password
         </LoginFormForgotPassword>
+
     </LoginFormPasswordStyled>
 }
 

@@ -12,7 +12,7 @@ import SignupButton from '../SignupButton/SignupButton';
 import { 
 	redirectToPersonalDetails,
 	redirectToSignup
-} from '../../../../reduxStore/authenticationPage/authenticationPageAction';
+} from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 import slideInRight from '../../../../animation/slideInRight';
 

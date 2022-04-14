@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	redirectToNewPassword,
 	redirectToForgetPassword
-} from '../../../../../reduxStore/authenticationPage/authenticationPageAction';
+} from '../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 // import { 
 //     redirectToForgetPassword,
@@ -13,7 +13,7 @@ import {
 // } from '../../../../../reduxStore/page/pageActions/loginAction';
 
 import NewPassword from './NewPassword/NewPassword';
-import { REDIRECT_TO_NEW_PASSWORD } from '../../../../../reduxStore/authenticationPage/authenticationPageTypes';
+import { REDIRECT_TO_NEW_PASSWORD } from '../../../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 // import { NEW_PASSWORD } from '../../../../../reduxStore/page/pageTypes'
 
 import bounceOutBallAnimation from '../../../../../animation/bounceOutBall';

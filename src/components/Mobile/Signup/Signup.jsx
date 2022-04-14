@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { REDIRECT_TO_SIGNUP_OTP } from '../../../reduxStore/authenticationPage/authenticationPageTypes';
+import { REDIRECT_TO_SIGNUP_OTP } from '../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 import { 
     redirectToSignupOtp,
     // redirectToLogin
-} from '../../../reduxStore/authenticationPage/authenticationPageAction';
+} from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 import Curtain from './SignupComponents/Curtain/Curtain';
 import SignupForm from './SignupComponents/SignupForm/SignupForm';
 import SignupButton from './SignupButton/SignupButton';
 import OrContinueWith from './SignupComponents/OrContinueWith/OrContinueWith';
-// import GoogleSignin from './GoogleSignin/GoogleSignin';
+import GoogleSignin from './GoogleSignin/GoogleSignin';
 import TermsAndConditions from './SignupComponents/TermsAndConditions/TermsAndConditions';
 import AlreadyAccount from './SignupComponents/AlreadyAccount/AlreadyAccount';
 
@@ -44,11 +44,12 @@ const Signup = () => {
                 raiseCurtain={raiseCurtain}
                 setRaiseCurtain={setRaiseCurtain} />
             <SignupForm />
-            <SignupButton onClick={() => raiseCurtain ? 
+            <SignupButton text={'Sign Up with Email'}
+                onClick={() => raiseCurtain ? 
                     dispatch(redirectToSignupOtp()) : setRaiseCurtain(true)} />
             <OrContinueWith />
-            {/* <GoogleSignin /> */}
-            <div> Sign in with google </div>
+            <GoogleSignin />
+            {/* <div> Sign in with google </div> */}
             <div></div>
             <TermsAndConditions />
             <AlreadyAccount />

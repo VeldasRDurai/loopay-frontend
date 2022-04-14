@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { redirectToLoading } from '../../../reduxStore/authenticationPage/authenticationPageAction';
+import { redirectToLoading } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 const PersonalDetailsStyled = styled.div`
 	position: absolute;

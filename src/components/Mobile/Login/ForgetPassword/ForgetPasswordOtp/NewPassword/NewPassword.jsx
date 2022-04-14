@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 // import { redirectToLogin } from '../../../../../../reduxStore/page/pageActions/loginAction';
-import { redirectToLoading } from '../../../../../../reduxStore/authenticationPage/authenticationPageAction';
+import { redirectToLoading } from '../../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 import bounceOutBallAnimation from '../../../../../../animation/bounceOutBall';
 

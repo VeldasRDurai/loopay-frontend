@@ -15,7 +15,7 @@ import {
     REDIRECT_TO_SIGNUP,
     REDIRECT_TO_MAINPAGE,
     REDIRECT_TO_PERSONAL_DETAILS,
-} from '../../reduxStore/authenticationPage/authenticationPageTypes'
+} from '../../reduxStore/page/authenticationPage/authenticationPageTypes'
 
 import Loading from './Loading/Loading';
 import Mainpage from './Mainpage/Mainpage';

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { redirectToSignup } from '../../../../../reduxStore/authenticationPage/authenticationPageAction';
+import { redirectToSignup } from '../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 const CreateAccountStyled = styled.div`
     color:#a2a1b0;

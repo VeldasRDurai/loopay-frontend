@@ -7,9 +7,6 @@ import LoginFormPassword from './LoginFormPassword/LoginFormPassword';
 const LoginFormStyled = styled.div`
     z-index: 11;
 
-    /* box-sizing: border-box;
-    border: 1px solid black; */
-
     height: 60vh;
     width: 100vw;
     display: flex;
@@ -17,7 +14,6 @@ const LoginFormStyled = styled.div`
     align-items: center;
     justify-content: space-around;
     background-color: #ffffff;
-
 `;
 
 const LoginFormHeadingStyled = styled.div`
@@ -28,13 +24,15 @@ const LoginFormHeadingStyled = styled.div`
 `;
 
 const LoginForm = () => {
+
+
   return <LoginFormStyled>
         <LoginFormHeadingStyled>
             Log in to account
         </LoginFormHeadingStyled>
-        <LoginFormInput />
+        <LoginFormInput/>
         <LoginFormPassword />
-  </LoginFormStyled>
+  </LoginFormStyled>;
 }
 
 export default LoginForm

@@ -14,9 +14,9 @@ const LoginButtonStyled = styled.div`
     font-size: 13px;
     font-weight: 900;
 `;
-const LoginButton = ({ onClick }) => {
+const LoginButton = ({ onClick, text }) => {
     return <LoginButtonStyled onClick={onClick} >
-        Login with Email
+        { text ? text : 'Submit' }
     </LoginButtonStyled>
 }
 

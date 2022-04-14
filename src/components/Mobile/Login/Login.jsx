@@ -1,24 +1,23 @@
-import React, { 
-    useState
-} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    redirectToLoading,
+    // redirectToLoading,
     // redirectToPersonalDetails
-} from '../../../reduxStore/authenticationPage/authenticationPageAction';
+} from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
+import { loginRaiseCurtain } from '../../../reduxStore/loginState/loginStateAction';
 import { 
     REDIRECT_TO_FORGET_PASSWORD,
     REDIRECT_TO_FORGET_USERNAME
-} from '../../../reduxStore/authenticationPage/authenticationPageTypes';
+} from '../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 
 
 import Curtain from './LoginComponents/Curtain/Curtain';
 import LoginForm from './LoginComponents/LoginForm/LoginForm';
-import LoginButton from './LoginComponents/LoginButton/LoginButton';
+import LoginButton from './LoginButton/LoginButton';
 import OrContinueWith from './LoginComponents/OrContinueWith/OrContinueWith';
-// import GoogleSignin from './GoogleSignin/GoogleSignin';
+import GoogleSignin from './GoogleSignin/GoogleSignin';
 import TermsAndConditions from './LoginComponents/TermsAndConditions/TermsAndConditions';
 import CreateAccount from './LoginComponents/CreateAccount/CreateAccount';
 
@@ -42,21 +41,28 @@ const Login = () => {
     console.log('login');
     const dispatch = useDispatch();
     const { loginPageState } = useSelector( state => state.authenticationPage );
-    const [ raiseCurtain, setRaiseCurtain ] = useState(false);
+    const { 
+        raiseCurtain,
+        emailShowWarning,
+        passwordShowWarning
+    } = useSelector( state => state.loginState );
 
+    const login = () => {
+        console.log( 'LOGGING IN' );
+        console.log( emailShowWarning, passwordShowWarning );
+    }
+    const onClick= () => !raiseCurtain ? 
+        dispatch( loginRaiseCurtain() ) : login()
     return(
         <LoginStyled>
-
-            <Curtain 
-                raiseCurtain={raiseCurtain}
-                setRaiseCurtain={setRaiseCurtain} />
-
+            <Curtain />
             <LoginForm />
-            <LoginButton onClick={() => raiseCurtain ? 
-                    dispatch(redirectToLoading()) : setRaiseCurtain(true)} />
+            <LoginButton
+                text={'Login with Email'}
+                onClick={onClick} />
             <OrContinueWith />
-            {/* <GoogleSignin /> */}
-            <div> Sign in with google </div>
+            <GoogleSignin />
+            {/* <div> Sign in with google </div> */}
             <div></div>
             <TermsAndConditions />
             <CreateAccount />

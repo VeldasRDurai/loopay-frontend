@@ -7,14 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	redirectToLogin,
 	redirectToForgetPasswordOtp
-} from '../../../../reduxStore/authenticationPage/authenticationPageAction';
+} from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 // import { 
 // 	redirectToLogin, 
 // 	redirectToForgetPasswordOtp 
 // } from '../../../../reduxStore/page/pageActions/loginAction';
 
 import ForgetPasswordOtp from './ForgetPasswordOtp/ForgetPasswordOtp';
-import { REDIRECT_TO_FORGET_PASSWORD_OTP } from '../../../../reduxStore/authenticationPage/authenticationPageTypes';
+import { REDIRECT_TO_FORGET_PASSWORD_OTP } from '../../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 // import { FORGET_PASSWORD_OTP } from '../../../../reduxStore/page/pageTypes'
 
 import bounceOutBallAnimation from '../../../../animation/bounceOutBall';

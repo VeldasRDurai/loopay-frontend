@@ -14,9 +14,9 @@ const SignupButtonStyled = styled.div`
     font-size: 13px;
     font-weight: 900;
 `;
-const SignupButton = ({ onClick }) => {
+const SignupButton = ({ onClick, text }) => {
     return <SignupButtonStyled onClick={onClick} >
-        Signup with Email
+        { text ? text : 'Submit' }
     </SignupButtonStyled>
 }
 

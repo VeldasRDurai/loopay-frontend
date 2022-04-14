@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
-// import logo from '../../../../../../../Loopay logos/1# Loopay logo/loopay-light.png';
+import { useSelector } from 'react-redux';
 
 import SlideOutTop from '../../../../../animation/slideOutTop';
 
 const CurtainStyled = styled.div`
     z-index: 12;
-
-    /* box-sizing: border-box;
-    border: 1px solid black; */
-
     position: absolute;
     height: 60vh;
     width: 100vw;
@@ -19,7 +15,6 @@ const CurtainStyled = styled.div`
     justify-content: space-between;
     overflow: hidden;
     background-color: white;
-
     animation: ${ ({raiseCurtain}) => raiseCurtain &&
         css`${SlideOutTop} 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both` };
 `;
@@ -37,17 +32,12 @@ const CurtainHeadingStyled = styled.div`
     font-weight: 900;
 `;
 
-// const CurtainHeadingLogoStyled = styled.img`
-//     height:5vh;
-//     width:5vh;
-// `
-
 const CurtainCaptionStyled = styled.div`
     font-size: 13px;
 `;
 
-const Curtain = ({ raiseCurtain, setRaiseCurtain }) => {
-
+const Curtain = () => {
+    const { raiseCurtain } = useSelector( state => state.loginState );
     useEffect(() => {
         window.Particles.init({
             selector: '.CurtainImage',
@@ -65,7 +55,6 @@ const Curtain = ({ raiseCurtain, setRaiseCurtain }) => {
             <canvas className='CurtainImage' ></canvas>
         </CurtainImageStyled>
         <CurtainHeadingStyled> 
-            {/* <CurtainHeadingLogoStyled src={logo} alt="loopay-logo" /> */}
             Loopay 
         </CurtainHeadingStyled>
         <CurtainCaptionStyled> Your perfect banking partner </CurtainCaptionStyled>

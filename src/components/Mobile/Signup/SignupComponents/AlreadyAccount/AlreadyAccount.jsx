@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { redirectToLogin } from '../../../../../reduxStore/authenticationPage/authenticationPageAction';
+import { redirectToLogin } from '../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 const AlreadyAccountStyled = styled.div`
     color:#a2a1b0;
