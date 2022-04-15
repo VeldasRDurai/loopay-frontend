@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { IoCaretBackCircleSharp } from "react-icons/io5";
@@ -51,9 +51,18 @@ const SignupOtpHeadingStyled = styled.div`
     font-weight: 900;
 `;
 
+const givenOtp = 123456;
+
 const SignupOtp = () => {
     console.log( 'signup-otp');
 	const dispatch = useDispatch();
+	const [ otp, setOtp ] = useState(undefined);
+	const [ showWarning, setShowWarning ] = useState(false);
+	const onClick = () => {
+		otp === givenOtp ?
+		dispatch(redirectToPersonalDetails()) :
+		setShowWarning(true);
+	}
 	return <SignupOtpStyled>
 		<SignupOtpBackStyled> 
 			<BackButtonStyled 
@@ -64,8 +73,11 @@ const SignupOtp = () => {
 		<SignupOtpHeadingStyled>
 			Sign Up Verification
 		</SignupOtpHeadingStyled>
-		<SignupOtpFormInput />
-		<SignupButton onClick={ () => dispatch(redirectToPersonalDetails()) }/>
+		<SignupOtpFormInput 
+			showWarning={showWarning}
+			setOtp={setOtp} />
+		<SignupButton disabled={ String(otp).length !== 6 }
+			onClick={onClick}/>
 	</SignupOtpStyled> ;
 }
 

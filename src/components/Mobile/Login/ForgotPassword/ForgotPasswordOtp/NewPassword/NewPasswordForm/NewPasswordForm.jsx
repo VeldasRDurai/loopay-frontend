@@ -1,6 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+// import { IoInformationCircleSharp } from "react-icons/io5";
+// import Tippy from '@tippyjs/react';
+// import 'tippy.js/dist/tippy.css';
+// import 'tippy.js/animations/scale.css';
 
 import {
     NEW_PASSWORD_ZERO_LENGTH,
@@ -50,20 +54,30 @@ function NewPasswordForm() {
     // const onClick = () => 
     //     dispatch( redirectToForgetPassword() );
     return <NewPasswordFormStyled>
-        <NewPasswordFormLabelStyled 
-            passwordShowWarning={passwordShowWarning} >{
-            passwordShowWarning === NEW_PASSWORD_ZERO_LENGTH ? 
-                `Enter the password`:
-            passwordShowWarning === NEW_PASSWORD_LESS_LENGTH ? 
-                `Password is too short`:
-            passwordShowWarning === NEW_PASSWORD_WEAK ? 
-                `Weak password`:
-            passwordShowWarning === NEW_PASSWORD_MEDIUM ? 
-                `Medium password`:
-            passwordShowWarning === NEW_PASSWORD_STRONG ? 
-                `Strong password`: `Password`
-        }
-        </NewPasswordFormLabelStyled>
+        {/* <Tippy
+            content='hello' 
+            placement='top-end'
+            arrow={true}
+            animation='scale'
+            allowHTML={true}
+            theme='light' 
+            > */}
+            <NewPasswordFormLabelStyled 
+                passwordShowWarning={passwordShowWarning} >{
+                passwordShowWarning === NEW_PASSWORD_ZERO_LENGTH ? 
+                    `Enter the password`:
+                passwordShowWarning === NEW_PASSWORD_LESS_LENGTH ? 
+                    `Password is too short`:
+                passwordShowWarning === NEW_PASSWORD_WEAK ? 
+                    `Weak password`:
+                passwordShowWarning === NEW_PASSWORD_MEDIUM ? 
+                    `Medium password`:
+                passwordShowWarning === NEW_PASSWORD_STRONG ? 
+                    `Strong password`: `Password`
+            }
+            </NewPasswordFormLabelStyled>
+            {/* <IoInformationCircleSharp />
+        </Tippy> */}
 
         <NewPasswordFormTagStyled />
 {/* 

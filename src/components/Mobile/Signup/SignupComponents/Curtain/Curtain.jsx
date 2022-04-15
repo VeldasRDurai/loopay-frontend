@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import SlideOutTop from '../../../../../animation/slideOutTop';
 
@@ -36,8 +37,8 @@ const CurtainCaptionStyled = styled.div`
     font-size: 13px;
 `;
 
-const Curtain = ({ raiseCurtain, setRaiseCurtain }) => {
-
+const Curtain = () => {
+    const { raiseCurtain } = useSelector( state => state.loginState );
     useEffect(() => {
         window.Particles.init({
             selector: '.CurtainImage',
@@ -55,7 +56,6 @@ const Curtain = ({ raiseCurtain, setRaiseCurtain }) => {
             <canvas className='CurtainImage' ></canvas>
         </CurtainImageStyled>
         <CurtainHeadingStyled> 
-            {/* <CurtainHeadingLogoStyled src={logo} alt="loopay-logo" /> */}
             Loopay 
         </CurtainHeadingStyled>
         <CurtainCaptionStyled> Your perfect banking partner </CurtainCaptionStyled>

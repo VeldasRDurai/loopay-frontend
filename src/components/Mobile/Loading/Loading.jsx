@@ -5,8 +5,10 @@ import { useDispatch } from 'react-redux';
 // import { redirectToMainpage } from '../../../reduxStore/page/pageActions/mainpageAction';
 import { 
   // redirectToForgetUsername,
-  // redirectToSignupOtp,
-  redirectToLogin,
+  // redirectToSignup
+  redirectToSignupOtp,
+  // redirectToLogin,
+  // redirectToNewPassword
   // redirectToMainpage
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
@@ -20,8 +22,10 @@ const Loading = () => {
       const userAuthentication = async () => {
           await timeOut(20);
           // dispatch( redirectToForgetUsername() );
-          // dispatch( redirectToSignupOtp() );
-          dispatch( redirectToLogin() );
+          // dispatch( redirectToSignup() );
+          dispatch( redirectToSignupOtp() );
+          // dispatch( redirectToLogin() );
+          // dispatch( redirectToNewPassword() );
           // dispatch( redirectToMainpage() );
       } 
       userAuthentication();

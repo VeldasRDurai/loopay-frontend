@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import shakeHorizontal from '../../../../../animation/shakeHorizontal';
 
 const SignupOtpFormInputStyled = styled.div`
     display: flex;
@@ -13,6 +14,10 @@ const SignupOtpFormInputLabelStyled = styled.label`
     font-size: 11px;
     font-weight: 900;
     margin-bottom: 5px;
+    ${ ({showWarning}) => showWarning && css`
+        animation: ${shakeHorizontal} 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        color: red;
+    `}
 `;
 const SignupOtpFormInputTagStyled = styled.input`
     height: 28px;
@@ -24,6 +29,10 @@ const SignupOtpFormInputTagStyled = styled.input`
 
     color:black;
     background-color: #f0f4f7;
+    ${ ({showWarning}) => showWarning && css`
+        /* animation: ${shakeHorizontal} 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both; */
+        background-color: #fcc;
+    `}
     
     font-weight: 400;
     font-size: 11px;
@@ -44,11 +53,16 @@ const SignupOtpFormInputTagStyled = styled.input`
     }
 `;
 
-const SignupOtpFormInput = () => {
-
+const SignupOtpFormInput = ({ showWarning, setOtp }) => {
+    const onChange = event => 
+        setOtp( Number(event.target.value) );
     return <SignupOtpFormInputStyled>
-        <SignupOtpFormInputLabelStyled>
-            Verification Code
+        <SignupOtpFormInputLabelStyled
+            showWarning={showWarning}>{
+            showWarning ? 
+                'Invalid Code':
+                'Verification Code'
+            }
         </SignupOtpFormInputLabelStyled>
         <SignupOtpFormInputTagStyled 
             type="Number" 
@@ -57,6 +71,8 @@ const SignupOtpFormInput = () => {
             autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
+            onChange={onChange}
+            showWarning={showWarning}
         />
     </SignupOtpFormInputStyled>
 }

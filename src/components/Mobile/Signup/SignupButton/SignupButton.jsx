@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SignupButtonStyled = styled.div`
+const SignupButtonStyled = styled.button`
     height:5vh;
     width: 80vw;
     background-color:white;
@@ -13,9 +13,14 @@ const SignupButtonStyled = styled.div`
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 13px;
     font-weight: 900;
+    border: none;
+    &:disabled{
+        background-color: #fff9;
+    }
 `;
-const SignupButton = ({ onClick, text }) => {
-    return <SignupButtonStyled onClick={onClick} >
+const SignupButton = ({ onClick, text, disabled }) => {
+    return <SignupButtonStyled onClick={onClick} 
+        disabled={ disabled===true } >
         { text ? text : 'Submit' }
     </SignupButtonStyled>
 }

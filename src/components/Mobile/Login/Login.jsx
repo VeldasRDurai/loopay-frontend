@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -39,6 +39,9 @@ const LoginStyled = styled.div`
 const Login = () => {
     console.log('login');
     const dispatch = useDispatch();
+    useEffect( () => {
+        return () => dispatch( loginInitial() );
+    }, []);
     const { loginPageState } = useSelector( state => state.authenticationPage );
     const { 
         raiseCurtain,

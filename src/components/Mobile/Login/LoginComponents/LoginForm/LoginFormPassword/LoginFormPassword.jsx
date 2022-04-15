@@ -77,7 +77,8 @@ function LoginFormPassword() {
             arrow={true}
             animation='scale'
             allowHTML={true}
-            theme='light' >
+            // theme='light'
+             >
             <LoginFormPasswordLabelStyled 
                 passwordShowWarning={passwordShowWarning} >{
                 content()

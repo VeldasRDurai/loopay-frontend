@@ -1,5 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { emailValidation } from '../../../../../../functions/formValidation';
+import shakeHorizontal from '../../../../../../animation/shakeHorizontal';
+import { 
+    loginUpdateEmail,
+    loginEmailShowWarning,
+    loginEmailNoWarning
+} from '../../../../../../reduxStore/loginState/loginStateAction';
 
 const SignupFormInputStyled = styled.div`
     display: flex;
@@ -12,6 +21,10 @@ const SignupFormInputLabelStyled = styled.label`
     font-size: 11px;
     font-weight: 900;
     margin-bottom: 5px;
+    ${ ({emailShowWarning}) => emailShowWarning && css`
+        animation: ${shakeHorizontal} 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        color: red;
+    `}
 `;
 const SignupFormInputTagStyled = styled.input`
     height: 28px;
@@ -44,10 +57,31 @@ const SignupFormInputTagStyled = styled.input`
 `;
 
 const SignupFormInput = () => {
+    const dispatch = useDispatch();
+    const [ bluredOneTime, setBluredOneTime ] = useState(false);
+    const { email, emailShowWarning } = useSelector( state => state.loginState )
+    const validation = (email) => 
+        emailValidation( email ) ? 
+            dispatch( loginEmailNoWarning() ):
+            dispatch( loginEmailShowWarning() );
+
+    const onBlur = () => {
+        !bluredOneTime && setBluredOneTime(true);
+        validation(email);
+    }
+    const onChange = event => {
+        dispatch( loginUpdateEmail({
+            email: event.target.value.trim()
+        }) );
+        bluredOneTime && validation( event.target.value.trim() );
+    }
 
     return <SignupFormInputStyled>
-        <SignupFormInputLabelStyled>
-            Email
+        <SignupFormInputLabelStyled
+            emailShowWarning={emailShowWarning} > {
+                emailShowWarning ? 
+                    'Invalid mail address' : 'Email'
+            }
         </SignupFormInputLabelStyled>
         <SignupFormInputTagStyled 
             type="email" 
@@ -56,6 +90,9 @@ const SignupFormInput = () => {
             autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
+            onChange={onChange}
+            onBlur={onBlur}
+            emailShowWarning={emailShowWarning}
         />
     </SignupFormInputStyled>
 }

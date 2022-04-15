@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,6 +7,12 @@ import {
     redirectToSignupOtp,
     // redirectToLogin
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
+
+import { LOGIN_PASSWORD_STRONG, LOGIN_PASSWORD_MEDIUM } from '../../../reduxStore/loginState/loginStateTypes'
+import { 
+    loginRaiseCurtain,
+    loginInitial
+} from '../../../reduxStore/loginState/loginStateAction';
 
 import Curtain from './SignupComponents/Curtain/Curtain';
 import SignupForm from './SignupComponents/SignupForm/SignupForm';
@@ -35,18 +41,37 @@ const SignupStyled = styled.div`
 const Signup = () => {
     console.log( 'signup');
     const dispatch = useDispatch();
-    const [ raiseCurtain, setRaiseCurtain ] = useState(false);
-
+    useEffect( () => {
+        return () => dispatch( loginInitial() );
+    }, []);
     const { signupPageState } = useSelector( state => state.authenticationPage );
+    const { 
+        raiseCurtain,
+        email,
+        emailShowWarning,
+        passwordShowWarning,
+    } = useSelector( state => state.loginState );
+
+    const login = () => {
+        console.log( 'SIGNED IN' );
+        console.log( email, emailShowWarning, passwordShowWarning );
+        dispatch( loginInitial() );
+        dispatch(redirectToSignupOtp());
+    }
+    const onClick= () => !raiseCurtain ? 
+        dispatch( loginRaiseCurtain() ) : login()
+
     return <SignupStyled>
 
-            <Curtain 
-                raiseCurtain={raiseCurtain}
-                setRaiseCurtain={setRaiseCurtain} />
+            <Curtain />
             <SignupForm />
-            <SignupButton text={'Sign Up with Email'}
-                onClick={() => raiseCurtain ? 
-                    dispatch(redirectToSignupOtp()) : setRaiseCurtain(true)} />
+            <SignupButton onClick={onClick} 
+                text={'Sign Up with Email'}
+                disabled={
+                    raiseCurtain && ( !email ||  emailShowWarning ||
+                        !( passwordShowWarning === LOGIN_PASSWORD_STRONG ||
+                            passwordShowWarning === LOGIN_PASSWORD_MEDIUM ))
+                } />
             <OrContinueWith />
             <GoogleSignin />
             {/* <div> Sign in with google </div> */}
