@@ -62,7 +62,7 @@ const LoginPasswordFormInputTagStyled = styled.input`
 const ForgotPasswordFormInput = () => {
     const dispatch = useDispatch();
     const { 
-        // forgotPasswordOtp, 
+        forgotPasswordOtp, 
         forgotPasswordOtpShowWarning 
     } = useSelector( state => state.forgotPasswordOtpState )
     
@@ -85,6 +85,7 @@ const ForgotPasswordFormInput = () => {
             autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
+            value={ forgotPasswordOtp ? forgotPasswordOtp : '' }
             onChange={onChange}
             emailShowWarning={forgotPasswordOtpShowWarning}
         />

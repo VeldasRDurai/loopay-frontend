@@ -98,6 +98,8 @@ const ForgotPasswordFormInput = () => {
             autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
+            value={ forgotPasswordEmail ? forgotPasswordEmail : '' }
+
             onChange={onChange}
             onBlur={onBlur}
             emailShowWarning={forgotPasswordEmailShowWarning}

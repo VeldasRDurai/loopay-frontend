@@ -9,8 +9,9 @@ import {
 } from '../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 import {
+	loginForgotPasswordOtpInitial,
 	loginForgotPasswordOtpNoWarning,
-	loginForgotPasswordOtpShowWarning
+	loginForgotPasswordOtpShowWarning,
 } from '../../../../../reduxStore/loginState/forgotPasswordOtpState/forgotPasswordOtpStateAction';
 import { REDIRECT_TO_NEW_PASSWORD } from '../../../../../reduxStore/page/authenticationPage/authenticationPageTypes';	
 
@@ -22,7 +23,7 @@ import slideInRight from '../../../../../animation/slideInRight';
 
 const LoginPasswordStyled = styled.div`
 
-	z-index: 20;
+	z-index: 30;
 	
 	position: absolute;
 	top:0;bottom:0;left:0;right:0;
@@ -70,7 +71,8 @@ const ForgetPasswordOtp = () => {
 		same ? dispatch( loginForgotPasswordOtpNoWarning() ) :
 		dispatch( loginForgotPasswordOtpShowWarning() );
 		same &&
-		dispatch(redirectToNewPassword())
+		dispatch(redirectToNewPassword()) &&
+		dispatch(loginForgotPasswordOtpInitial()) 
 	}
 	return <LoginPasswordStyled>
 		<LoginPasswordBackStyled> 

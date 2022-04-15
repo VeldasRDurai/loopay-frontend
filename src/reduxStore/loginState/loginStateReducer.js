@@ -1,4 +1,6 @@
 import {
+    LOGIN_INITIAL,
+
     LOGIN_RAISE_CURTAIN,
     LOGIN_UPDATE_EMAIL,
     LOGIN_UPDATE_PASSWORD,
@@ -26,6 +28,8 @@ const initialState = {
 
 const loginStateReducer = ( state = initialState , action ) => {
     switch( action.type ){
+        case LOGIN_INITIAL:
+            return initialState
         case LOGIN_RAISE_CURTAIN :
             return { ...state,
                 raiseCurtain : true

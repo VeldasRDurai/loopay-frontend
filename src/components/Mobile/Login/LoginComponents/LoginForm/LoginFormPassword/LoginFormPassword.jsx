@@ -27,12 +27,11 @@ const LoginFormPasswordLabelStyled = styled.label`
     font-size: 11px;
     font-weight: 900;
     margin-bottom: 5px;
-    animation: ${shakeHorizontal} 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
     ${({passwordShowWarning}) => 
         ( passwordShowWarning === LOGIN_PASSWORD_ZERO_LENGTH || 
         passwordShowWarning === LOGIN_PASSWORD_LESS_LENGTH ||
         passwordShowWarning === LOGIN_PASSWORD_WEAK ) ? 
-            css`color:red;`: 
+            css`color:red; animation: ${shakeHorizontal} 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;`: 
         passwordShowWarning === LOGIN_PASSWORD_MEDIUM ? 
             css`color:blue;`: 
         passwordShowWarning === LOGIN_PASSWORD_STRONG ? 

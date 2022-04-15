@@ -7,7 +7,10 @@ import {
     REDIRECT_TO_FORGET_USERNAME
 } from '../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 import { LOGIN_PASSWORD_STRONG, LOGIN_PASSWORD_MEDIUM } from '../../../reduxStore/loginState/loginStateTypes'
-import { loginRaiseCurtain } from '../../../reduxStore/loginState/loginStateAction';
+import { 
+    loginRaiseCurtain,
+    loginInitial
+} from '../../../reduxStore/loginState/loginStateAction';
 
 import Curtain from './LoginComponents/Curtain/Curtain';
 import LoginForm from './LoginComponents/LoginForm/LoginForm';
@@ -46,7 +49,8 @@ const Login = () => {
 
     const login = () => {
         console.log( 'LOGGING IN' );
-        console.log( emailShowWarning, passwordShowWarning );
+        console.log( email, emailShowWarning, passwordShowWarning );
+        dispatch( loginInitial() );
     }
     const onClick= () => !raiseCurtain ? 
         dispatch( loginRaiseCurtain() ) : login()

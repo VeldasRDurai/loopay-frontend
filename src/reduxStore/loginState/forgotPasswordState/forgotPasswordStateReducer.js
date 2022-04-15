@@ -1,4 +1,5 @@
 import {
+    LOGIN_FORGOT_PASSWORD_INITIAL,
     LOGIN_FORGOT_PASSWORD_UPDATE_EMAIL,
     LOGIN_FORGOT_PASSWORD_SHOW_WARNING,
     LOGIN_FORGOT_PASSWORD_NO_WARNING
@@ -11,6 +12,8 @@ const initialState = {
 
 const forgotPasswordStateReducer = ( state = initialState , action ) => {
     switch( action.type ){
+        case LOGIN_FORGOT_PASSWORD_INITIAL :
+            return initialState
         case LOGIN_FORGOT_PASSWORD_UPDATE_EMAIL :
             return { ...state,
                 forgotPasswordEmail: action.email

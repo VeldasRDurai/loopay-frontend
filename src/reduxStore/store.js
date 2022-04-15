@@ -3,11 +3,12 @@ import { combineReducers, createStore } from 'redux';
 import profileReducer  from './profile/profileReducer';
 import deviceReducer from './device/deviceReducer';
 // import pageReducer from './page/pageReducer';
+import authenticationPageReducer from './page/authenticationPage/authenticationPageReducer';
 
 import loginStateReducer from './loginState/loginStateReducer';
 import forgotPasswordStateReducer from './loginState/forgotPasswordState/forgotPasswordStateReducer';
 import forgotPasswordOtpStateReducer from './loginState/forgotPasswordOtpState/forgotPasswordOtpStateReducer';
-import authenticationPageReducer from './page/authenticationPage/authenticationPageReducer';
+import newPasswordStateReducer from './loginState/newPasswordState/newPasswordStateReducer';
 
 const rootReducer = combineReducers({
     profile  : profileReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     authenticationPage : authenticationPageReducer,
     loginState : loginStateReducer,
     forgotPasswordState: forgotPasswordStateReducer,
-    forgotPasswordOtpState: forgotPasswordOtpStateReducer
+    forgotPasswordOtpState: forgotPasswordOtpStateReducer,
+    newPasswordState: newPasswordStateReducer
 });
 
 const store = createStore( rootReducer );

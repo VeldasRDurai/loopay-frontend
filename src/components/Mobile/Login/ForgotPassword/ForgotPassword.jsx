@@ -8,6 +8,8 @@ import {
 	redirectToForgetPasswordOtp
 } from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
+import { loginForgotPasswordInitial } from '../../../../reduxStore/loginState/forgotPasswordState/forgotPasswordStateAction';
+
 import { REDIRECT_TO_FORGET_PASSWORD_OTP } from '../../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 
 import LoginButton from '../LoginButton/LoginButton';
@@ -61,7 +63,8 @@ const ForgetPassword = () => {
 		forgotPasswordEmailShowWarning 
 	} = useSelector( state => state.forgotPasswordState );
 	const onClick = () => {
-		dispatch(redirectToForgetPasswordOtp())
+		dispatch(redirectToForgetPasswordOtp() );
+		dispatch( loginForgotPasswordInitial() );
 	}
 	return <LoginPasswordStyled>
 		<LoginPasswordBackStyled> 

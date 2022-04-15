@@ -4,35 +4,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IoEyeSharp } from "react-icons/io5";
 
 import { 
-    loginUpdatePassword,
-    loginShowPassword,
-    loginNoPassword
-} from '../../../../../../../reduxStore/loginState/loginStateAction';
+    newUpdatePassword,
+    newShowPassword,
+    newNoPassword,
+    newPasswordShowWarning
+} from '../../../../../../../../reduxStore/loginState/newPasswordState/newPasswordStateAction';
 import {
-    LOGIN_PASSWORD_ZERO_LENGTH,
-    LOGIN_PASSWORD_LESS_LENGTH,
-    LOGIN_PASSWORD_WEAK,
-    LOGIN_PASSWORD_MEDIUM,
-    LOGIN_PASSWORD_STRONG
-} from '../../../../../../../reduxStore/loginState/loginStateTypes';
+    NEW_PASSWORD_ZERO_LENGTH,
+    NEW_PASSWORD_LESS_LENGTH,
+    NEW_PASSWORD_MEDIUM,
+    NEW_PASSWORD_STRONG,
+    NEW_PASSWORD_WEAK,
+} from '../../../../../../../../reduxStore/loginState/newPasswordState/newPasswordStateTypes';
 
-import { passwordValidation } from '../../../../../../../functions/formValidation'
-import { loginPasswordShowWarning } from '../../../../../../../reduxStore/loginState/loginStateAction';
+import { passwordValidation } from '../../../../../../../../functions/formValidation';
 
-const LoginFormPasswordTagStyled = styled.div`
+
+const NewPasswordFormTagStyled = styled.div`
     display: flex;
     border-radius: 5px;
     overflow: hidden;
-    ${({passwordShowWarning}) => 
-        ( passwordShowWarning === LOGIN_PASSWORD_ZERO_LENGTH || 
-        passwordShowWarning === LOGIN_PASSWORD_LESS_LENGTH ||
-        passwordShowWarning === LOGIN_PASSWORD_WEAK ) ? css`                
+    ${({passwordShowWarning}) => ( 
+            passwordShowWarning === NEW_PASSWORD_ZERO_LENGTH || 
+            passwordShowWarning === NEW_PASSWORD_LESS_LENGTH ||
+            passwordShowWarning === NEW_PASSWORD_WEAK ) ? css`                
             border: 1px solid red;
             background-color: #fcc;
-        `: passwordShowWarning === LOGIN_PASSWORD_MEDIUM ? css`
+        `:  passwordShowWarning === NEW_PASSWORD_MEDIUM ? css`
             border: 1px solid blue;
             background-color: #ccf;
-        `: passwordShowWarning === LOGIN_PASSWORD_STRONG ? css`
+        `:  passwordShowWarning === NEW_PASSWORD_STRONG ? css`
             border: 1px solid green;
             background-color: #cfc;
         `: css`            
@@ -107,35 +108,36 @@ const ActualTagStyled = styled.input`
     }
 `;
 
-const warningArray = [
-    LOGIN_PASSWORD_ZERO_LENGTH,
-    LOGIN_PASSWORD_LESS_LENGTH,
-    LOGIN_PASSWORD_STRONG,
-    LOGIN_PASSWORD_MEDIUM,
-    LOGIN_PASSWORD_WEAK
-];
+const warningArray =[
+    NEW_PASSWORD_ZERO_LENGTH,
+    NEW_PASSWORD_LESS_LENGTH,
+    NEW_PASSWORD_STRONG,
+    NEW_PASSWORD_MEDIUM,
+    NEW_PASSWORD_WEAK
+]
 
-const LoginFormPasswordTag = () => {
+const NewPasswordFormTag = () => {
     const dispatch = useDispatch();
     const { 
+        password,
+        showPassword, 
         passwordShowWarning, 
-        showPassword 
-    } = useSelector( state => state.loginState ); 
+    } = useSelector( state => state.newPasswordState ); 
     const onChange = event => {
-        dispatch( loginUpdatePassword({
+        dispatch( newUpdatePassword({
                 password : event.target.value.trim()
             }) );
-        dispatch( loginPasswordShowWarning(
-            warningArray[ passwordValidation( 
+        dispatch( newPasswordShowWarning(
+            warningArray[passwordValidation( 
                 event.target.value.trim() 
             )]
         ));
     }
     const onClick = () => dispatch( 
-        showPassword ? loginNoPassword() : loginShowPassword() );
+        showPassword ? newNoPassword() : newShowPassword() );
 
     return (
-    <LoginFormPasswordTagStyled 
+    <NewPasswordFormTagStyled 
         passwordShowWarning={passwordShowWarning} >
         <ActualTagStyled 
             type={ showPassword ? 'text' : 'password' }
@@ -144,6 +146,7 @@ const LoginFormPasswordTag = () => {
             autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
+            value={password ? password : ''}
             onChange={onChange}
         />
         <TagEyeStyled 
@@ -152,7 +155,7 @@ const LoginFormPasswordTag = () => {
             <TagBeamStyled 
                 showPassword={showPassword} />
         </TagEyeStyled>
-    </LoginFormPasswordTagStyled>);
+    </NewPasswordFormTagStyled>);
 }
 
-export default LoginFormPasswordTag;
+export default NewPasswordFormTag;

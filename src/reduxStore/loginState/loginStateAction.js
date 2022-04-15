@@ -1,4 +1,6 @@
 import {
+    LOGIN_INITIAL,
+
     LOGIN_RAISE_CURTAIN,
     LOGIN_UPDATE_EMAIL,
     LOGIN_UPDATE_PASSWORD,
@@ -24,6 +26,8 @@ const loginUpdatePassword = ({ password }) => ({
     password
 });
 
+const loginInitial = () => typeSetter(LOGIN_INITIAL);
+
 const loginRaiseCurtain     = () => typeSetter(LOGIN_RAISE_CURTAIN);
 const loginShowPassword     = () => typeSetter(LOGIN_SHOW_PASSWORD) ;
 const loginNoPassword       = () => typeSetter(LOGIN_NO_PASSWORD) ;
@@ -38,6 +42,8 @@ const loginEmailNoWarning   = () => typeSetter(LOGIN_EMAIL_NO_WARNING) ;
 const loginPasswordShowWarning = type => typeSetter(type); 
 
 export {
+    loginInitial,
+    
     loginRaiseCurtain,
     loginUpdateEmail,
     loginUpdatePassword,
