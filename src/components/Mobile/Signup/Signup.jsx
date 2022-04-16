@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,6 +23,9 @@ import TermsAndConditions from './SignupComponents/TermsAndConditions/TermsAndCo
 import AlreadyAccount from './SignupComponents/AlreadyAccount/AlreadyAccount';
 
 import SignupOtp from './SignupOtp/SignupOtp';
+import LoadingOver from '../Loading/LoadingOver';
+
+import { fetchAPIPost } from '../../../functions/fetchAPI';
 
 const SignupStyled = styled.div`
 	z-index: 10;
@@ -41,6 +44,7 @@ const SignupStyled = styled.div`
 const Signup = () => {
     console.log( 'signup');
     const dispatch = useDispatch();
+    const [ loadingOver, setLoadingOver ] = useState(false);
     useEffect( () => {
         return () => dispatch( loginInitial() );
     }, []);
@@ -48,21 +52,31 @@ const Signup = () => {
     const { 
         raiseCurtain,
         email,
+        password,
         emailShowWarning,
         passwordShowWarning,
     } = useSelector( state => state.loginState );
 
-    const login = () => {
-        console.log( 'SIGNED IN' );
-        console.log( email, emailShowWarning, passwordShowWarning );
-        dispatch( loginInitial() );
-        dispatch(redirectToSignupOtp());
+    const signup = async () => {
+        try{
+            // qq@qq.qq
+            // Q!1qqqqqqqqqqq
+            setLoadingOver(true);
+            const res = await fetchAPIPost('https://jsonplaceholder.typicode.com/posts',{ email, password });
+            setLoadingOver(false);
+            console.log( res );
+            if( res.ok ){
+                console.log( res.json() );
+                dispatch( loginInitial() );
+                dispatch(redirectToSignupOtp());
+            }
+        } catch (e){ console.log(e); }
     }
-    const onClick= () => !raiseCurtain ? 
-        dispatch( loginRaiseCurtain() ) : login()
+    const onClick= async () => !raiseCurtain ? 
+        dispatch( loginRaiseCurtain() ) : await signup()
 
     return <SignupStyled>
-
+            { loadingOver && <LoadingOver /> }
             <Curtain />
             <SignupForm />
             <SignupButton onClick={onClick} 
@@ -74,7 +88,6 @@ const Signup = () => {
                 } />
             <OrContinueWith />
             <GoogleSignin />
-            {/* <div> Sign in with google </div> */}
             <div></div>
             <TermsAndConditions />
             <AlreadyAccount />

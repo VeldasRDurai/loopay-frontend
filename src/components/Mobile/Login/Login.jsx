@@ -53,6 +53,7 @@ const Login = () => {
     const login = () => {
         console.log( 'LOGGING IN' );
         console.log( email, emailShowWarning, passwordShowWarning );
+        
         dispatch( loginInitial() );
     }
     const onClick= () => !raiseCurtain ? 

@@ -90,7 +90,7 @@ const LoginFormInput = () => {
             type="email" 
             placeholder='Email your username'
             autoCapitalize='false'
-            autoComplete='false'
+            // autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
             onChange={onChange}

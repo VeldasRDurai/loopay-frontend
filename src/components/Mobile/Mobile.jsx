@@ -20,7 +20,7 @@ const MobileStyle = styled.div`
     z-index:0;
     height: 100vh;
     width: 100vw;
-    background-color: #fcc;
+    background-color: #00ff0d;
 `;
 const Mobile = () => {
     console.log('mobile');

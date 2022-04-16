@@ -141,7 +141,7 @@ const LoginFormPasswordTag = () => {
             type={ showPassword ? 'text' : 'password' }
             placeholder='Enter your password'
             autoCapitalize='false'
-            autoComplete='false'
+            // autoComplete='false'
             autoCorrect='false'
             spellCheck='false'
             onChange={onChange}
