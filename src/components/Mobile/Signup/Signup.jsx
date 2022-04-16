@@ -62,15 +62,19 @@ const Signup = () => {
             // qq@qq.qq
             // Q!1qqqqqqqqqqq
             setLoadingOver(true);
-            const res = await fetchAPIPost('https://jsonplaceholder.typicode.com/posts',{ email, password });
-            setLoadingOver(false);
+            const res = await fetchAPIPost(
+                `${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/signup`,
+                { email, password });
             console.log( res );
             if( res.ok ){
-                console.log( res.json() );
                 dispatch( loginInitial() );
                 dispatch(redirectToSignupOtp());
             }
-        } catch (e){ console.log(e); }
+        } catch (e){ 
+            console.log(e); 
+        } finally{ 
+            setLoadingOver(false); 
+        }
     }
     const onClick= async () => !raiseCurtain ? 
         dispatch( loginRaiseCurtain() ) : await signup()
