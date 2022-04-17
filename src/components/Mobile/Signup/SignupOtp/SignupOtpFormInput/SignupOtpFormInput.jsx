@@ -53,9 +53,9 @@ const SignupOtpFormInputTagStyled = styled.input`
     }
 `;
 
-const SignupOtpFormInput = ({ showWarning, setOtp }) => {
+const SignupOtpFormInput = ({ showWarning, setverificationCode }) => {
     const onChange = event => 
-        setOtp( Number(event.target.value) );
+        setverificationCode( Number(event.target.value) );
     return <SignupOtpFormInputStyled>
         <SignupOtpFormInputLabelStyled
             showWarning={showWarning}>{

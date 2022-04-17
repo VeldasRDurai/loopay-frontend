@@ -7,12 +7,13 @@ import {
     redirectToSignupOtp,
     // redirectToLogin
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
-
-import { LOGIN_PASSWORD_STRONG, LOGIN_PASSWORD_MEDIUM } from '../../../reduxStore/loginState/loginStateTypes'
 import { 
     loginRaiseCurtain,
     loginInitial
 } from '../../../reduxStore/loginState/loginStateAction';
+import { profileSignUp } from '../../../reduxStore/profile/profileActions'
+
+import { LOGIN_PASSWORD_STRONG, LOGIN_PASSWORD_MEDIUM } from '../../../reduxStore/loginState/loginStateTypes'
 
 import Curtain from './SignupComponents/Curtain/Curtain';
 import SignupForm from './SignupComponents/SignupForm/SignupForm';
@@ -62,13 +63,21 @@ const Signup = () => {
             // qq@qq.qq
             // Q!1qqqqqqqqqqq
             setLoadingOver(true);
-            const res = await fetchAPIPost(
+            const response = await fetchAPIPost(
                 `${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/signup`,
                 { email, password });
-            console.log( res );
-            if( res.ok ){
+            console.log( response );
+            const result = await response.json();
+            console.log( result );
+            if( response.ok ){
+                dispatch( profileSignUp(result) );
                 dispatch( loginInitial() );
                 dispatch(redirectToSignupOtp());
+            } else if ( result.errorNo === 1 ){
+                // toast
+                window.alert("Email already taken");
+            } else {
+                window.alert("Internal Server error");
             }
         } catch (e){ 
             console.log(e); 

@@ -4,19 +4,17 @@ import { useDispatch } from 'react-redux';
 
 import './Loading.css'
 
-// import { redirectToLogin } from '../../../reduxStore/page/pageActions/loginAction';
-// import { redirectToMainpage } from '../../../reduxStore/page/pageActions/mainpageAction';
 import { 
   // redirectToForgetUsername,
   // redirectToSignup
   // redirectToSignupOtp,
   redirectToLogin,
   // redirectToNewPassword
-  // redirectToMainpage
+  redirectToMainpage
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
+import { profileLogIn } from '../../../reduxStore/profile/profileActions';
 
-
-import timeOut  from '../../../functions/timeOut';
+// import timeOut  from '../../../functions/timeOut';
 
 const LoadingStyled = styled.div`
 	z-index:1000;
@@ -28,44 +26,59 @@ const LoadingStyled = styled.div`
 `;
 
 const Loading = () => {
-  console.log('Loading');
-  const dispatch = useDispatch();
-  useEffect( () => {
-      const userAuthentication = async () => {
-          await timeOut(2000);
-          // dispatch( redirectToForgetUsername() );
-          // dispatch( redirectToSignup() );
-          // dispatch( redirectToSignupOtp() );
-          dispatch( redirectToLogin() );
-          // dispatch( redirectToNewPassword() );
-          // dispatch( redirectToMainpage() );
-      } 
-      userAuthentication();
-  },[]);
-  return (
-	  <LoadingStyled>
-		<div className='Loading'>
-			<div className='body'>
-				<span>
-					<span></span>
-					<span></span>
-					<span></span>
-					<span></span>
-				</span>
-				<div className='base'>
-					<span></span>
-					<div className='face'></div>
-				</div>
-			</div>
-			<div className='longfazers'>
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	  </LoadingStyled>
-  )
+    console.log('Loading');
+    const dispatch = useDispatch();
+    useEffect( () => {
+        const userAuthentication = async () => {
+            try{
+                const response = await fetch( process.env.REACT_APP_BACKEND_DEVELOPMENT_URL,
+                    { credentials:'include' });
+                console.log( response );
+                const result = await response.json();
+                console.log( result );
+                if( response.ok ){
+                    dispatch( profileLogIn(result) );
+                    dispatch( redirectToMainpage() );
+                }
+            } catch (e){ 
+                console.log(e); 
+            } finally {
+                dispatch( redirectToLogin() );
+            }
+            // await timeOut(2000);
+            // dispatch( redirectToForgetUsername() );
+            // dispatch( redirectToSignup() );
+            // dispatch( redirectToSignupOtp() );
+            // dispatch( redirectToLogin() );
+            // dispatch( redirectToNewPassword() );
+            // dispatch( redirectToMainpage() );
+        } 
+        userAuthentication();
+    },[]);
+    return (
+        <LoadingStyled>
+           <div className='Loading'>
+		    	<div className='body'>
+			    	<span>
+				    	<span></span>
+					    <span></span>
+					    <span></span>
+			    		<span></span>
+				    </span>
+				    <div className='base'>
+					    <span></span>
+					    <div className='face'></div>
+				    </div>
+                </div>
+                <div className='longfazers'>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+	    	</div>
+	     </LoadingStyled>
+    );
 }
 
 export default Loading

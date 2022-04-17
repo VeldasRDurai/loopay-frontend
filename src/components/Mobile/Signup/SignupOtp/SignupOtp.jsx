@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { IoCaretBackCircleSharp } from "react-icons/io5";
 
@@ -13,8 +13,14 @@ import {
 	redirectToPersonalDetails,
 	redirectToSignup
 } from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
+import {
+	profileSignUpVerification
+} from '../../../../reduxStore/profile/profileActions';
+
+import LoadingOver from '../../../../components/Mobile/Loading/LoadingOver';
 
 import slideInRight from '../../../../animation/slideInRight';
+import { fetchAPIPost } from '../../../../functions/fetchAPI';
 
 const SignupOtpStyled = styled.div`
 
@@ -51,19 +57,40 @@ const SignupOtpHeadingStyled = styled.div`
     font-weight: 900;
 `;
 
-const givenOtp = 123456;
-
 const SignupOtp = () => {
     console.log( 'signup-otp');
 	const dispatch = useDispatch();
-	const [ otp, setOtp ] = useState(undefined);
+	const { email } = useSelector(state => state.profile );
+	const [ verificationCode, setverificationCode ] = useState(undefined);
+    const [ loadingOver, setLoadingOver ] = useState(false);
 	const [ showWarning, setShowWarning ] = useState(false);
-	const onClick = () => {
-		otp === givenOtp ?
-		dispatch(redirectToPersonalDetails()) :
-		setShowWarning(true);
+	const onClick = async () => {
+		try{
+            setLoadingOver(true);
+            const response = await fetchAPIPost(
+                `${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/signup/verification`,
+                { email, verificationCode });
+            console.log( response );
+            const result = await response.json();
+            console.log( result );
+            if( response.ok ){
+                dispatch( profileSignUpVerification() );
+                dispatch( redirectToPersonalDetails() );
+            } else if ( result.errorNo !== 0 ){
+                // toast
+				setShowWarning(true);
+				window.alert( result.errorMessage );
+            } else {
+                window.alert("Internal Server error");
+            }
+        } catch (e){ 
+            console.log(e); 
+        } finally{ 
+            setLoadingOver(false); 
+        }
 	}
 	return <SignupOtpStyled>
+		{ loadingOver && <LoadingOver /> }
 		<SignupOtpBackStyled> 
 			<BackButtonStyled 
 				onClick={ () => dispatch(redirectToSignup()) } >
@@ -75,8 +102,8 @@ const SignupOtp = () => {
 		</SignupOtpHeadingStyled>
 		<SignupOtpFormInput 
 			showWarning={showWarning}
-			setOtp={setOtp} />
-		<SignupButton disabled={ String(otp).length !== 6 }
+			setverificationCode={setverificationCode} />
+		<SignupButton disabled={ String(verificationCode).length !== 6 }
 			onClick={onClick}/>
 	</SignupOtpStyled> ;
 }

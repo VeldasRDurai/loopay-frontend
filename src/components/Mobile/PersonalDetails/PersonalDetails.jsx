@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { redirectToLoading } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
@@ -16,9 +16,11 @@ const PersonalDetailsStyled = styled.div`
 const PersonalDetails = () => {
 	console.log( 'forget-username');
     const dispatch = useDispatch();
+	const { email } = useSelector( state => state.profile );
 	return (
 		<PersonalDetailsStyled >
                 PersonalDetails
+				{email}
 				<div onClick={ () => dispatch( redirectToLoading()) } > 
 					Click 
 				</div>
