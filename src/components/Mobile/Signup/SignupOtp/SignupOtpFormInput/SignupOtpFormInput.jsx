@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
+
 import shakeHorizontal from '../../../../../animation/shakeHorizontal';
+
+import { fetchAPIPost } from '../../../../../functions/fetchAPI'
+import timeOut from '../../../../../functions/timeOut';
+import secondToMinute from '../../../../../functions/secondToMinute'
 
 const SignupOtpFormInputStyled = styled.div`
     display: flex;
@@ -52,10 +58,50 @@ const SignupOtpFormInputTagStyled = styled.input`
         border-radius: 2px;
     }
 `;
+const SignupOtpResend = styled.div`
+    font-family: 'Orbitron', sans-serif;
+    align-self: flex-end;
+    font-size: 10px;
+    margin-top: 2px;
+    padding: 0 5px;
+    ${({countdown}) => countdown === 0 &&
+        css`
+            font-weight: 900;
+            color: black;
+            background-color: aqua;
+            border-radius: 2px;
+            font-family: 'Montserrat Alternates', sans-serif;
+    `}
+`;
 
 const SignupOtpFormInput = ({ showWarning, setverificationCode }) => {
+    const { email }  = useSelector( state => state.profile )
+    const [ countdown, setCountdown ] = useState( 10 );
     const onChange = event => 
         setverificationCode( Number(event.target.value) );
+    const resendOtp = async () => {
+        try{
+            const response = await fetchAPIPost(
+                `${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/signup/resend`,
+                    { email });
+            console.log( response );
+            const result = await response.json();
+            console.log( result );
+            if( response.ok ) setCountdown(10)
+            else window.alert("Internal Server error");
+        } catch (e){ 
+            console.log(e); 
+        }
+    }
+    const onClick = async () => 
+        countdown === 0 && await resendOtp();
+    useEffect( () => {
+        const countdownFunction = async () => {
+            await timeOut(1000);
+            countdown !== 0 && setCountdown( countdown-1 );
+        }
+        countdownFunction();
+    },[ countdown ]);
     return <SignupOtpFormInputStyled>
         <SignupOtpFormInputLabelStyled
             showWarning={showWarning}>{
@@ -74,6 +120,11 @@ const SignupOtpFormInput = ({ showWarning, setverificationCode }) => {
             onChange={onChange}
             showWarning={showWarning}
         />
+        <SignupOtpResend
+            countdown={countdown} 
+            onClick={onClick} >
+            {countdown === 0 ? `Resend` : secondToMinute(countdown)}
+        </SignupOtpResend>
     </SignupOtpFormInputStyled>
 }
 

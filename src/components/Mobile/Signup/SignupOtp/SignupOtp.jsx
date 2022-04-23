@@ -3,9 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { IoCaretBackCircleSharp } from "react-icons/io5";
 
-// import { redirectToSignupPersonalDetails } from '../../../../reduxStore/page/pageActions/signupAction';
-// import { redirectToSignup } from '../../../../reduxStore/page/pageActions/signupAction';
-
 import SignupOtpFormInput from './SignupOtpFormInput/SignupOtpFormInput';
 import SignupButton from '../SignupButton/SignupButton';
 
@@ -28,7 +25,8 @@ const SignupOtpStyled = styled.div`
 	
 	position: absolute;
 	top:0;bottom:0;left:0;right:0;
-	background-color:#282b32;
+	/* background-color:#282b32; */
+	background-color: black;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -76,6 +74,7 @@ const SignupOtp = () => {
             if( response.ok ){
                 dispatch( profileSignUpVerification() );
                 dispatch( redirectToPersonalDetails() );
+				// dispatch( redirectToSignup() );
             } else if ( result.errorNo !== 0 ){
                 // toast
 				setShowWarning(true);

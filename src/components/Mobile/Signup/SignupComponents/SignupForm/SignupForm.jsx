@@ -17,7 +17,8 @@ const SignupFormStyled = styled.div`
     align-items: center;
     justify-content: space-around;
     color: white;
-    background-color: #282b32;
+    /* background-color: #282b32; */
+    background-color: black;
 
 `;
 

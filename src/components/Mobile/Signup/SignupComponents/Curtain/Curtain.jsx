@@ -15,7 +15,8 @@ const CurtainStyled = styled.div`
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    background-color: #282b32;
+    /* background-color: #282b32; */
+    background-color: black;
 
     animation: ${ ({raiseCurtain}) => raiseCurtain &&
         css`${SlideOutTop} 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both` };

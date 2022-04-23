@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { REDIRECT_TO_SIGNUP_OTP } from '../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 import { 
-    redirectToSignupOtp,
-    // redirectToLogin
-} from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
+    LOGIN_PASSWORD_STRONG, 
+    LOGIN_PASSWORD_MEDIUM 
+} from '../../../reduxStore/loginState/loginStateTypes'
+import { redirectToSignupOtp } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
 import { 
     loginRaiseCurtain,
     loginInitial
 } from '../../../reduxStore/loginState/loginStateAction';
 import { profileSignUp } from '../../../reduxStore/profile/profileActions'
 
-import { LOGIN_PASSWORD_STRONG, LOGIN_PASSWORD_MEDIUM } from '../../../reduxStore/loginState/loginStateTypes'
 
 import Curtain from './SignupComponents/Curtain/Curtain';
 import SignupForm from './SignupComponents/SignupForm/SignupForm';
@@ -34,7 +34,8 @@ const SignupStyled = styled.div`
     height: 100vh;
     width: 100vw;
     color: white;
-    background-color: #282b32;
+    /* background-color: #282b32; */
+    background-color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,8 +61,6 @@ const Signup = () => {
 
     const signup = async () => {
         try{
-            // qq@qq.qq
-            // Q!1qqqqqqqqqqq
             setLoadingOver(true);
             const response = await fetchAPIPost(
                 `${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/signup`,

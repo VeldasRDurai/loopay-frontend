@@ -7,14 +7,14 @@ import './Loading.css'
 import { 
   // redirectToForgetUsername,
   // redirectToSignup
-  // redirectToSignupOtp,
+//   redirectToSignupOtp,
   redirectToLogin,
   // redirectToNewPassword
-  redirectToMainpage
+//   redirectToMainpage
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
-import { profileLogIn } from '../../../reduxStore/profile/profileActions';
+// import { profileLogIn } from '../../../reduxStore/profile/profileActions';
 
-// import timeOut  from '../../../functions/timeOut';
+import timeOut  from '../../../functions/timeOut';
 
 const LoadingStyled = styled.div`
 	z-index:1000;
@@ -30,26 +30,26 @@ const Loading = () => {
     const dispatch = useDispatch();
     useEffect( () => {
         const userAuthentication = async () => {
-            try{
-                const response = await fetch( process.env.REACT_APP_BACKEND_DEVELOPMENT_URL,
-                    { credentials:'include' });
-                console.log( response );
-                const result = await response.json();
-                console.log( result );
-                if( response.ok ){
-                    dispatch( profileLogIn(result) );
-                    dispatch( redirectToMainpage() );
-                }
-            } catch (e){ 
-                console.log(e); 
-            } finally {
-                dispatch( redirectToLogin() );
-            }
-            // await timeOut(2000);
+            // try{
+            //     const response = await fetch( process.env.REACT_APP_BACKEND_DEVELOPMENT_URL,
+            //         { credentials:'include' });
+            //     console.log( response );
+            //     const result = await response.json();
+            //     console.log( result );
+            //     if( response.ok ){
+            //         dispatch( profileLogIn(result) );
+            //         dispatch( redirectToMainpage() );
+            //     } else {
+            //         dispatch( redirectToLogin() );
+            //     }
+            // } catch (e){ 
+            //     console.log(e); 
+            // }
+            await timeOut(20);
             // dispatch( redirectToForgetUsername() );
             // dispatch( redirectToSignup() );
             // dispatch( redirectToSignupOtp() );
-            // dispatch( redirectToLogin() );
+            dispatch( redirectToLogin() );
             // dispatch( redirectToNewPassword() );
             // dispatch( redirectToMainpage() );
         } 
