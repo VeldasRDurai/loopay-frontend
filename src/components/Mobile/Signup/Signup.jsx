@@ -46,7 +46,6 @@ const SignupStyled = styled.div`
 const Signup = () => {
     console.log( 'signup');
     const dispatch = useDispatch();
-    const [ loadingOver, setLoadingOver ] = useState(false);
     useEffect( () => {
         return () => dispatch( loginInitial() );
     }, []);
@@ -58,7 +57,8 @@ const Signup = () => {
         emailShowWarning,
         passwordShowWarning,
     } = useSelector( state => state.loginState );
-
+    
+    const [ loadingOver, setLoadingOver ] = useState(false);
     const signup = async () => {
         try{
             setLoadingOver(true);

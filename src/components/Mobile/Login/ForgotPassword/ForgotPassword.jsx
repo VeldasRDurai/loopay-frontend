@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { IoCaretBackCircleSharp } from "react-icons/io5";
@@ -8,7 +8,7 @@ import {
 	redirectToForgetPasswordOtp
 } from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
-import { loginForgotPasswordInitial } from '../../../../reduxStore/loginState/forgotPasswordState/forgotPasswordStateAction';
+// import { loginForgotPasswordInitial } from '../../../../reduxStore/loginState/forgotPasswordState/forgotPasswordStateAction';
 
 import { REDIRECT_TO_FORGET_PASSWORD_OTP } from '../../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 
@@ -16,6 +16,9 @@ import LoginButton from '../LoginButton/LoginButton';
 import ForgetPasswordOtp from './ForgotPasswordOtp/ForgotPasswordOtp';
 import ForgotPasswordFormInput from './ForgotPasswordFormInput/ForgotPasswordFormInput';
 
+import LoadingOver from '../../Loading/LoadingOver';
+
+import { fetchAPIPost } from '../../../../functions/fetchAPI';
 import slideInRight from '../../../../animation/slideInRight';
 
 const LoginPasswordStyled = styled.div`
@@ -62,11 +65,32 @@ const ForgetPassword = () => {
 		forgotPasswordEmail,
 		forgotPasswordEmailShowWarning 
 	} = useSelector( state => state.forgotPasswordState );
-	const onClick = () => {
-		dispatch(redirectToForgetPasswordOtp() );
-		dispatch( loginForgotPasswordInitial() );
-	}
+
+	const [ loadingOver, setLoadingOver ] = useState(false);
+	const onClick = async () => {
+        try{
+            setLoadingOver(true);
+            const response = await fetchAPIPost(
+                `${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/forgot/password`,
+                { email:forgotPasswordEmail });
+            console.log( response );
+            const result = await response.json();
+            console.log( result );
+            if( response.ok ){
+				dispatch( redirectToForgetPasswordOtp() )
+            } else if ( result.errorNo !== 0 ){
+                window.alert(result.errorMessage);
+            } else {
+                window.alert("Internal Server error");
+            }
+        } catch (e){ 
+            console.log(e); 
+        } finally{ 
+            setLoadingOver(false); 
+        }
+    }
 	return <LoginPasswordStyled>
+		{ loadingOver && <LoadingOver /> }
 		<LoginPasswordBackStyled> 
 			<BackButtonStyled 
 				onClick={ () => dispatch(redirectToLogin()) } >

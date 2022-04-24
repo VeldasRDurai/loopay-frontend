@@ -71,9 +71,9 @@ const SignupFormInput = () => {
     }
     const onChange = event => {
         dispatch( loginUpdateEmail({
-            email: event.target.value.trim()
+            email: event.target.value.trim().toLowerCase()
         }) );
-        bluredOneTime && validation( event.target.value.trim() );
+        bluredOneTime && validation( event.target.value.trim().toLowerCase() );
     }
 
     return <SignupFormInputStyled>

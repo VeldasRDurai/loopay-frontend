@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { IoCaretBackCircleSharp } from "react-icons/io5";
@@ -7,6 +7,8 @@ import {
 	redirectToNewPassword,
 	redirectToForgetPassword
 } from '../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
+
+import { loginForgotPasswordInitial } from '../../../../../reduxStore/loginState/forgotPasswordState/forgotPasswordStateAction';
 
 import {
 	loginForgotPasswordOtpInitial,
@@ -19,7 +21,9 @@ import LoginButton from '../../LoginButton/LoginButton';
 import ForgotPasswordOtpFormInput from './ForgotPasswordOtpFormInput/ForgotPasswordOtpFormInput';
 import NewPassword from './NewPassword/NewPassword';
 
+import LoadingOver from '../../../Loading/LoadingOver';
 import slideInRight from '../../../../../animation/slideInRight';
+import { fetchAPIPost } from '../../../../../functions/fetchAPI';
 
 const LoginPasswordStyled = styled.div`
 
@@ -61,23 +65,45 @@ const ForgetPasswordOtp = () => {
 	console.log( 'forget-password-otp' );
 	const dispatch = useDispatch();
 	const { forgotPasswordOtpPageState } = useSelector( state => state.authenticationPage );
-    const { 
-		forgotPasswordOtp
-	} = useSelector( state => state.forgotPasswordOtpState );
-	const onClick = () => {
-		// loading shows here
-		const same = true;
-		// const same = false;
-		same ? dispatch( loginForgotPasswordOtpNoWarning() ) :
-		dispatch( loginForgotPasswordOtpShowWarning() );
-		same &&
-		dispatch(redirectToNewPassword()) &&
-		dispatch(loginForgotPasswordOtpInitial()) 
+    const { forgotPasswordEmail } = useSelector( state=> state.forgotPasswordState )
+	const { forgotPasswordOtp } = useSelector( state => state.forgotPasswordOtpState );
+
+	const [ loadingOver, setLoadingOver ] = useState(false);
+	const onClick = async () => {
+		try{
+            setLoadingOver(true);
+            const response = await fetchAPIPost(
+                `${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/forgot/password/verification`, { 
+					email:forgotPasswordEmail,
+					verificationCode : forgotPasswordOtp
+				});
+            console.log( response );
+            const result = await response.json();
+            console.log( result );
+            if( response.ok ){
+				dispatch( loginForgotPasswordOtpNoWarning() );
+				dispatch(redirectToNewPassword());
+				dispatch(loginForgotPasswordOtpInitial());
+            } else if ( result.errorNo !== 0 ){
+                window.alert(result.errorMessage);
+				dispatch( loginForgotPasswordOtpShowWarning() );
+            } else {
+                window.alert("Internal Server error");
+            }
+        } catch (e){ 
+            console.log(e); 
+        } finally{ 
+            setLoadingOver(false); 
+        }
 	}
 	return <LoginPasswordStyled>
+		{ loadingOver && <LoadingOver /> }
 		<LoginPasswordBackStyled> 
 			<BackButtonStyled 
-				onClick={ () => dispatch( redirectToForgetPassword() ) } >
+				onClick={ () => {
+					dispatch( redirectToForgetPassword() );
+					dispatch( loginForgotPasswordInitial() );
+				}} >
 				<IoCaretBackCircleSharp />
 			</BackButtonStyled>
 		</LoginPasswordBackStyled>

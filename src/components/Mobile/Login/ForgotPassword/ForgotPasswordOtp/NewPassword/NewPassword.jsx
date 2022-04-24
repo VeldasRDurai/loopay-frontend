@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { IoCaretBackCircleSharp } from "react-icons/io5";
@@ -16,10 +16,12 @@ import {
 	newPasswordInitial
 } from '../../../../../../reduxStore/loginState/newPasswordState/newPasswordStateAction';
 
+import LoadingOver from '../../../../Loading/LoadingOver';
 import LoginButton from '../../../LoginButton/LoginButton';
 import NewPasswordForm from './NewPasswordForm/NewPasswordForm';
 
 import slideInRight from '../../../../../../animation/slideInRight';
+import { fetchAPIPost } from '../../../../../../functions/fetchAPI';
 
 const LoginPasswordStyled = styled.div`
 
@@ -60,14 +62,41 @@ const LoginPasswordHeadingStyled = styled.div`
 const NewPassword = () => {
 	console.log( 'new-password' );
 	const dispatch = useDispatch();
-	const { passwordShowWarning } = useSelector( state => state.newPasswordState );
-	const onClick = () => { (
-		passwordShowWarning === NEW_PASSWORD_STRONG ||
-		passwordShowWarning === NEW_PASSWORD_MEDIUM ) &&
-			dispatch( newPasswordInitial() ) &&
+
+	const { 
+		password,
+		passwordShowWarning 
+	} = useSelector( state => state.newPasswordState );
+	const [ loadingOver, setLoadingOver ] = useState(false);
+	const onClick = async () => { 
+		if( passwordShowWarning === NEW_PASSWORD_STRONG ||
+			passwordShowWarning === NEW_PASSWORD_MEDIUM ){
+			dispatch( newPasswordInitial())
 			dispatch( redirectToLoading() ) 
+			try{
+				setLoadingOver(true);
+				const response = await fetchAPIPost(
+					`${process.env.REACT_APP_BACKEND_DEVELOPMENT_URL}/forgot/password/verification/new`, 
+						{ password });
+				console.log( response );
+				const result = await response.json();
+				console.log( result );
+				if( response.ok ){
+					dispatch( redirectToLoading() );
+				} else if ( result.errorNo !== 0 ){
+					window.alert(result.errorMessage);
+				} else {
+					window.alert("Internal Server error");
+				}
+			} catch (e){ 
+				console.log(e); 
+			} finally{ 
+				setLoadingOver(false); 
+			}
+		}
 	}
 	return <LoginPasswordStyled>
+		{ loadingOver && <LoadingOver /> }
 		<LoginPasswordBackStyled> 
 			<BackButtonStyled 
 				onClick={ () => dispatch( redirectToForgetPassword() ) } >
