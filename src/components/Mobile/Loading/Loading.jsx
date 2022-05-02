@@ -8,13 +8,13 @@ import {
   // redirectToForgetUsername,
   // redirectToSignup
 //   redirectToSignupOtp,
-  redirectToLogin,
+//   redirectToLogin,
   // redirectToNewPassword
-//   redirectToMainpage
+  redirectToMainpage
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
 // import { profileLogIn } from '../../../reduxStore/profile/profileActions';
 
-import timeOut  from '../../../functions/timeOut';
+// import timeOut  from '../../../functions/timeOut';
 
 const LoadingStyled = styled.div`
 	z-index:1000;
@@ -45,13 +45,13 @@ const Loading = () => {
             // } catch (e){ 
             //     console.log(e); 
             // }
-            await timeOut(20);
+            // await timeOut(20);
             // dispatch( redirectToForgetUsername() );
             // dispatch( redirectToSignup() );
             // dispatch( redirectToSignupOtp() );
-            dispatch( redirectToLogin() );
+            // dispatch( redirectToLogin() );
             // dispatch( redirectToNewPassword() );
-            // dispatch( redirectToMainpage() );
+            dispatch( redirectToMainpage() );
         } 
         userAuthentication();
     },[]);

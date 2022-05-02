@@ -1,0 +1,35 @@
+import {
+    REDIRECT_TO_TRANSACTION,
+
+    REDIRECT_TO_TRANSACTION_SEARCH,
+    REDIRECT_TO_TRANSACTION_USER_PROFILE,
+    REDIRECT_TO_TRANSACTION_MAP_CHAT,
+    REDIRECT_TO_TRANSACTION_SCAN_QR,
+    REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
+    
+    REDIRECT_TO_PROFILE,
+    REDIRECT_TO_PROFILE_EDIT_DETAILS,
+    REDIRECT_TO_PROFILE_EDIT_PASSWORD,
+    REDIRECT_TO_PROFILE_ADD_NEW_PASSWORD,
+    REDIRECT_TO_PROFILE_USER_SETTINGS,
+    REDIRECT_TO_PROFILE_APPLICATION_SUPPORT,
+    REDIRECT_TO_PROFILE_APPLICATION_FEEDBACK,
+    
+    REDIRECT_TO_HISTORY,
+    REDIRECT_TO_HISTORY_TRANSACTION,
+    REDIRECT_TO_HISTORY_TRANSACTION_CHAT,
+
+    REDIRECT_TO_NOTIFICATION
+} from './transactionpageTypes';
+
+
+const initialState = {
+    transactionPageSate : undefined,
+    profilePageState : undefined,
+    historyPageState : undefined,
+    notificationPageState : undefined,
+}
+
+const transactionPageReducer = ( state = initialState, action ) => {
+
+}

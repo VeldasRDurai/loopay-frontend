@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const MainpageStyle = styled.div`
@@ -8,8 +8,9 @@ const MainpageStyle = styled.div`
 `
 
 const Mainpage = () => {
+    const [ state, setState ] = useState(0);
   return (
-      <MainpageStyle>
+      <MainpageStyle onClick={() => setState(state+1)} >
           MAinPagE
       </MainpageStyle>
   );
