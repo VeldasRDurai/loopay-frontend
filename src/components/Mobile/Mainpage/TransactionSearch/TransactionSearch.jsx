@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { redirectToTransactionUserProfile } from './TransactionSearchActions'
 
+import UserProfile from './UserProfile/UserProfile';
+
 const TransactionSearchStyle = styled.div`
     position: absolute;
     top: 0;
@@ -16,7 +18,7 @@ const TransactionSearchStyle = styled.div`
     background-color: yellow;
 `
 const TransactionSearchRender = {
-    REDIRECT_TO_TRANSACTION_USER_PROFILE: 'user-profile'
+    REDIRECT_TO_TRANSACTION_USER_PROFILE: <UserProfile />
 }
 const TransactionSearch = () => {
     const dispatch = useDispatch();

@@ -12,6 +12,7 @@ import newPasswordStateReducer from './loginState/newPasswordState/newPasswordSt
 
 
 import mainpageReducer from '../components/Mobile/Mainpage/mainpageReducer';
+import transactionSearchReducer from '../components/Mobile/Mainpage/TransactionSearch/TransactionSearchReducer';
 
 const rootReducer = combineReducers({
     profile  : profileReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
     forgotPasswordOtpState: forgotPasswordOtpStateReducer,
     newPasswordState: newPasswordStateReducer,
 
-    mainpageReducer
+    mainpageReducer,
+    transactionSearchReducer
 });
 
 const store = createStore( rootReducer );
