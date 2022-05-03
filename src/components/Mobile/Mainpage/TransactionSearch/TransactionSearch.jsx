@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { redirectToTransactionUserProfile } from './TransactionSearchActions'
 
 const TransactionSearchStyle = styled.div`
     position: absolute;
@@ -13,15 +15,17 @@ const TransactionSearchStyle = styled.div`
     
     background-color: yellow;
 `
-
+const TransactionSearchRender = {
+    REDIRECT_TO_TRANSACTION_USER_PROFILE: 'user-profile'
+}
 const TransactionSearch = () => {
-    // const dispatch = useDispatch();
-    // const { mainpagePageState } = useSelector( state => state.mainpageReducer )
+    const dispatch = useDispatch();
+    const { transactionSearchPageState } = useSelector( state => state.transactionSearchReducer );
     return (
         <TransactionSearchStyle  
-            // onClick={ () => dispatch( redirectToTransactionSearch() ) } >
-            >
+            onClick={ () => dispatch( redirectToTransactionUserProfile() ) } >
                 TransactionSearch
+                {TransactionSearchRender[transactionSearchPageState]}
         </TransactionSearchStyle>
   );
 }
