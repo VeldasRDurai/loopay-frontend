@@ -10,6 +10,9 @@ import forgotPasswordStateReducer from './loginState/forgotPasswordState/forgotP
 import forgotPasswordOtpStateReducer from './loginState/forgotPasswordOtpState/forgotPasswordOtpStateReducer';
 import newPasswordStateReducer from './loginState/newPasswordState/newPasswordStateReducer';
 
+
+import mainpageReducer from '../components/Mobile/Mainpage/mainpageReducer';
+
 const rootReducer = combineReducers({
     profile  : profileReducer,
     device : deviceReducer,
@@ -18,7 +21,9 @@ const rootReducer = combineReducers({
     loginState : loginStateReducer,
     forgotPasswordState: forgotPasswordStateReducer,
     forgotPasswordOtpState: forgotPasswordOtpStateReducer,
-    newPasswordState: newPasswordStateReducer
+    newPasswordState: newPasswordStateReducer,
+
+    mainpageReducer
 });
 
 const store = createStore( rootReducer );
