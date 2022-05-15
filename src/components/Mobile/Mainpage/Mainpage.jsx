@@ -6,7 +6,9 @@ import {
     // redirectToProfile,  
     // redirectToHistory,
     // redirectToNotification,
-    redirectToTransactionSearch,
+    // redirectToTransactionSearch,
+
+    mainpageUpdateDetails
 } from './mainpageActions';
 
 import TransactionSearch from './TransactionSearch/TransactionSearch';
@@ -22,6 +24,10 @@ const MainpageStyle = styled.div`
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     background-color: aqua;
 `
@@ -37,10 +43,46 @@ const mainpageRender = {
 
 const Mainpage = () => {
     const dispatch = useDispatch();
-    const { mainpagePageState } = useSelector( state => state.mainpageReducer );
+    const { 
+        mainpagePageState,
+        mainpageDetails
+    } = useSelector( state => state.mainpageReducer );
+    
     return (
-        <MainpageStyle  onClick={ () => dispatch( redirectToTransactionSearch() ) } >
+        <MainpageStyle>
             mainpage
+            <input 
+                type="number"
+                max='5000'
+                min='100'
+                placeholder='Enter the amount between 100 and 5000'
+                onChange={ event => dispatch( 
+                    mainpageUpdateDetails({ 
+                        ...mainpageDetails,
+                        amount: event.target.value
+                    }) ) }
+            />
+            soft cash : 
+            <input 
+                type="checkbox" 
+                onChange={ event => dispatch( 
+                    mainpageUpdateDetails({ 
+                        ...mainpageDetails,
+                        isSoftCash: event.target.checked
+                    }) ) } 
+            />
+            <input 
+                type="number" 
+                placeholder='radius in meters' 
+                onChange={ event => dispatch( 
+                    mainpageUpdateDetails({ 
+                        ...mainpageDetails,
+                        radius: event.target.value
+                    }) ) }
+            />
+
+            <input type="button" value="Search" />
+
             { mainpageRender[mainpagePageState] }
         </MainpageStyle>
   );
