@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-// import { io } from "socket.io-client";
+import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { 
@@ -68,6 +68,16 @@ const Mainpage = () => {
         mainpagePageState,
         mainpageDetails
     } = useSelector( state => state.mainpageReducer );
+    useEffect( () => {
+        const socket = io(process.env.REACT_APP_BACKEND_DEVELOPMENT_URL);
+        // dispatch( updateSocket({socket}) );
+        socket.on('connected' , async () => {
+            console.log( 'connected' );
+        });
+        socket.on("connect_error", (err) => {
+            console.log(`connect_error due to ${err.message}`);
+        });
+    },[])
     return (
         <MainpageStyle>
             <div>mainpage</div>

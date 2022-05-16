@@ -9,7 +9,8 @@ import {
     REDIRECT_TO_TRANSACTION_SCAN_QR,
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
 
-    MAINPAGE_UPDATE_DETAILS
+    MAINPAGE_UPDATE_DETAILS,
+    UPDATE_SOCKET
 } from './mainpageTypes';
 
 const typeSetter = type => ({type});
@@ -20,6 +21,11 @@ const redirectToTransactionSearch = () => typeSetter(REDIRECT_TO_TRANSACTION_SEA
 const redirectToTransactionMapChat = () => typeSetter(REDIRECT_TO_TRANSACTION_MAP_CHAT); 
 const redirectToTransactionScanQr = () => typeSetter(REDIRECT_TO_TRANSACTION_SCAN_QR); 
 const redirectToTransactionFeedbackpage = () => typeSetter(REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE); 
+
+const updateSocket = ({ socket }) => ({
+    ...typeSetter(UPDATE_SOCKET),
+    socket
+});
 
 const mainpageUpdateDetails = ({ amount, isSoftCash, radius }) => ({
     ...typeSetter(MAINPAGE_UPDATE_DETAILS),
@@ -38,6 +44,7 @@ export {
     redirectToTransactionMapChat,
     redirectToTransactionScanQr,
     redirectToTransactionFeedbackpage,
-
+    
     mainpageUpdateDetails,
+    updateSocket
 };
