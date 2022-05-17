@@ -12,7 +12,7 @@ import {
   // redirectToNewPassword
   redirectToMainpage
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
-// import { profileLogIn } from '../../../reduxStore/profile/profileActions';
+import { profileLogIn } from '../../../reduxStore/profile/profileActions';
 
 // import timeOut  from '../../../functions/timeOut';
 
@@ -51,6 +51,10 @@ const Loading = () => {
             // dispatch( redirectToSignupOtp() );
             // dispatch( redirectToLogin() );
             // dispatch( redirectToNewPassword() );
+            let email = 
+                // window.prompt("Enter email id") || 
+                'veldas@gmail.com';
+            dispatch( profileLogIn( {email} ) );
             dispatch( redirectToMainpage() );
         } 
         userAuthentication();

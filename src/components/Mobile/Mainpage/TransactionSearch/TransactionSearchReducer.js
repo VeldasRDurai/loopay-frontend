@@ -7,7 +7,6 @@ const initialState = {
 const transactionSearchReducer = ( state = initialState, action ) => {
     switch( action.type ){
         case REDIRECT_TO_TRANSACTION_USER_PROFILE :
-            console.log('not here');
             return { ...state,
                 transactionSearchPageState: action.type
             };

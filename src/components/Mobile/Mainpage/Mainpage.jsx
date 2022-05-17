@@ -10,6 +10,7 @@ import {
     redirectToTransactionSearch,
 
     // mainpageUpdateDetails
+    updateSocket
 } from './mainpageActions';
 
 import TransactionSearch from './TransactionSearch/TransactionSearch';
@@ -19,6 +20,12 @@ import TransactionFeedbackPage from './TransactionFeedbackPage/TransactionFeedba
 
 import MainpageRange from './MainpageComponents/MainpageRange/MainpageRange';
 // import MainpageCheckbox from './MainpageComponents/MainpageCheckbox/MainpageCheckbox';
+
+import { 
+    watchPosition,
+    // getCurrentPosition,
+    getPositionErrorMessage
+} from '../../../functions/map';
 
 const MainpageStyle = styled.div`
     &> :first-child{
@@ -66,29 +73,39 @@ const Mainpage = () => {
     const dispatch = useDispatch();
     const { 
         mainpagePageState,
-        mainpageDetails
+        mainpageSearchDetails
     } = useSelector( state => state.mainpageReducer );
+    const { email } = useSelector( state => state.profile );
     useEffect( () => {
         const socket = io(process.env.REACT_APP_BACKEND_DEVELOPMENT_URL);
-        // dispatch( updateSocket({socket}) );
+        dispatch( updateSocket({socket}) );
         socket.on('connected' , async () => {
-            console.log( 'connected' );
+            socket.emit('add-user', { email });
         });
         socket.on("connect_error", (err) => {
             console.log(`connect_error due to ${err.message}`);
         });
+
+        // Updating loaction
+        const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => 
+            socket.emit('update-location', 
+                { latitude, longitude, timestamp, email } );
+        const onError = error => 
+            alert(`Error: ${getPositionErrorMessage(error.code) || error.message}`)
+        watchPosition({ onSuccess, onError });
     },[])
     return (
         <MainpageStyle>
             <div>mainpage</div>
+
             <MainpageComponentStyle>
                 <div>{`Enter the amount`}</div>
                     <MainpageRange min={500} max={5000} 
                             roundTo={500} 
                             value={'amount'} 
                             width={'75vw'} />
-                <div>{mainpageDetails && mainpageDetails.amount 
-                            && mainpageDetails.amount}</div>
+                <div>{mainpageSearchDetails && mainpageSearchDetails.amount 
+                            && mainpageSearchDetails.amount}</div>
             </MainpageComponentStyle>
 
             <MainpageComponentStyle>
@@ -106,7 +123,8 @@ const Mainpage = () => {
                             roundTo={200} 
                             value={'radius'} 
                             width={'75vw'} />
-                <div>{mainpageDetails && mainpageDetails.radius && mainpageDetails.radius}</div>
+                <div>{mainpageSearchDetails && mainpageSearchDetails.radius 
+                            && mainpageSearchDetails.radius}</div>
             </MainpageComponentStyle>
 
             <input 

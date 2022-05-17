@@ -7,15 +7,18 @@ import {
     REDIRECT_TO_TRANSACTION_SCAN_QR,
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
 
-    MAINPAGE_UPDATE_DETAILS,
+    MAINPAGE_UPDATE_SEARCH_DETAILS,
+    UPDATE_SOCKET
 } from './mainpageTypes';
 
 const initialState = {
     mainpagePageState : undefined,
-    mainpageDetails : undefined
-    // mainpageAmount : undefined,
-    // mainpageIsSoftCash: true,
-    // mainpageRadius: undefined
+    mainpageSearchDetails : {
+        amount:500,
+        isSoftCash:true,
+        radius:100
+    },
+    socket: undefined
 }
 const mainpageReducer = ( state = initialState, action ) => {
     switch( action.type ){
@@ -29,12 +32,13 @@ const mainpageReducer = ( state = initialState, action ) => {
             return { ...state,
                 mainpagePageState : action.type,
             }
-        case MAINPAGE_UPDATE_DETAILS:
+        case MAINPAGE_UPDATE_SEARCH_DETAILS:
             return { ...state,
-                mainpageDetails : action.details
-                // mainpageAmount: action.amount,
-                // mainpageIsSoftCash: action.isSoftCash,
-                // mainpageRadius: action.radius
+                mainpageSearchDetails : action.details
+            }
+        case UPDATE_SOCKET:
+            return { ...state,
+                socket: action.socket
             }
         default :
             return state;

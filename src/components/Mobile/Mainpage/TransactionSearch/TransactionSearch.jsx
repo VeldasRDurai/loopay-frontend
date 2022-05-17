@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,10 +23,24 @@ const TransactionSearchRender = {
 const TransactionSearch = () => {
     const dispatch = useDispatch();
     const { transactionSearchPageState } = useSelector( state => state.transactionSearchReducer );
+    const { 
+        mainpageSearchDetails,
+        socket
+    } = useSelector( state => state.mainpageReducer );
+    const { email } = useSelector( state => state.profile );
+
+    const [ loading, setLoading ] = useState(false);
+    useEffect( () => {
+        socket.emit('transaction-search', { ...mainpageSearchDetails, email });
+    },[]);
+
     return (
         <TransactionSearchStyle  
             onClick={ () => dispatch( redirectToTransactionUserProfile() ) } >
-                TransactionSearch
+                {
+                    loading ? 'Loading':'TransactionSearch'
+                }
+                { mainpageSearchDetails.amount }
                 {TransactionSearchRender[transactionSearchPageState]}
         </TransactionSearchStyle>
   );
