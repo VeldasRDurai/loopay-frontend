@@ -8,6 +8,7 @@ import {
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
 
     MAINPAGE_UPDATE_SEARCH_DETAILS,
+    MAINPAGE_UPDATE_SEARCH_RESULTS,
     UPDATE_SOCKET
 } from './mainpageTypes';
 
@@ -18,6 +19,7 @@ const initialState = {
         isSoftCash:true,
         radius:100
     },
+    mainpageSearchResults : [],
     socket: undefined
 }
 const mainpageReducer = ( state = initialState, action ) => {
@@ -35,6 +37,10 @@ const mainpageReducer = ( state = initialState, action ) => {
         case MAINPAGE_UPDATE_SEARCH_DETAILS:
             return { ...state,
                 mainpageSearchDetails : action.details
+            }
+        case MAINPAGE_UPDATE_SEARCH_RESULTS:
+            return { ...state,
+                mainpageSearchResults : action.results
             }
         case UPDATE_SOCKET:
             return { ...state,

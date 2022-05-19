@@ -85,11 +85,20 @@ const Mainpage = () => {
         socket.on("connect_error", (err) => {
             console.log(`connect_error due to ${err.message}`);
         });
+        socket.on('receive-request', ({requestFrom}) => {
+            if( window.confirm(`${requestFrom} send you a request...!!!`)){
+                socket.emit('request-accepted',{requestFrom});
+            } else {
+                socket.emit('request-rejected',{requestFrom})
+            }
+        });
 
         // Updating loaction
-        const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => 
+        const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => {
+            console.log( {latitude, longitude} );
             socket.emit('update-location', 
                 { latitude, longitude, timestamp, email } );
+        }
         const onError = error => 
             alert(`Error: ${getPositionErrorMessage(error.code) || error.message}`)
         watchPosition({ onSuccess, onError });

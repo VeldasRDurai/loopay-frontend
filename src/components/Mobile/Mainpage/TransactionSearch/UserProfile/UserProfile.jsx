@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-// import { redirectToTransactionUserProfile } from './TransactionSearchActions'
+import { 
+    userProfileRequestSend,
+    userProfileRequestCancel,
+} from '../TransactionSearchActions';
+
+import UserProfileRequestButton from './UserProfileComponents/UserProfileRequestButton/UserProfileRequestButton';
+import UserProfileCancelButton from './UserProfileComponents/UserProfileCancelButton/UserProfileCancelButton';
+import UserProfileBadge from './UserProfileComponents/UserProfileBadge/UserProfileBadge';
 
 const UserProfileStyle = styled.div`
     position: absolute;
@@ -13,15 +20,49 @@ const UserProfileStyle = styled.div`
     height: 100vh;
     overflow: hidden;
     
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background-color: green;
 `
-
 const UserProfile = () => {
-//     const dispatch = useDispatch();
-//     const { transactionSearchPageState } = useSelector( state => state.transactionSearchReducer );
+    const dispatch = useDispatch();
+    const { 
+        selectedUserDetails,
+        userProfileRequestState 
+    } = useSelector( state => state.transactionSearchReducer );
+    const { socket } = useSelector( state => state.mainpageReducer );
+    const { email } = useSelector( state => state.profile );
+
+    const RequestButtonOnClick = () => {
+        const TIMER_DURAION_IN_MINUTE = 5;
+        const requestTimerExpiesOn = new Date( Number(new Date()) + (1000*60*TIMER_DURAION_IN_MINUTE) )
+        socket.emit('send-request',{ email, selectedUserDetails, requestTimerExpiesOn });
+        dispatch( userProfileRequestSend({ requestTimerExpiesOn }));    
+    }
+    const RequestCancelOnClick = () => {
+        socket.emit('cancel-request',{ email, selectedUserDetails });
+        dispatch( userProfileRequestCancel() )
+    }
+
+    const UserProfileStateRender = {
+        USER_PROFILE_REQUEST_SEND : 
+            <UserProfileCancelButton onClick={RequestCancelOnClick} />,
+        USER_PROFILE_REQUEST_CANCEL : 
+            <UserProfileRequestButton  onClick={RequestButtonOnClick} />,
+        USER_PROFILE_REQUEST_TIMER_EXPIRED : 
+            <UserProfileBadge message={'Timer expired'} />,
+        USER_PROFILE_REQUEST_REJECTED : 
+            <UserProfileBadge message={'Request Rejected'} />,
+    }
+
+
     return (
         <UserProfileStyle>
-                UserProfile
+            email : { selectedUserDetails.email }
+            { selectedUserDetails.isOnline ? 'Online' : `Lastseen on ${selectedUserDetails.lastseen}` }
+            { UserProfileStateRender[userProfileRequestState] }
         </UserProfileStyle>
   );
 }

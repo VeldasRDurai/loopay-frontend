@@ -53,7 +53,7 @@ const Loading = () => {
             // dispatch( redirectToNewPassword() );
             let email = 
                 // window.prompt("Enter email id") || 
-                'veldas@gmail.com';
+                'aswani@gmail.com';
             dispatch( profileLogIn( {email} ) );
             dispatch( redirectToMainpage() );
         } 

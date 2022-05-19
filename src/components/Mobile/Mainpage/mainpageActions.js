@@ -10,6 +10,7 @@ import {
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
 
     MAINPAGE_UPDATE_SEARCH_DETAILS,
+    MAINPAGE_UPDATE_SEARCH_RESULTS,
     UPDATE_SOCKET
 } from './mainpageTypes';
 
@@ -34,7 +35,11 @@ const mainpageUpdateSearchDetails = ({ amount, isSoftCash, radius }) => ({
         isSoftCash,
         radius
     }
-}); 
+});
+const mainpageUpdateSearchResults = ({ results }) => ({
+    ...typeSetter(MAINPAGE_UPDATE_SEARCH_RESULTS),
+    results
+});
 
 export {
     redirectToProfile,
@@ -46,5 +51,6 @@ export {
     redirectToTransactionFeedbackpage,
     
     mainpageUpdateSearchDetails,
+    mainpageUpdateSearchResults,
     updateSocket
 };

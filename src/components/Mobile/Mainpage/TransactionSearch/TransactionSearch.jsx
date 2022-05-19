@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { mainpageUpdateSearchResults } from '../mainpageActions';
 import { redirectToTransactionUserProfile } from './TransactionSearchActions'
 
 import UserProfile from './UserProfile/UserProfile';
+import ResultTile from './TransactionSearchComponents/ResultTile/ResultTile';
 
 const TransactionSearchStyle = styled.div`
     position: absolute;
@@ -25,23 +27,34 @@ const TransactionSearch = () => {
     const { transactionSearchPageState } = useSelector( state => state.transactionSearchReducer );
     const { 
         mainpageSearchDetails,
+        mainpageSearchResults,
         socket
     } = useSelector( state => state.mainpageReducer );
     const { email } = useSelector( state => state.profile );
 
-    const [ loading, setLoading ] = useState(false);
+    const [ loading, setLoading ] = useState(true);
     useEffect( () => {
         socket.emit('transaction-search', { ...mainpageSearchDetails, email });
+        socket.on('transaction-search-result', results => {
+            console.log(results);
+            dispatch( mainpageUpdateSearchResults({ results }) );
+            setLoading(false);
+        });
     },[]);
 
     return (
-        <TransactionSearchStyle  
-            onClick={ () => dispatch( redirectToTransactionUserProfile() ) } >
-                {
-                    loading ? 'Loading':'TransactionSearch'
-                }
-                { mainpageSearchDetails.amount }
-                {TransactionSearchRender[transactionSearchPageState]}
+        <TransactionSearchStyle>
+            { 
+                loading ? 'Loading': 
+                mainpageSearchResults.map( item => 
+                    <ResultTile key={item.email} 
+                        onClick={ () => dispatch( 
+                            redirectToTransactionUserProfile({details:item}) ) }
+                        item={ item } /> ) 
+                // console.log( mainpageSearchResults )
+            }
+            { mainpageSearchDetails.amount }
+            {TransactionSearchRender[transactionSearchPageState]}
         </TransactionSearchStyle>
   );
 }

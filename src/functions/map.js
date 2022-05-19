@@ -13,14 +13,18 @@ const geolocationValidation = onError =>
     ('geolocation' in navigator === false) &&
         onError(new Error('Geolocation is not supported by your browser.'));
 
-const getCurrentPosition = ({ onSuccess, onError = () => { } }) => {
+const getCurrentPosition = ({ onSuccess, onError = () => { }, }) => {
     geolocationValidation( onError );
-    return navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    return navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+      enableHighAccuracy: true
+    });
 };
 
-const watchPosition = ({ onSuccess, onError = () => { } }) => {
+const watchPosition = ({ onSuccess, onError = () => { }, }) => {
     geolocationValidation( onError );
-    return navigator.geolocation.watchPosition(onSuccess, onError);
+    return navigator.geolocation.watchPosition(onSuccess, onError, {
+      enableHighAccuracy: true
+    });
 };
 
 const clearWatch = ( watch ) => {
