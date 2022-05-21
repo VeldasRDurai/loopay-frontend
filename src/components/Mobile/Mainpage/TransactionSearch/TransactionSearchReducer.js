@@ -36,7 +36,6 @@ const transactionSearchReducer = ( state = initialState, action ) => {
             };
         
         case USER_PROFILE_REQUEST_SEND :
-            action.timerExpiesOn
             return { ...state,
                 userProfileRequestState: USER_PROFILE_REQUEST_SEND,
                 requestTimerExpiesOn: action.requestTimerExpiesOn

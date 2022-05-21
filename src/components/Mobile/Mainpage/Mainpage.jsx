@@ -8,6 +8,7 @@ import {
     // redirectToHistory,
     // redirectToNotification,
     redirectToTransactionSearch,
+    redirectToTransactionMapChat,
 
     // mainpageUpdateDetails
     updateSocket
@@ -87,13 +88,15 @@ const Mainpage = () => {
         });
         socket.on('receive-request', ({requestFrom}) => {
             if( window.confirm(`${requestFrom} send you a request...!!!`)){
+                console.log('Accepted...!!!');
                 socket.emit('receive-request-accepted',{ requestTo:email, requestFrom});
             } else {
                 socket.emit('receive-request-rejected',{ requestTo:email, requestFrom})
             }
         });
         socket.on('receive-request-accepted-acknowledge', ({acknowledge}) => 
-            console.log( acknowledge ));
+            acknowledge ? dispatch(redirectToTransactionMapChat()) :
+                window.alert('Another one went offline or cancelled the request'));
 
         // Updating loaction
         const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => {

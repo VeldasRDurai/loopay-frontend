@@ -7,10 +7,11 @@ import {
     userProfileRequestCancel,
     userProfileRequestAccepted,
     userProfileRequestRejected,
-    userProfileRequestTimerExpired
+    // userProfileRequestTimerExpired
 } from '../TransactionSearchActions';
 
-import {
+import { 
+    redirectToTransactionMapChat,
     redirectToTransactionSearch
 } from '../../mainpageActions';
 
@@ -78,10 +79,15 @@ const UserProfile = () => {
         });
     }
 
-    socket.on('sent-request-acknowledge', ({ acknowledge }) => 
-        acknowledge ? 
-            dispatch(userProfileRequestAccepted({ email:selectedUserDetails.email })) :
-            dispatch(userProfileRequestRejected({ email:selectedUserDetails.email })) );
+    socket.on('sent-request-acknowledge', ({ acknowledge }) => {
+        console.log( 'sent-request-acknowledge' );
+        if( acknowledge ){
+            dispatch(userProfileRequestAccepted({ email:selectedUserDetails.email }));
+            dispatch( redirectToTransactionMapChat() );
+        } else {
+            dispatch(userProfileRequestRejected({ email:selectedUserDetails.email }));
+        }
+    });
             
     socket.on('cancel-request-acknowledge', ({ acknowledge }) =>
         acknowledge && 
