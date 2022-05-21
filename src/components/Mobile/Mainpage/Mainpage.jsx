@@ -87,9 +87,9 @@ const Mainpage = () => {
         });
         socket.on('receive-request', ({requestFrom}) => {
             if( window.confirm(`${requestFrom} send you a request...!!!`)){
-                socket.emit('request-accepted',{requestFrom});
+                socket.emit('receive-request-accepted',{ requestTo:email, requestFrom});
             } else {
-                socket.emit('request-rejected',{requestFrom})
+                socket.emit('receive-request-rejected',{ requestTo:email, requestFrom})
             }
         });
 

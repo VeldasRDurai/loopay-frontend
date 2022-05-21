@@ -28,6 +28,7 @@ const UserProfileStyle = styled.div`
 `
 const UserProfile = () => {
     const dispatch = useDispatch();
+    const { mainpageSearchDetails } = useSelector( state => state.mainpageReducer );
     const { 
         selectedUserDetails,
         userProfileRequestState 
@@ -37,12 +38,23 @@ const UserProfile = () => {
 
     const RequestButtonOnClick = () => {
         const TIMER_DURAION_IN_MINUTE = 5;
-        const requestTimerExpiesOn = new Date( Number(new Date()) + (1000*60*TIMER_DURAION_IN_MINUTE) )
-        socket.emit('send-request',{ email, selectedUserDetails, requestTimerExpiesOn });
+        const requestTimerStartsOn = new Date();
+        const requestTimerExpiesOn = new Date( 
+            Number(requestTimerStartsOn) + (1000*60*TIMER_DURAION_IN_MINUTE) );
+        socket.emit('send-request',{
+            requestFrom : email, 
+            requestTo : selectedUserDetails.email, 
+            requestTimerStartsOn,
+            requestTimerExpiesOn,
+            searchDetails : mainpageSearchDetails
+        });
         dispatch( userProfileRequestSend({ requestTimerExpiesOn }));    
     }
     const RequestCancelOnClick = () => {
-        socket.emit('cancel-request',{ email, selectedUserDetails });
+        socket.emit('cancel-request',{ 
+            requestFrom: email, 
+            requestTo : selectedUserDetails.email 
+        });
         dispatch( userProfileRequestCancel() )
     }
 
