@@ -19,9 +19,18 @@ const userProfileRequestSend = ({requestTimerExpiesOn}) => ({
     requestTimerExpiesOn
 });
 const userProfileRequestCancel = () => typeSetter(USER_PROFILE_REQUEST_CANCEL);
-const userProfileRequestAccepted = () => typeSetter(USER_PROFILE_REQUEST_ACCEPTED);
-const userProfileRequestRejected = () => typeSetter(USER_PROFILE_REQUEST_REJECTED);
-const userProfileRequestTimerExpired = () => typeSetter(USER_PROFILE_REQUEST_TIMER_EXPIRED);
+const userProfileRequestAccepted = ({email}) => ({
+    ...typeSetter(USER_PROFILE_REQUEST_ACCEPTED),
+    email
+}) 
+const userProfileRequestRejected = ({email}) => ({
+    ...typeSetter(USER_PROFILE_REQUEST_REJECTED),
+    email
+}) 
+const userProfileRequestTimerExpired = ({email}) => ({
+    ...typeSetter(USER_PROFILE_REQUEST_TIMER_EXPIRED),
+    email
+}) 
 
 export {
     redirectToTransactionUserProfile,

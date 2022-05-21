@@ -24,7 +24,10 @@ const TransactionSearchRender = {
 }
 const TransactionSearch = () => {
     const dispatch = useDispatch();
-    const { transactionSearchPageState } = useSelector( state => state.transactionSearchReducer );
+    const { 
+        transactionSearchPageState,
+        rejectedUsers 
+    } = useSelector( state => state.transactionSearchReducer );
     const { 
         mainpageSearchDetails,
         mainpageSearchResults,
@@ -46,12 +49,15 @@ const TransactionSearch = () => {
         <TransactionSearchStyle>
             { 
                 loading ? 'Loading': 
-                mainpageSearchResults.map( item => 
-                    <ResultTile key={item.email} 
-                        onClick={ () => dispatch( 
-                            redirectToTransactionUserProfile({details:item}) ) }
-                        item={ item } /> ) 
-                // console.log( mainpageSearchResults )
+                mainpageSearchResults.map( item => {
+                    const isRejected = !rejectedUsers.includes(item.email);
+                    return <ResultTile key={item.email} 
+                        isRejected={isRejected}
+                        onClick={ () => 
+                            isRejected &&
+                            dispatch( redirectToTransactionUserProfile({details:item}) ) }
+                        item={ item } /> 
+                })
             }
             { mainpageSearchDetails.amount }
             {TransactionSearchRender[transactionSearchPageState]}

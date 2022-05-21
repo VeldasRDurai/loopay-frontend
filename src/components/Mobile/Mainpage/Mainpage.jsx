@@ -92,6 +92,8 @@ const Mainpage = () => {
                 socket.emit('receive-request-rejected',{ requestTo:email, requestFrom})
             }
         });
+        socket.on('receive-request-accepted-acknowledge', ({acknowledge}) => 
+            console.log( acknowledge ));
 
         // Updating loaction
         const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => {

@@ -11,12 +11,13 @@ const ResultTileStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: ${({isRejected}) => isRejected ? 1 : 0.6 };
 `
-const ResultTile = ({ item, onClick }) => {
+const ResultTile = ({ item, onClick, isRejected }) => {
     // const dispatch = useDispatch();
     
     return (
-        <ResultTileStyle onClick={onClick} >
+        <ResultTileStyle isRejected={isRejected} onClick={onClick} >
             { item.email }
         </ResultTileStyle>
   );

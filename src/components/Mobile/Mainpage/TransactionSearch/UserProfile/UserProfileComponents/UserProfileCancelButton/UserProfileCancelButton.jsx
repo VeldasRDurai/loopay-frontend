@@ -1,21 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import UserProfileTimer from '../UserProfileTimer/UserProfileTimer';
+
 const UserProfileCancelButtonStyle = styled.button`
-    height: 30px;
-    width: 100px;
+    height: 75px;
+    width: 50vw;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* flex-direction: column; */
+    justify-content:space-around;
     align-items: center;
     background-color: red;
 
     &:focus{ outline: none; }
 `
 
-const UserProfileCancelButton = ({ onClick }) => 
+const UserProfileCancelButton = ({ onClick }) =>
     <UserProfileCancelButtonStyle onClick={onClick} >
         CANCEL
+        <UserProfileTimer />
     </UserProfileCancelButtonStyle>
+
 
 export default UserProfileCancelButton;

@@ -5,11 +5,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { 
     userProfileRequestSend,
     userProfileRequestCancel,
+    userProfileRequestAccepted,
+    userProfileRequestRejected,
+    userProfileRequestTimerExpired
 } from '../TransactionSearchActions';
+
+import {
+    redirectToTransactionSearch
+} from '../../mainpageActions';
 
 import UserProfileRequestButton from './UserProfileComponents/UserProfileRequestButton/UserProfileRequestButton';
 import UserProfileCancelButton from './UserProfileComponents/UserProfileCancelButton/UserProfileCancelButton';
 import UserProfileBadge from './UserProfileComponents/UserProfileBadge/UserProfileBadge';
+// import UserProfileTimer from './UserProfileComponents/UserProfileTimer/UserProfileTimer';
+
+import { 
+    // USER_PROFILE_REQUEST_ACCEPTED,
+    // USER_PROFILE_REQUEST_CANCEL,
+    // USER_PROFILE_REQUEST_REJECTED,
+    USER_PROFILE_REQUEST_SEND,
+    // USER_PROFILE_REQUEST_TIMER_EXPIRED,
+} from '../TransactionSearchTypes';
 
 const UserProfileStyle = styled.div`
     position: absolute;
@@ -21,11 +37,16 @@ const UserProfileStyle = styled.div`
     overflow: hidden;
     
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
     background-color: green;
 `
+const UserProfileBackStyle = styled.div`
+    opacity:${ ({opac})=> opac ? 1:0.5 };
+`
+
 const UserProfile = () => {
     const dispatch = useDispatch();
     const { mainpageSearchDetails } = useSelector( state => state.mainpageReducer );
@@ -55,11 +76,20 @@ const UserProfile = () => {
             requestFrom: email, 
             requestTo : selectedUserDetails.email 
         });
-        dispatch( userProfileRequestCancel() )
     }
 
+    socket.on('sent-request-acknowledge', ({ acknowledge }) => 
+        acknowledge ? 
+            dispatch(userProfileRequestAccepted({ email:selectedUserDetails.email })) :
+            dispatch(userProfileRequestRejected({ email:selectedUserDetails.email })) );
+            
+    socket.on('cancel-request-acknowledge', ({ acknowledge }) =>
+        acknowledge && 
+            dispatch( userProfileRequestCancel() ));
+
+
     const UserProfileStateRender = {
-        USER_PROFILE_REQUEST_SEND : 
+        USER_PROFILE_REQUEST_SEND :
             <UserProfileCancelButton onClick={RequestCancelOnClick} />,
         USER_PROFILE_REQUEST_CANCEL : 
             <UserProfileRequestButton  onClick={RequestButtonOnClick} />,
@@ -69,11 +99,26 @@ const UserProfile = () => {
             <UserProfileBadge message={'Request Rejected'} />,
     }
 
-
+    const onClick = event => {
+        // event.preventDefault()
+        console.log('Clicked');
+        dispatch( redirectToTransactionSearch() );
+    }
     return (
         <UserProfileStyle>
-            email : { selectedUserDetails.email }
-            { selectedUserDetails.isOnline ? 'Online' : `Lastseen on ${selectedUserDetails.lastseen}` }
+            <UserProfileBackStyle
+                opac={ !(userProfileRequestState===USER_PROFILE_REQUEST_SEND) } 
+                onClick={ () =>
+                    !(userProfileRequestState===USER_PROFILE_REQUEST_SEND) && onClick() } > 
+                Back 
+            </UserProfileBackStyle>
+
+            <div>
+                email : { selectedUserDetails.email }
+            </div> 
+            <div>
+                { selectedUserDetails.isOnline ? 'Online' : `Lastseen on ${selectedUserDetails.lastseen}` }
+            </div>
             { UserProfileStateRender[userProfileRequestState] }
         </UserProfileStyle>
   );
