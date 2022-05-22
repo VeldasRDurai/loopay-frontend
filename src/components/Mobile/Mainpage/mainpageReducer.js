@@ -7,6 +7,11 @@ import {
     REDIRECT_TO_TRANSACTION_SCAN_QR,
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
 
+    MAINPAGE_SEARCH_MODE,
+    MAINPAGE_SAVED_MODE,
+    MAINPAGE_TRANSACTION_MODE,
+    MAINPAGE_SHARE_MODE,
+
     MAINPAGE_UPDATE_SEARCH_DETAILS,
     MAINPAGE_UPDATE_SEARCH_RESULTS,
     UPDATE_SOCKET
@@ -14,6 +19,7 @@ import {
 
 const initialState = {
     mainpagePageState : undefined,
+    mainpageMode : MAINPAGE_SEARCH_MODE,
     mainpageSearchDetails : {
         amount:500,
         isSoftCash:true,
@@ -24,6 +30,14 @@ const initialState = {
 }
 const mainpageReducer = ( state = initialState, action ) => {
     switch( action.type ){
+        case MAINPAGE_SEARCH_MODE :
+        case MAINPAGE_SAVED_MODE :
+        case MAINPAGE_TRANSACTION_MODE :
+        case MAINPAGE_SHARE_MODE : 
+            return { ...state,
+                mainpagePageState : undefined, 
+                mainpageMode : action.type
+            }
         case REDIRECT_TO_TRANSACTION_SEARCH : 
         case REDIRECT_TO_PROFILE : 
         case REDIRECT_TO_HISTORY : 

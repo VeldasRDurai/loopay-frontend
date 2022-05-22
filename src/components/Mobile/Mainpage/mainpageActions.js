@@ -9,6 +9,11 @@ import {
     REDIRECT_TO_TRANSACTION_SCAN_QR,
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
 
+    MAINPAGE_SEARCH_MODE,
+    MAINPAGE_SAVED_MODE,
+    MAINPAGE_TRANSACTION_MODE,
+    MAINPAGE_SHARE_MODE,
+
     MAINPAGE_UPDATE_SEARCH_DETAILS,
     MAINPAGE_UPDATE_SEARCH_RESULTS,
     UPDATE_SOCKET
@@ -22,6 +27,11 @@ const redirectToTransactionSearch = () => typeSetter(REDIRECT_TO_TRANSACTION_SEA
 const redirectToTransactionMapChat = () => typeSetter(REDIRECT_TO_TRANSACTION_MAP_CHAT); 
 const redirectToTransactionScanQr = () => typeSetter(REDIRECT_TO_TRANSACTION_SCAN_QR); 
 const redirectToTransactionFeedbackpage = () => typeSetter(REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE); 
+
+const mainpageSearchMode = () => typeSetter(MAINPAGE_SEARCH_MODE);
+const mainpageSavedMode  = () => typeSetter(MAINPAGE_SAVED_MODE);
+const mainpageTransactionMode = () => typeSetter(MAINPAGE_TRANSACTION_MODE);
+const mainpageShareMode = () => typeSetter(MAINPAGE_SHARE_MODE);
 
 const updateSocket = ({ socket }) => ({
     ...typeSetter(UPDATE_SOCKET),
@@ -50,6 +60,11 @@ export {
     redirectToTransactionScanQr,
     redirectToTransactionFeedbackpage,
     
+    mainpageSearchMode,
+    mainpageSavedMode,
+    mainpageTransactionMode,
+    mainpageShareMode,
+
     mainpageUpdateSearchDetails,
     mainpageUpdateSearchResults,
     updateSocket

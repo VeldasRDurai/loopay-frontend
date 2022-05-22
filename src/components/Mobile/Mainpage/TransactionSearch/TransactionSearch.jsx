@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { mainpageUpdateSearchResults } from '../mainpageActions';
-import { redirectToTransactionUserProfile } from './TransactionSearchActions'
+import { redirectToTransactionUserProfile } from './TransactionSearchActions';
 
 import UserProfile from './UserProfile/UserProfile';
 import ResultTile from './TransactionSearchComponents/ResultTile/ResultTile';
+import TransactionSearchSave from './TransactionSearchComponents/TransacionSearchSave';
 
 const TransactionSearchStyle = styled.div`
     position: absolute;
@@ -19,6 +20,7 @@ const TransactionSearchStyle = styled.div`
     
     background-color: yellow;
 `
+
 const TransactionSearchRender = {
     REDIRECT_TO_TRANSACTION_USER_PROFILE: <UserProfile />
 }
@@ -47,6 +49,7 @@ const TransactionSearch = () => {
 
     return (
         <TransactionSearchStyle>
+            <TransactionSearchSave />
             { 
                 loading ? 'Loading': 
                 mainpageSearchResults.map( item => {
