@@ -50,7 +50,7 @@ const UserProfileBackStyle = styled.div`
 
 const UserProfile = () => {
     const dispatch = useDispatch();
-    const { mainpageSearchDetails } = useSelector( state => state.mainpageReducer );
+    const { lastSearch } = useSelector( state => state.mainpageReducer );
     const { 
         selectedUserDetails,
         userProfileRequestState 
@@ -68,7 +68,7 @@ const UserProfile = () => {
             requestTo : selectedUserDetails.email, 
             requestTimerStartsOn,
             requestTimerExpiesOn,
-            searchDetails : mainpageSearchDetails
+            searchDetails : lastSearch
         });
         dispatch( userProfileRequestSend({ requestTimerExpiesOn }));    
     }

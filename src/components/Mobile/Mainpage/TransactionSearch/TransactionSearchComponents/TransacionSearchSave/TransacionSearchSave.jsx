@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { mainpageSavedMode } from '../../mainpageActions';
+import { mainpageSavedMode } from '../../../mainpageActions';
 
 const TransactionSearchSaveStyle = styled.div`
     height: 10vh;
     width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `
 
 const TransacionSearchSave = () => {
@@ -19,11 +23,13 @@ const TransacionSearchSave = () => {
         console.log(event.target.value);
         setDuration( event.target.value );
     }
-    const onClick = () =>
-        socket.on('save-search',{ 
+    const onClick = () => {
+        console.log('saveSearch clicked');
+        socket.emit('save-search',{ 
             email,
             duration
         });
+    }
     socket.on('save-search-acknowledge', ({acknowledge}) => {
         acknowledge && dispatch( mainpageSavedMode() )
     });
@@ -34,12 +40,12 @@ const TransacionSearchSave = () => {
                 type="range" 
                 max={24} 
                 min={1} 
-                value={1}
                 onChange={onChange}
             />
-            <div onClick={onClick} >
+            {`duration : ${duration}`}
+            <button onClick={onClick} >
                 Save Button 
-            </div> 
+            </button> 
         </TransactionSearchSaveStyle>
     );
 }

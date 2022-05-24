@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { mainpageUpdateSearchResults } from '../mainpageActions';
+import { mainpageLastSearchResults } from '../mainpageActions';
 import { redirectToTransactionUserProfile } from './TransactionSearchActions';
 
 import UserProfile from './UserProfile/UserProfile';
 import ResultTile from './TransactionSearchComponents/ResultTile/ResultTile';
-import TransactionSearchSave from './TransactionSearchComponents/TransacionSearchSave';
+import TransactionSearchSave from './TransactionSearchComponents/TransacionSearchSave/TransacionSearchSave';
 
 const TransactionSearchStyle = styled.div`
     position: absolute;
@@ -27,22 +27,21 @@ const TransactionSearchRender = {
 const TransactionSearch = () => {
     const dispatch = useDispatch();
     const { 
+        lastSearch,
+        lastSearchResults,
+        socket
+    } = useSelector( state => state.mainpageReducer );
+    const { 
         transactionSearchPageState,
         rejectedUsers 
     } = useSelector( state => state.transactionSearchReducer );
-    const { 
-        mainpageSearchDetails,
-        mainpageSearchResults,
-        socket
-    } = useSelector( state => state.mainpageReducer );
     const { email } = useSelector( state => state.profile );
 
     const [ loading, setLoading ] = useState(true);
     useEffect( () => {
-        socket.emit('transaction-search', { ...mainpageSearchDetails, email });
-        socket.on('transaction-search-result', results => {
-            console.log(results);
-            dispatch( mainpageUpdateSearchResults({ results }) );
+        socket.emit('transaction-search', { ...lastSearch, email });
+        socket.on('transaction-search-result', ({ lastSearchResults }) => {
+            dispatch( mainpageLastSearchResults({ lastSearchResults }) );
             setLoading(false);
         });
     },[]);
@@ -52,7 +51,7 @@ const TransactionSearch = () => {
             <TransactionSearchSave />
             { 
                 loading ? 'Loading': 
-                mainpageSearchResults.map( item => {
+                lastSearchResults.map( item => {
                     const isRejected = !rejectedUsers.includes(item.email);
                     return <ResultTile key={item.email} 
                         isRejected={isRejected}
@@ -62,7 +61,7 @@ const TransactionSearch = () => {
                         item={ item } /> 
                 })
             }
-            { mainpageSearchDetails.amount }
+            { lastSearch.amount }
             {TransactionSearchRender[transactionSearchPageState]}
         </TransactionSearchStyle>
   );

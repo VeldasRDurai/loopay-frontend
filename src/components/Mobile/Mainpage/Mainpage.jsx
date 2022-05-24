@@ -3,16 +3,27 @@ import styled from 'styled-components';
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
 
+import addUserAcknowledge from './mainpageSocketFunctions/addUserAcknowledge';
+
 import { 
     // redirectToProfile,  
     // redirectToHistory,
     // redirectToNotification,
     // redirectToTransactionSearch,
-    redirectToTransactionMapChat,
+    // redirectToTransactionMapChat,
 
-    // mainpageUpdateDetails
-    updateSocket
+    editCurrentMode,
+
+    mainpageLastSearch,
+    mainpageLastSearchSavedUpto,
+
+    mainpageRequestReceived,
+
+    mainpageCurrentTransaction,
+
+    mainpageUpdateConstants
 } from './mainpageActions';
+
 
 import TransactionSearch from './TransactionSearch/TransactionSearch';
 import TransactionMapChat from './TransactionMapChat/TransactionMapChat';
@@ -21,8 +32,8 @@ import TransactionFeedbackPage from './TransactionFeedbackPage/TransactionFeedba
 
 // import MainpageRange from './MainpageComponents/MainpageRange/MainpageRange';
 // import MainpageCheckbox from './MainpageComponents/MainpageCheckbox/MainpageCheckbox';
-
-import MainpageSearchMode from './MainpageComponents/MainpageSearchMode/MainpageSearchMode';
+import MainpageSearchMode from './MainpageComponents/MainpageSearchMode/MainpageSearchMode.jsx';
+import MainpageSaveMode from './MainpageComponents/MainpageSaveMode/MainpageSaveMode';
 
 import { 
     watchPosition,
@@ -57,43 +68,46 @@ const mainpageRender = {
     REDIRECT_TO_TRANSACTION_SCAN_QR : <TransactionScanQr />,
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE: <TransactionFeedbackPage />
 };
-const mainpageModeRender = {
+const currentModeRender = {
     MAINPAGE_SEARCH_MODE : <MainpageSearchMode />,
-    MAINPAGE_SAVED_MODE : 'save mode',
+    MAINPAGE_SAVED_MODE : <MainpageSaveMode />,
     MAINPAGE_TRANSACTION_MODE : 'Transaction mode',
     MAINPAGE_SHARE_MODE : 'Share mode',
     MAINPAGE_FEEDBACK_MODE : 'Feedback mode'
-
 }
 
 const Mainpage = () => {
     const dispatch = useDispatch();
     const { 
         mainpagePageState,
-        mainpageMode,
-        // mainpageSearchDetails
+        currentMode
     } = useSelector( state => state.mainpageReducer );
     const { email } = useSelector( state => state.profile );
     useEffect( () => {
         const socket = io(process.env.REACT_APP_BACKEND_DEVELOPMENT_URL);
-        dispatch( updateSocket({socket}) );
-        socket.on('connected' , async () => {
-            socket.emit('add-user', { email });
+        dispatch( mainpageUpdateConstants({ socket, email }) );
+        socket.on('connected', ()=> socket.emit('add-user', {email} ));
+
+        socket.on('add-user-acknowledge', ({ acknowledge, user }) => {
+            console.log( 'add-user-acknowledge', ({ acknowledge, user }) );
+            if(acknowledge && user ){
+                addUserAcknowledge({
+                    ...user,
+                    dispatch,
+                    editCurrentMode,
+                    mainpageLastSearch,
+                    mainpageLastSearchSavedUpto,
+                    mainpageRequestReceived,
+                    mainpageCurrentTransaction,
+                });
+            } else {
+                window.log('Not able to login or it is a sign up');
+            }
         });
         socket.on("connect_error", (err) => {
             console.log(`connect_error due to ${err.message}`);
         });
-        socket.on('receive-request', ({requestFrom}) => {
-            if( window.confirm(`${requestFrom} send you a request...!!!`)){
-                console.log('Accepted...!!!');
-                socket.emit('receive-request-accepted',{ requestTo:email, requestFrom});
-            } else {
-                socket.emit('receive-request-rejected',{ requestTo:email, requestFrom})
-            }
-        });
-        socket.on('receive-request-accepted-acknowledge', ({acknowledge}) => 
-            acknowledge ? dispatch(redirectToTransactionMapChat()) :
-                window.alert('Another one went offline or cancelled the request'));
+        
 
         // Updating loaction
         const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => {
@@ -107,8 +121,7 @@ const Mainpage = () => {
     },[])
     return (
         <MainpageStyle>
-            <div>mainpage</div>
-            { mainpageModeRender[mainpageMode] }
+            { currentModeRender[currentMode] }
             { mainpageRender[mainpagePageState] }
         </MainpageStyle>
   );

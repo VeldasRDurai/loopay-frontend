@@ -6,9 +6,9 @@ import {
 } from './profileTypes';
 
 const initialState = {
-    authenterisedUser : false,
     email : undefined,
-    verificationCode : undefined
+    authenterisedUser : false,
+    verificationCode : undefined,
 }
 
 const profileReducer = ( state = initialState , action ) => {

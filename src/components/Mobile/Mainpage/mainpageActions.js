@@ -4,7 +4,6 @@ import {
     REDIRECT_TO_NOTIFICATION,
     REDIRECT_TO_TRANSACTION_SEARCH,
 
-    // REDIRECT_TO_TRANSACTION_USER_PROFILE,
     REDIRECT_TO_TRANSACTION_MAP_CHAT,
     REDIRECT_TO_TRANSACTION_SCAN_QR,
     REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE,
@@ -13,45 +12,80 @@ import {
     MAINPAGE_SAVED_MODE,
     MAINPAGE_TRANSACTION_MODE,
     MAINPAGE_SHARE_MODE,
+    MAINPAGE_FEEDBACK_MODE,
 
-    MAINPAGE_UPDATE_SEARCH_DETAILS,
-    MAINPAGE_UPDATE_SEARCH_RESULTS,
-    UPDATE_SOCKET
+    MAINPAGE_LAST_SEARCH,
+    MAINPAGE_LAST_SEARCH_RESULTS,
+    MAINPAGE_LAST_SEARCH_SAVED_UPTO,
+
+    MAINPAGE_CURRENT_TRANSACTION,
+    MAINPAGE_REQUEST_RECEIVED,
+
+    MAINPAGE_UPDATE_CONSTANTS
 } from './mainpageTypes';
 
 const typeSetter = type => ({type});
-const redirectToProfile = () => typeSetter(REDIRECT_TO_PROFILE);
-const redirectToHistory = () => typeSetter(REDIRECT_TO_HISTORY);
-const redirectToNotification = () => typeSetter(REDIRECT_TO_NOTIFICATION);
-const redirectToTransactionSearch = () => typeSetter(REDIRECT_TO_TRANSACTION_SEARCH); 
-const redirectToTransactionMapChat = () => typeSetter(REDIRECT_TO_TRANSACTION_MAP_CHAT); 
-const redirectToTransactionScanQr = () => typeSetter(REDIRECT_TO_TRANSACTION_SCAN_QR); 
+
+// mainpagePageState actions
+const editmainpagePageState             = typeSetter;
+const redirectToProfile                 = () => typeSetter(REDIRECT_TO_PROFILE);
+const redirectToHistory                 = () => typeSetter(REDIRECT_TO_HISTORY);
+const redirectToNotification            = () => typeSetter(REDIRECT_TO_NOTIFICATION);
+const redirectToTransactionSearch       = () => typeSetter(REDIRECT_TO_TRANSACTION_SEARCH); 
+const redirectToTransactionMapChat      = () => typeSetter(REDIRECT_TO_TRANSACTION_MAP_CHAT); 
+const redirectToTransactionScanQr       = () => typeSetter(REDIRECT_TO_TRANSACTION_SCAN_QR); 
 const redirectToTransactionFeedbackpage = () => typeSetter(REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE); 
 
-const mainpageSearchMode = () => typeSetter(MAINPAGE_SEARCH_MODE);
-const mainpageSavedMode  = () => typeSetter(MAINPAGE_SAVED_MODE);
-const mainpageTransactionMode = () => typeSetter(MAINPAGE_TRANSACTION_MODE);
-const mainpageShareMode = () => typeSetter(MAINPAGE_SHARE_MODE);
+// currentMode actions
+const editCurrentMode           = typeSetter; 
+const mainpageSearchMode        = () => typeSetter(MAINPAGE_SEARCH_MODE);
+const mainpageSavedMode         = () => typeSetter(MAINPAGE_SAVED_MODE);
+const mainpageTransactionMode   = () => typeSetter(MAINPAGE_TRANSACTION_MODE);
+const mainpageShareMode         = () => typeSetter(MAINPAGE_SHARE_MODE);
+const mainpageFeedbackMode      = () => typeSetter(MAINPAGE_FEEDBACK_MODE);
 
-const updateSocket = ({ socket }) => ({
-    ...typeSetter(UPDATE_SOCKET),
-    socket
+// email, socket action
+const mainpageUpdateConstants = ({ socket, email }) => ({
+    ...typeSetter(MAINPAGE_UPDATE_CONSTANTS),
+    socket,
+    email
 });
 
-const mainpageUpdateSearchDetails = ({ amount, isSoftCash, radius }) => ({
-    ...typeSetter(MAINPAGE_UPDATE_SEARCH_DETAILS),
-    details : {
-        amount,
-        isSoftCash,
-        radius
-    }
+// lastSearch
+const mainpageLastSearch = ({lastSearch}) => ({
+    ...typeSetter(MAINPAGE_LAST_SEARCH),
+    lastSearch,
 });
-const mainpageUpdateSearchResults = ({ results }) => ({
-    ...typeSetter(MAINPAGE_UPDATE_SEARCH_RESULTS),
-    results
+
+// lastSearchResults
+const mainpageLastSearchResults = ({ lastSearchResults }) => ({
+    ...typeSetter(MAINPAGE_LAST_SEARCH_RESULTS),
+    lastSearchResults
+});
+
+// lastSearchSaved, lastSearchUpto
+const mainpageLastSearchSavedUpto = ({ lastSearchSaved, lastSearchUpto }) => ({
+    ...typeSetter(MAINPAGE_LAST_SEARCH_SAVED_UPTO),
+    lastSearchSaved,
+    lastSearchUpto
+});
+
+// currentTransaction
+const mainpageCurrentTransaction = ({ currentTransaction }) => ({
+    ...typeSetter(MAINPAGE_CURRENT_TRANSACTION),
+    currentTransaction
+});
+
+// requestFrom, requestFromUpto
+const mainpageRequestReceived = ({ requestFrom, requestFromUpto }) => ({
+    ...typeSetter(MAINPAGE_REQUEST_RECEIVED),
+    requestFrom,
+    requestFromUpto
 });
 
 export {
+    editmainpagePageState,
+    // ---------- //
     redirectToProfile,
     redirectToHistory,
     redirectToNotification,
@@ -60,12 +94,20 @@ export {
     redirectToTransactionScanQr,
     redirectToTransactionFeedbackpage,
     
+    editCurrentMode,
+    // ------------ //
     mainpageSearchMode,
     mainpageSavedMode,
     mainpageTransactionMode,
     mainpageShareMode,
+    mainpageFeedbackMode,
+  
+    mainpageUpdateConstants,
 
-    mainpageUpdateSearchDetails,
-    mainpageUpdateSearchResults,
-    updateSocket
+    mainpageLastSearch,
+    mainpageLastSearchResults,
+    mainpageLastSearchSavedUpto,
+    
+    mainpageCurrentTransaction,
+    mainpageRequestReceived
 };

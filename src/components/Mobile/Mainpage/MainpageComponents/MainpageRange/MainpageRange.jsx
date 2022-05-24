@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    mainpageUpdateSearchDetails
+    mainpageLastSearch
 } from '../../mainpageActions';
 
 const MainpageRangeStyle = styled.input`
@@ -12,13 +12,13 @@ const MainpageRangeStyle = styled.input`
 const MainpageRange = ({ min, max, roundTo, value, width }) => {
     const dispatch = useDispatch();
     const { 
-        mainpageSearchDetails
+        lastSearch
     } = useSelector( state => state.mainpageReducer );
     const onChange = event => {
         event.target.value = Math.floor(event.target.value/roundTo)*roundTo; 
         console.log(event.target.value);
-        dispatch( mainpageUpdateSearchDetails({  
-            ...mainpageSearchDetails,
+        dispatch( mainpageLastSearch({  
+            ...lastSearch,
                 [value]: event.target.value
         }));
     }
