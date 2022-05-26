@@ -40,7 +40,17 @@ const addUserAcknowledge = ({
         lastSearchSaved && new Date(lastSearchUpto) < new Date() &&
             dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
     
-    dispatch( mainpageLastSearch({ lastSearch }) );
+    lastSearch ? 
+        dispatch( mainpageLastSearch({ lastSearch }) ) :
+        dispatch( mainpageLastSearch({
+            lastSearch : {
+                amount:500,
+                isSoftCash:true,
+                radius:100,
+                timeStamp: undefined,
+            }
+        }) )
+    
     dispatch( mainpageLastSearchSavedUpto({
         lastSearchSaved,
         lastSearchUpto

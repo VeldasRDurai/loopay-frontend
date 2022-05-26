@@ -52,6 +52,8 @@ const initialState = {
     requestFrom : undefined,
     requestFromUpto : undefined,
     
+    // transactionEndTime: 
+
     // // searches
     // // transactions : [ mongoose.ObjectId ],
 }

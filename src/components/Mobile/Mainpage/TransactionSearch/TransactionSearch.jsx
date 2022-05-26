@@ -49,18 +49,25 @@ const TransactionSearch = () => {
     return (
         <TransactionSearchStyle>
             <TransactionSearchSave />
-            { 
-                loading ? 'Loading': 
-                lastSearchResults.map( item => {
-                    const isRejected = !rejectedUsers.includes(item.email);
-                    return <ResultTile key={item.email} 
-                        isRejected={isRejected}
-                        onClick={ () => 
-                            isRejected &&
-                            dispatch( redirectToTransactionUserProfile({details:item}) ) }
-                        item={ item } /> 
-                })
-            }
+            <div style={{
+                maxHeight: '80vh',
+                overflow: 'hidden scroll',
+                margin: '10px 0px',
+                backgroundColor: 'aliceblue'
+            }} >
+                { 
+                    loading ? 'Loading': 
+                    lastSearchResults.map( item => {
+                        const isRejected = !rejectedUsers.includes(item.email);
+                        return <ResultTile key={item.email} 
+                            isRejected={isRejected}
+                            onClick={ () => 
+                                isRejected &&
+                                dispatch( redirectToTransactionUserProfile({details:item}) ) }
+                            item={ item } /> 
+                    })
+                }
+            </div>
             { lastSearch.amount }
             {TransactionSearchRender[transactionSearchPageState]}
         </TransactionSearchStyle>

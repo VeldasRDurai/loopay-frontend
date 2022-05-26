@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { mainpageSavedMode } from '../../../mainpageActions';
+import { 
+    mainpageSavedMode,
+    mainpageLastSearchSavedUpto
+} from '../../../mainpageActions';
 
 const TransactionSearchSaveStyle = styled.div`
     height: 10vh;
@@ -30,8 +33,14 @@ const TransacionSearchSave = () => {
             duration
         });
     }
-    socket.on('save-search-acknowledge', ({acknowledge}) => {
-        acknowledge && dispatch( mainpageSavedMode() )
+    socket.on('save-search-acknowledge', ({acknowledge, lastSearchSaved, lastSearchUpto}) => {
+        if(acknowledge){
+            dispatch( mainpageSavedMode() );
+            dispatch( mainpageLastSearchSavedUpto({
+                lastSearchSaved,
+                lastSearchUpto
+            }) );
+        } 
     });
     return (
         <TransactionSearchSaveStyle>

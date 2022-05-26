@@ -21,12 +21,12 @@ const UserProfileTimerStyle = styled.div`
 
 const UserProfileTimer = () => {
     const dispatch = useDispatch()
-    // const { requestTimerExpiesOn } = useSelector( state => state.transactionSearchReducer );
+    const { requestTimerExpiesOn } = useSelector( state => state.transactionSearchReducer );
     const { selectedUserDetails } = useSelector( state => state.transactionSearchReducer );
     const { email } = useSelector( state => state.profile );
     const { socket } = useSelector( state => state.mainpageReducer );
     
-
+    const duration = (new Date(requestTimerExpiesOn) - new Date()) / (1000);
     const renderTime = ({ remainingTime }) => {
         const currentTime = useRef(remainingTime);
         const prevTime = useRef(null);
@@ -93,7 +93,7 @@ const UserProfileTimer = () => {
         <CountdownCircleTimer
             isPlaying
             //   duration={5*60}
-            duration={5}
+            duration={ duration > 0 ? duration : 0 }
             colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
             colorsTime={[30, 28, 9, 0]}
             onComplete={onComplete}

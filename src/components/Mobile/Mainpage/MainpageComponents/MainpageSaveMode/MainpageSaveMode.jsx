@@ -52,8 +52,8 @@ const MainpageSaveMode = () => {
         });
         socket.on('receive-request-accepted-acknowledge', ({acknowledge}) => {
             if(acknowledge){
-                dispatch(redirectToTransactionMapChat());
                 dispatch(mainpageTransactionMode());
+                dispatch(redirectToTransactionMapChat());
             } else {
                 window.alert('Another one went offline or cancelled the request');
             }

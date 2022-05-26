@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useCountdown, CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import "./styles.css";
@@ -25,9 +25,9 @@ const MainpageSaveTimer = () => {
     
     // const { selectedUserDetails } = useSelector( state => state.transactionSearchReducer );
     // const { email } = useSelector( state => state.profile );
-    // const { socket } = useSelector( state => state.mainpageReducer );
+    const { requestFromUpto } = useSelector( state => state.mainpageReducer );
     
-
+    const duration = (new Date(requestFromUpto) - new Date()) / (1000);
     const renderTime = ({ remainingTime }) => {
         const currentTime = useRef(remainingTime);
         const prevTime = useRef(null);
@@ -85,8 +85,7 @@ const MainpageSaveTimer = () => {
     return <MainpageSaveTimerStyle>
         <CountdownCircleTimer
             isPlaying
-            //   duration={5*60}
-            duration={5}
+            duration={ duration>0 ? duration : 0  }
             colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
             colorsTime={[30, 28, 9, 0]}
             // onComplete={onComplete}
