@@ -24,17 +24,11 @@ const addUserAcknowledge = ({
     mainpageRequestReceived,
     // 5
     currentTransaction,
-    mainpageCurrentTransaction,
-    // 6
+    transactionActivated,
     transactionEndTime,
-    mainpageTransactionEndTime
-    // transactions : [ mongoose.ObjectId ],
-    // searches : [{
-    //     amount : Number,
-    //     isSoftCash : Boolean,
-    //     radius : Number,
-    //     timeStamp: Date
-    // }],
+    mainpageTransactionEndTime,
+    
+    socket
 }) => {
     dispatch( editCurrentMode(currentMode) );
 
@@ -66,10 +60,9 @@ const addUserAcknowledge = ({
         requestFrom,
         requestFromUpto,
     }));
-    dispatch( mainpageCurrentTransaction({
-        currentTransaction
-    }));
     dispatch( mainpageTransactionEndTime({
+        currentTransaction,
+        transactionActivated,
         transactionEndTime
     }) )
 };

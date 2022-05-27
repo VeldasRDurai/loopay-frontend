@@ -1,3 +1,4 @@
+import { REDIRECT_TO_MAINPAGE } from '../../../reduxStore/page/authenticationPage/authenticationPageTypes';
 import {
     REDIRECT_TO_HISTORY,
     REDIRECT_TO_PROFILE,
@@ -18,7 +19,7 @@ import {
     MAINPAGE_LAST_SEARCH_SAVED_UPTO,
 
 
-    MAINPAGE_CURRENT_TRANSACTION,
+    // MAINPAGE_CURRENT_TRANSACTION,
     MAINPAGE_REQUEST_RECEIVED,
 
     MAINPAGE_UPDATE_CONSTANTS,
@@ -48,12 +49,13 @@ const initialState = {
     lastSearchSaved : false,
     lastSearchUpto : undefined,
     
-    currentTransaction : undefined,
     
     requestFrom : undefined,
     requestFromUpto : undefined,
     
-    transactionEndTime: undefined
+    currentTransaction : undefined,
+    transactionActivated: false,
+    transactionEndTime: undefined,
 
     // // searches
     // // transactions : [ mongoose.ObjectId ],
@@ -62,6 +64,7 @@ const initialState = {
 const mainpageReducer = ( state = initialState, action ) => {
     switch( action.type ){
         // mainpagePageState
+        case REDIRECT_TO_MAINPAGE :
         case REDIRECT_TO_TRANSACTION_SEARCH : 
         case REDIRECT_TO_PROFILE : 
         case REDIRECT_TO_HISTORY : 
@@ -118,10 +121,10 @@ const mainpageReducer = ( state = initialState, action ) => {
             }
         
         // currentTransaction 
-        case MAINPAGE_CURRENT_TRANSACTION:
-            return { ...state,
-                currentTransaction : action.currentTransaction
-            }
+        // case MAINPAGE_CURRENT_TRANSACTION:
+        //     return { ...state,
+        //         currentTransaction : action.currentTransaction
+        //     }
         
         // requestFrom, requestFromUpto
         case MAINPAGE_REQUEST_RECEIVED:
@@ -133,7 +136,9 @@ const mainpageReducer = ( state = initialState, action ) => {
         // transactionEndTime
         case MAINPAGE_TRANSACTION_END_TIME:
             return { ...state,
-                transactionEndTime : action.transactionEndTime
+                transactionEndTime : action.transactionEndTime,
+                transactionActivated : action.transactionActivated,
+                currentTransaction : action.currentTransaction,
             }
         default :
             return state;

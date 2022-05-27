@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { redirectToMainpage } from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 import { mainpageLastSearchResults } from '../mainpageActions';
 import { redirectToTransactionUserProfile } from './TransactionSearchActions';
 
@@ -48,6 +49,10 @@ const TransactionSearch = () => {
 
     return (
         <TransactionSearchStyle>
+            <div style={{ marginTop:'10px',marginBottom:'10px' }} 
+                onClick={ ()=> dispatch( redirectToMainpage() ) } >
+                back
+            </div>
             <TransactionSearchSave />
             <div style={{
                 maxHeight: '80vh',

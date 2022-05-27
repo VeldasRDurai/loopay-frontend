@@ -81,12 +81,12 @@ const UserProfile = () => {
         });
     }
 
-    socket.on('sent-request-acknowledge', ({ acknowledge, transactionEndTime }) => {
+    socket.on('sent-request-acknowledge', ({ acknowledge, transactionEndTime, currentTransaction, transactionActivated }) => {
         console.log( 'sent-request-acknowledge', { acknowledge, transactionEndTime });
         if( acknowledge ){
             dispatch( userProfileRequestAccepted({ email:selectedUserDetails.email }));
             dispatch( mainpageTransactionMode());
-            dispatch( mainpageTransactionEndTime({ transactionEndTime }) );
+            dispatch( mainpageTransactionEndTime({ transactionEndTime, currentTransaction, transactionActivated }) );
             dispatch( redirectToTransactionMapChat() );
         } else {
             dispatch(userProfileRequestRejected({ email:selectedUserDetails.email }));

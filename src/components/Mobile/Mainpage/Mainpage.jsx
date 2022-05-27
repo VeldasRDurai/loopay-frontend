@@ -19,7 +19,7 @@ import {
 
     mainpageRequestReceived,
 
-    mainpageCurrentTransaction,
+    // mainpageCurrentTransaction,
 
     mainpageUpdateConstants,
     mainpageTransactionEndTime
@@ -100,8 +100,9 @@ const Mainpage = () => {
                     mainpageLastSearch,
                     mainpageLastSearchSavedUpto,
                     mainpageRequestReceived,
-                    mainpageCurrentTransaction,
+                    // mainpageCurrentTransaction,
                     mainpageTransactionEndTime,
+                    socket,
                 });
             } else {
                 window.log('Not able to login or it is a sign up');

@@ -13,6 +13,7 @@ import newPasswordStateReducer from './loginState/newPasswordState/newPasswordSt
 
 import mainpageReducer from '../components/Mobile/Mainpage/mainpageReducer';
 import transactionSearchReducer from '../components/Mobile/Mainpage/TransactionSearch/TransactionSearchReducer';
+import transactionMapChatReducer from '../components/Mobile/Mainpage/TransactionMapChat/TransactionMapChatReducer';
 
 const rootReducer = combineReducers({
     profile  : profileReducer,
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     newPasswordState: newPasswordStateReducer,
 
     mainpageReducer,
-    transactionSearchReducer
+    transactionSearchReducer,
+    transactionMapChatReducer,
 });
 
 const store = createStore( rootReducer );

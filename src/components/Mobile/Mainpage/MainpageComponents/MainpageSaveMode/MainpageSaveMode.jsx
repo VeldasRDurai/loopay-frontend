@@ -51,11 +51,10 @@ const MainpageSaveMode = () => {
             }) );
             setRejectedRequested(false);
         });
-        socket.on('receive-request-accepted-acknowledge', ({ acknowledge, transactionEndTime }) => {
-            console.log( 'receive-request-accepted-acknowledge : ', { acknowledge, transactionEndTime } );
+        socket.on('receive-request-accepted-acknowledge', ({ acknowledge, transactionEndTime, currentTransaction, transactionActivated }) => {
             if(acknowledge){
                 dispatch(mainpageTransactionMode());
-                dispatch(mainpageTransactionEndTime({ transactionEndTime }))
+                dispatch(mainpageTransactionEndTime({ transactionEndTime, currentTransaction, transactionActivated }))
                 dispatch(redirectToTransactionMapChat());
             } else {
                 window.alert('Another one went offline or cancelled the request');

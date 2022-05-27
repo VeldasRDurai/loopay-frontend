@@ -18,7 +18,7 @@ import {
     MAINPAGE_LAST_SEARCH_RESULTS,
     MAINPAGE_LAST_SEARCH_SAVED_UPTO,
 
-    MAINPAGE_CURRENT_TRANSACTION,
+    // MAINPAGE_CURRENT_TRANSACTION,
     MAINPAGE_REQUEST_RECEIVED,
 
     MAINPAGE_UPDATE_CONSTANTS,
@@ -46,7 +46,7 @@ const mainpageShareMode         = () => typeSetter(MAINPAGE_SHARE_MODE);
 const mainpageFeedbackMode      = () => typeSetter(MAINPAGE_FEEDBACK_MODE);
 
 // email, socket action
-const mainpageUpdateConstants = ({ socket, email }) => ({
+const mainpageUpdateConstants = ({ socket, email, currentTransaction }) => ({
     ...typeSetter(MAINPAGE_UPDATE_CONSTANTS),
     socket,
     email
@@ -72,10 +72,10 @@ const mainpageLastSearchSavedUpto = ({ lastSearchSaved, lastSearchUpto }) => ({
 });
 
 // currentTransaction
-const mainpageCurrentTransaction = ({ currentTransaction }) => ({
-    ...typeSetter(MAINPAGE_CURRENT_TRANSACTION),
-    currentTransaction
-});
+// const mainpageCurrentTransaction = ({ currentTransaction }) => ({
+//     ...typeSetter(MAINPAGE_CURRENT_TRANSACTION),
+//     currentTransaction
+// });
 
 // requestFrom, requestFromUpto
 const mainpageRequestReceived = ({ requestFrom, requestFromUpto }) => ({
@@ -84,9 +84,11 @@ const mainpageRequestReceived = ({ requestFrom, requestFromUpto }) => ({
     requestFromUpto
 });
 
-const mainpageTransactionEndTime = ({ transactionEndTime }) => ({
+const mainpageTransactionEndTime = ({ transactionEndTime, currentTransaction, transactionActivated }) => ({
     ...typeSetter(MAINPAGE_TRANSACTION_END_TIME),
-    transactionEndTime
+    transactionEndTime,
+    transactionActivated,
+    currentTransaction,
 })
 
 export {
@@ -114,7 +116,7 @@ export {
     mainpageLastSearchResults,
     mainpageLastSearchSavedUpto,
     
-    mainpageCurrentTransaction,
+    // mainpageCurrentTransaction,
     mainpageRequestReceived,
 
     mainpageTransactionEndTime,
