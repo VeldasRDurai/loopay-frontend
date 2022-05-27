@@ -21,7 +21,8 @@ import {
     MAINPAGE_CURRENT_TRANSACTION,
     MAINPAGE_REQUEST_RECEIVED,
 
-    MAINPAGE_UPDATE_CONSTANTS
+    MAINPAGE_UPDATE_CONSTANTS,
+    MAINPAGE_TRANSACTION_END_TIME
 } from './mainpageTypes';
 
 const typeSetter = type => ({type});
@@ -83,6 +84,11 @@ const mainpageRequestReceived = ({ requestFrom, requestFromUpto }) => ({
     requestFromUpto
 });
 
+const mainpageTransactionEndTime = ({ transactionEndTime }) => ({
+    ...typeSetter(MAINPAGE_TRANSACTION_END_TIME),
+    transactionEndTime
+})
+
 export {
     editmainpagePageState,
     // ---------- //
@@ -109,5 +115,7 @@ export {
     mainpageLastSearchSavedUpto,
     
     mainpageCurrentTransaction,
-    mainpageRequestReceived
+    mainpageRequestReceived,
+
+    mainpageTransactionEndTime,
 };

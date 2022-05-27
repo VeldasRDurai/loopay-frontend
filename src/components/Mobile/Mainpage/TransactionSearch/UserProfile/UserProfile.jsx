@@ -12,7 +12,9 @@ import {
 
 import { 
     redirectToTransactionMapChat,
-    redirectToTransactionSearch
+    redirectToTransactionSearch,
+    mainpageTransactionMode,
+    mainpageTransactionEndTime,
 } from '../../mainpageActions';
 
 import UserProfileRequestButton from './UserProfileComponents/UserProfileRequestButton/UserProfileRequestButton';
@@ -79,10 +81,12 @@ const UserProfile = () => {
         });
     }
 
-    socket.on('sent-request-acknowledge', ({ acknowledge }) => {
-        console.log( 'sent-request-acknowledge' );
+    socket.on('sent-request-acknowledge', ({ acknowledge, transactionEndTime }) => {
+        console.log( 'sent-request-acknowledge', { acknowledge, transactionEndTime });
         if( acknowledge ){
-            dispatch(userProfileRequestAccepted({ email:selectedUserDetails.email }));
+            dispatch( userProfileRequestAccepted({ email:selectedUserDetails.email }));
+            dispatch( mainpageTransactionMode());
+            dispatch( mainpageTransactionEndTime({ transactionEndTime }) );
             dispatch( redirectToTransactionMapChat() );
         } else {
             dispatch(userProfileRequestRejected({ email:selectedUserDetails.email }));

@@ -21,7 +21,8 @@ import {
     MAINPAGE_CURRENT_TRANSACTION,
     MAINPAGE_REQUEST_RECEIVED,
 
-    MAINPAGE_UPDATE_CONSTANTS
+    MAINPAGE_UPDATE_CONSTANTS,
+    MAINPAGE_TRANSACTION_END_TIME
 } from './mainpageTypes';
 
 const initialState = {
@@ -52,7 +53,7 @@ const initialState = {
     requestFrom : undefined,
     requestFromUpto : undefined,
     
-    // transactionEndTime: 
+    transactionEndTime: undefined
 
     // // searches
     // // transactions : [ mongoose.ObjectId ],
@@ -80,8 +81,15 @@ const mainpageReducer = ( state = initialState, action ) => {
         case MAINPAGE_FEEDBACK_MODE :
             return { ...state,
                 mainpagePageState : undefined, 
-                currentMode : action.type
+                currentMode : action.type,
+                // transactionEndTime : action.transactionEndTime
             }
+            // case MAINPAGE_TRANSACTION_MODE :
+            //     return { ...state,
+            //         mainpagePageState : undefined, 
+            //         currentMode : action.type,
+            //         transactionEndTime : action.transactionEndTime
+            //     }
         
         // email, socket
         case MAINPAGE_UPDATE_CONSTANTS:
@@ -122,6 +130,11 @@ const mainpageReducer = ( state = initialState, action ) => {
                 requestFromUpto : action.requestFromUpto,
             }
 
+        // transactionEndTime
+        case MAINPAGE_TRANSACTION_END_TIME:
+            return { ...state,
+                transactionEndTime : action.transactionEndTime
+            }
         default :
             return state;
     }

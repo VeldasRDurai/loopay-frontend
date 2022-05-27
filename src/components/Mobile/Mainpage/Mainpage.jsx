@@ -21,7 +21,8 @@ import {
 
     mainpageCurrentTransaction,
 
-    mainpageUpdateConstants
+    mainpageUpdateConstants,
+    mainpageTransactionEndTime
 } from './mainpageActions';
 
 
@@ -34,6 +35,7 @@ import TransactionFeedbackPage from './TransactionFeedbackPage/TransactionFeedba
 // import MainpageCheckbox from './MainpageComponents/MainpageCheckbox/MainpageCheckbox';
 import MainpageSearchMode from './MainpageComponents/MainpageSearchMode/MainpageSearchMode.jsx';
 import MainpageSaveMode from './MainpageComponents/MainpageSaveMode/MainpageSaveMode';
+import MainpageTransactionMode from './MainpageComponents/MainpageTransactionMode/MainpageTransactionMode';
 
 import { 
     watchPosition,
@@ -71,7 +73,7 @@ const mainpageRender = {
 const currentModeRender = {
     MAINPAGE_SEARCH_MODE : <MainpageSearchMode />,
     MAINPAGE_SAVED_MODE : <MainpageSaveMode />,
-    MAINPAGE_TRANSACTION_MODE : 'Transaction mode',
+    MAINPAGE_TRANSACTION_MODE : <MainpageTransactionMode />,
     MAINPAGE_SHARE_MODE : 'Share mode',
     MAINPAGE_FEEDBACK_MODE : 'Feedback mode'
 }
@@ -99,6 +101,7 @@ const Mainpage = () => {
                     mainpageLastSearchSavedUpto,
                     mainpageRequestReceived,
                     mainpageCurrentTransaction,
+                    mainpageTransactionEndTime,
                 });
             } else {
                 window.log('Not able to login or it is a sign up');

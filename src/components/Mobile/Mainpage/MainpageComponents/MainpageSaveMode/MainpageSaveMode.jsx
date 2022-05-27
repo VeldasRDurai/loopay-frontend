@@ -7,7 +7,8 @@ import {
     mainpageSearchMode,
     mainpageTransactionMode,
     mainpageRequestReceived,
-    mainpageLastSearchSavedUpto
+    mainpageLastSearchSavedUpto,
+    mainpageTransactionEndTime
 } from '../../mainpageActions';
 
 import MainpageAcceptButton from './MainpageButton/MainpageAcceptButton';
@@ -50,9 +51,11 @@ const MainpageSaveMode = () => {
             }) );
             setRejectedRequested(false);
         });
-        socket.on('receive-request-accepted-acknowledge', ({acknowledge}) => {
+        socket.on('receive-request-accepted-acknowledge', ({ acknowledge, transactionEndTime }) => {
+            console.log( 'receive-request-accepted-acknowledge : ', { acknowledge, transactionEndTime } );
             if(acknowledge){
                 dispatch(mainpageTransactionMode());
+                dispatch(mainpageTransactionEndTime({ transactionEndTime }))
                 dispatch(redirectToTransactionMapChat());
             } else {
                 window.alert('Another one went offline or cancelled the request');

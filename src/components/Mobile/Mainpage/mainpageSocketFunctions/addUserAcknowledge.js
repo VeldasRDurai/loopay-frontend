@@ -1,10 +1,10 @@
 import {
     MAINPAGE_SEARCH_MODE,
-    // MAINPAGE_SAVED_MODE,
-    // MAINPAGE_TRANSACTION_MODE,
+    MAINPAGE_SAVED_MODE,
+    MAINPAGE_TRANSACTION_MODE,
     // MAINPAGE_SHARE_MODE,
     // MAINPAGE_FEEDBACK_MODE
- } from '../mainpageTypes';
+} from '../mainpageTypes';
 
 const addUserAcknowledge = ({
     dispatch,
@@ -25,7 +25,9 @@ const addUserAcknowledge = ({
     // 5
     currentTransaction,
     mainpageCurrentTransaction,
-
+    // 6
+    transactionEndTime,
+    mainpageTransactionEndTime
     // transactions : [ mongoose.ObjectId ],
     // searches : [{
     //     amount : Number,
@@ -36,9 +38,14 @@ const addUserAcknowledge = ({
 }) => {
     dispatch( editCurrentMode(currentMode) );
 
-    currentMode !== MAINPAGE_SEARCH_MODE &&
-        lastSearchSaved && new Date(lastSearchUpto) < new Date() &&
+    if(currentMode === MAINPAGE_SAVED_MODE) {
+        if( lastSearchSaved &&  new Date(lastSearchUpto) < new Date() )
+                dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
+    } else if ( currentMode === MAINPAGE_TRANSACTION_MODE ){
+        if( new Date(transactionEndTime) < new Date() ) 
+            // false if transactionEndTime is undefined
             dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
+    }
     
     lastSearch ? 
         dispatch( mainpageLastSearch({ lastSearch }) ) :
@@ -62,6 +69,9 @@ const addUserAcknowledge = ({
     dispatch( mainpageCurrentTransaction({
         currentTransaction
     }));
+    dispatch( mainpageTransactionEndTime({
+        transactionEndTime
+    }) )
 };
 
 module.exports = addUserAcknowledge;

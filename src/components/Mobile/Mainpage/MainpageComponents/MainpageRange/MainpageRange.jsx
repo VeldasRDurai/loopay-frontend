@@ -18,8 +18,10 @@ const MainpageRange = ({ min, max, roundTo, value, width }) => {
         event.target.value = Math.floor(event.target.value/roundTo)*roundTo; 
         console.log(event.target.value);
         dispatch( mainpageLastSearch({  
-            ...lastSearch,
-                [value]: event.target.value
+            lastSearch : {
+                ...lastSearch,
+                    [value]: event.target.value
+            }
         }));
     }
 
