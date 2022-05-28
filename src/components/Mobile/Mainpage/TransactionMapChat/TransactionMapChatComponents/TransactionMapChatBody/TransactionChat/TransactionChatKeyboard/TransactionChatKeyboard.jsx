@@ -5,6 +5,8 @@ import { RiSendPlaneFill } from "react-icons/ri";
 
 import { transactionChat } from '../../../../TransactionMapChatActions';
 
+import slideInTop from '../../../../../../../../animation/SlideInTop';
+
 const TransactionChatKeyboardStyle = styled.div`
     position: absolute;
     bottom: 0;
@@ -19,6 +21,7 @@ const TransactionChatKeyboardStyle = styled.div`
     width: 100vw;
 
     background-color: white;
+    animation: ${slideInTop} 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s both;
 `;
 const TransactionChatSendInput = styled.input`
     height: 6vh;
@@ -80,7 +83,9 @@ const TransactionChatKeyboard = () => {
                 onChange={onChange}
             />
             <TransactionChatSendButton onClick={onClick} >
-                <RiSendPlaneFill />
+                <RiSendPlaneFill 
+                    style={{ height:'25px', width:'25px' }}
+                />
             </TransactionChatSendButton>
         </TransactionChatKeyboardStyle>
     );

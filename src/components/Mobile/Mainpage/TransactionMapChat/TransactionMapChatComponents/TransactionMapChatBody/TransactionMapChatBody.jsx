@@ -12,7 +12,7 @@ const TransactionMapChatBodyStyle = styled.div`
     height: 90vh;
     width: 100vw;
 
-    background-color: #008177;
+    background-color: #ffffff;
 `
 
 const TransactionMapChatBody = () => {
