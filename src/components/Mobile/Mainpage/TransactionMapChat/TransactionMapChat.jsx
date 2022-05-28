@@ -12,6 +12,7 @@ import {
     transactionMapChatDetails,
     transactionMapChatFromFound,
     transactionMapChatToFound,
+    transactionChat,
     editTransactionResult
 } from './TransactionMapChatActions';
 
@@ -65,6 +66,7 @@ const TransactionMapChat = () => {
             dispatch( transactionMapChatFromFound({ requestFromFound: details.requestFromFound }) );
             dispatch( transactionMapChatToFound({ requestToFound: details.requestToFound }) );
             dispatch( editTransactionResult(details.transactionResult) );
+            dispatch( transactionChat({ chat:details.chat }) )
             setLoading(false);
         } else {
             window.alert('Internal server error');

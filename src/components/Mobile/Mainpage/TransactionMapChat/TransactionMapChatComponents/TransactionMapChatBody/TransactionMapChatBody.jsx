@@ -19,9 +19,11 @@ const TransactionMapChatBody = () => {
     const [ showMap, setShowMap ] = useState(true);
     return (
         <TransactionMapChatBodyStyle>
-            { showMap? 
-                <TransactionMap  setShowMap={setShowMap} /> : 
-                <TransactionChat setShowMap={setShowMap}  /> }
+            { 
+                showMap? 
+                <TransactionMap  onClick={ () => setShowMap(false) } /> : 
+                <TransactionChat onClick={ () => setShowMap(true ) }  /> 
+            }
         </TransactionMapChatBodyStyle>
     );
 }

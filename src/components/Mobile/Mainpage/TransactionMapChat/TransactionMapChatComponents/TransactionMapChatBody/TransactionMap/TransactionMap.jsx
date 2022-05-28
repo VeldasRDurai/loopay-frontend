@@ -12,9 +12,9 @@ const TransactionMapStyle = styled.div`
     background-color: #00ff00;
 `
 
-const TransactionMap = ({ setShowMap }) => {
+const TransactionMap = ({onClick}) => {
     return (
-        <TransactionMapStyle onClick={ () => setShowMap(false) }>
+        <TransactionMapStyle onClick={onClick}>
             TransactionMap
         </TransactionMapStyle>
     );

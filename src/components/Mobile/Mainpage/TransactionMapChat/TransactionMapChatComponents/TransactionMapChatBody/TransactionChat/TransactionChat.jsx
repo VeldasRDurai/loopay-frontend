@@ -1,21 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import TransactionChatBox from './TransactionChatBox/TransactionChatBox';
+import TransactionChatKeyboard from './TransactionChatKeyboard/TransactionChatKeyboard';
+import TransactionSwitch from './TransactionSwitch/TransactionSwitch';
+
 const TransactionChatStyle = styled.div`
     display: flex;
     justify-content: center;
-    align-items: center;
-
+    align-items: flex-start;
+    
     height: 90vh;
     width: 100vw;
 
     background-color: #ff0000;
 `
 
-const TransactionChat = ({ setShowMap }) => {
+const TransactionChat = ({onClick}) => {
     return (
-        <TransactionChatStyle onClick={ () => setShowMap(true) }>
-            TransactionChat
+        <TransactionChatStyle>
+            <TransactionChatBox />
+            <TransactionSwitch  onClick={onClick} />
+            <TransactionChatKeyboard />
         </TransactionChatStyle>
     );
 }
