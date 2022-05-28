@@ -8,12 +8,15 @@ import {
     redirectToTransactionFeedbackpage
 } from '../mainpageActions';
 
-import { 
+import {     
     transactionMapChatDetails,
     transactionMapChatFromFound,
     transactionMapChatToFound,
+    transactionMapChatToLocation,
+    transactionMapChatFromLocation,
     transactionChat,
-    editTransactionResult
+
+    editTransactionResult,
 } from './TransactionMapChatActions';
 
 import TransactionMapChatHead from './TransactionMapChatComponents/TransactionMapChatHead/TransactionMapChatHead';
@@ -66,7 +69,15 @@ const TransactionMapChat = () => {
             dispatch( transactionMapChatFromFound({ requestFromFound: details.requestFromFound }) );
             dispatch( transactionMapChatToFound({ requestToFound: details.requestToFound }) );
             dispatch( editTransactionResult(details.transactionResult) );
-            dispatch( transactionChat({ chat:details.chat }) )
+            dispatch( transactionChat({ chat:details.chat }) );
+            details.requestFromLocation.coordinates &&
+                dispatch( transactionMapChatFromLocation({ 
+                    coordinates: details.requestFromLocation.coordinates 
+                }) );
+            details.requestToLocation.coordinates &&
+                dispatch(  transactionMapChatToLocation({ 
+                    coordinates: details.requestToLocation.coordinates 
+                }) );
             setLoading(false);
         } else {
             window.alert('Internal server error');
