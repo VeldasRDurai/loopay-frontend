@@ -51,10 +51,21 @@ const MainpageSaveMode = () => {
             }) );
             setRejectedRequested(false);
         });
-        socket.on('receive-request-accepted-acknowledge', ({ acknowledge, transactionEndTime, currentTransaction, transactionActivated }) => {
+        socket.on('receive-request-accepted-acknowledge', ({ 
+            acknowledge, 
+            transactionEndTime, 
+            currentTransaction, 
+            transactionActivated,
+            lastSearchSaved,
+            lastSearchUpto,
+            requestFrom,
+            requestFromUpto,
+        }) => {
             if(acknowledge){
                 dispatch(mainpageTransactionMode());
                 dispatch(mainpageTransactionEndTime({ transactionEndTime, currentTransaction, transactionActivated }))
+                dispatch( mainpageLastSearchSavedUpto({ lastSearchSaved, lastSearchUpto }) );
+                dispatch( mainpageRequestReceived({ requestFrom, requestFromUpto }) );
                 dispatch(redirectToTransactionMapChat());
             } else {
                 window.alert('Another one went offline or cancelled the request');
@@ -72,12 +83,16 @@ const MainpageSaveMode = () => {
     const deleteOnClick = () =>
         socket.emit('save-search-delete',{ email });
 
-    socket.on('save-search-delete-acknowledge', ({ acknowledge }) => {
+    socket.on('save-search-delete-acknowledge', ({ 
+        acknowledge,
+        lastSearchSaved,
+        lastSearchUpto,
+        requestFrom,
+        requestFromUpto,
+    }) => {
         if( acknowledge ){
-            dispatch( mainpageLastSearchSavedUpto({
-                lastSearchSaved: false,
-                lastSearchUpto : undefined
-            }) )
+            dispatch( mainpageLastSearchSavedUpto({ lastSearchSaved, lastSearchUpto, }) );
+            dispatch( mainpageRequestReceived({ requestFrom, requestFromUpto }) );
             dispatch( mainpageSearchMode() );
         } else {
             window.alert("Internal Server error");

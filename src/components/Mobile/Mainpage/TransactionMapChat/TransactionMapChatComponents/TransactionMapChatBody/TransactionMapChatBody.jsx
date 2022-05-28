@@ -1,0 +1,29 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+import TransactionChat from './TransactionChat/TransactionChat';
+import TransactionMap from './TransactionMap/TransactionMap';
+
+const TransactionMapChatBodyStyle = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 90vh;
+    width: 100vw;
+
+    background-color: #008177;
+`
+
+const TransactionMapChatBody = () => {
+    const [ showMap, setShowMap ] = useState(true);
+    return (
+        <TransactionMapChatBodyStyle>
+            { showMap? 
+                <TransactionMap  setShowMap={setShowMap} /> : 
+                <TransactionChat setShowMap={setShowMap}  /> }
+        </TransactionMapChatBodyStyle>
+    );
+}
+
+export default TransactionMapChatBody;

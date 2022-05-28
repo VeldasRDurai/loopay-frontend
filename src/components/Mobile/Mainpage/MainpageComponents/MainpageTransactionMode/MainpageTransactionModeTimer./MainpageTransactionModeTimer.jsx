@@ -5,7 +5,7 @@ import { useCountdown, CountdownCircleTimer } from "react-countdown-circle-timer
 
 import "./styles.css";
 
-import { mainpageSearchMode } from '../../../mainpageActions';
+import { mainpageFeedbackMode } from '../../../mainpageActions';
 
 const MainpageTransactionModeTimerStyle = styled.div`
     display: flex;
@@ -17,10 +17,11 @@ const MainpageTransactionModeTimerStyle = styled.div`
 const MainpageTransactionModeTimer = () => {
     const dispatch = useDispatch()
     
-    // const { email } = useSelector( state => state.profile );
     const { 
-        // email,
-        transactionEndTime 
+        email,
+        currentTransaction,
+        transactionEndTime,
+        socket
     } = useSelector( state => state.mainpageReducer );
     
     const duration = (new Date(transactionEndTime) - new Date()) / (1000);
@@ -74,8 +75,8 @@ const MainpageTransactionModeTimer = () => {
     })
 
     const onComplete = () => {
-            // socket.emit('request-timer-expired',{email});
-            dispatch(mainpageSearchMode());
+            socket.emit('transaction-timer-expired',{ email, currentTransaction });
+            dispatch(mainpageFeedbackMode());
     }
 
     return <MainpageTransactionModeTimerStyle>

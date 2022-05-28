@@ -17,11 +17,11 @@ const TransactionTimer = () => {
     const { 
         email,
         currentTransaction,
+        transactionEndTime,
         socket
     } = useSelector( state => state.mainpageReducer );
-    const { details } = useSelector( state => state.transactionMapChatReducer );
     
-    const initialRemainingTime = (new Date( details.transactionEndTime ) - new Date()) / (1000);
+    const initialRemainingTime = (new Date( transactionEndTime ) - new Date()) / (1000);
     const renderTime = ({ remainingTime }) => {
         const currentTime = useRef(remainingTime);
         const prevTime = useRef(null);

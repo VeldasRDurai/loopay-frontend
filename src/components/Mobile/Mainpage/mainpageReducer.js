@@ -54,6 +54,7 @@ const initialState = {
     requestFromUpto : undefined,
     
     currentTransaction : undefined,
+    
     transactionActivated: false,
     transactionEndTime: undefined,
 

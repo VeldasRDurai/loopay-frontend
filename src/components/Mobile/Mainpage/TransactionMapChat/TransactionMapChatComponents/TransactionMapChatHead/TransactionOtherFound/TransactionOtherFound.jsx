@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -9,6 +9,7 @@ const TransactionOtherFoundStyle = styled.div`
 `
 
 const TransactionOtherFound = () => {
+    const [ found, setFound ] = useState(false);
     const { email } = useSelector( state => state.mainpageReducer );
     const { 
         details,
@@ -16,13 +17,16 @@ const TransactionOtherFound = () => {
         requestToFound
     } = useSelector( state => state.transactionMapChatReducer );
 
+    useEffect( () => 
+        details.requestFrom === email ? 
+            setFound(requestToFound)  :
+            setFound(requestFromFound) ,[
+        requestFromFound, requestToFound
+    ])
+
     return (
         <TransactionOtherFoundStyle>
-            { 
-                details.requestFrom === email ?
-                    (requestFromFound ? 'Founded you' : 'Not founded you' ) :
-                    (requestToFound   ? 'Founded you' : 'Not founded you' )
-            }
+            { found ? 'Founded you': 'Not founded you' }
         </TransactionOtherFoundStyle>
   );
 }

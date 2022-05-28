@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, 
     // useDispatch 
@@ -17,6 +17,7 @@ const TransactionFoundStyle = styled.div`
 `
 
 const TransactionFound = () => {
+    const [ found, setFound ] = useState(false);
     const { 
         email,
         currentTransaction,
@@ -28,16 +29,23 @@ const TransactionFound = () => {
         requestToFound
     } = useSelector( state => state.transactionMapChatReducer );
 
-    const onClick = () =>
-        socket.on('transaction-found', { email, currentTransaction } )
+    useEffect( () => 
+        details.requestFrom === email ? 
+            setFound(requestFromFound) :
+            setFound(requestToFound),[
+        requestFromFound, requestToFound
+    ])
+
+    const onClick = () =>{
+        console.log('Clicked')
+        console.log('found on click : ', !found );
+        socket.emit('transaction-found', { email, currentTransaction, found:!found } )
+        setFound(!found);
+    }
 
     return (
         <TransactionFoundStyle onClick={ onClick } >
-            { 
-                details.requestFrom === email ?
-                    (requestFromFound ? 'Not founded' : 'Founded' ) :
-                    (requestToFound   ? 'Not founded' : 'Founded' )
-            }
+            { found ? 'Not founded' : 'Founded' }
             <TransactionTimer />
         </TransactionFoundStyle>
   );

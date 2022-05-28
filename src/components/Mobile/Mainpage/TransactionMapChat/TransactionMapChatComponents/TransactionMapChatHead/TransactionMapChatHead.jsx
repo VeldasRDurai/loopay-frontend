@@ -15,6 +15,10 @@ const TransactionMapChatHeadStyle = styled.div`
     width: 100vw;
 
     background-color: white;
+    & > *{
+        margin: 2px;
+        border: 1px solid black;
+    }
 `
 
 const TransactionMapChatHead = () => {
