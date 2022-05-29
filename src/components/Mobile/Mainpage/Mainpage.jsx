@@ -3,42 +3,33 @@ import styled from 'styled-components';
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
 
-import serviceWorkerRegistration from '../../../functions/serviceWorkerRegistration';
 import addUserAcknowledge from './mainpageSocketFunctions/addUserAcknowledge';
 
 import { 
-    // redirectToProfile,  
-    // redirectToHistory,
-    // redirectToNotification,
-    // redirectToTransactionSearch,
-    // redirectToTransactionMapChat,
     redirectToTransactionFeedbackpage,
     mainpageFeedbackMode,
     editCurrentMode,
-
     mainpageLastSearch,
     mainpageLastSearchSavedUpto,
-
     mainpageRequestReceived,
-
-    // mainpageCurrentTransaction,
-
     mainpageUpdateConstants,
     mainpageTransactionEndTime
 } from './mainpageActions';
 
 
+import TransactionProfile from './TransactionProfile/TransactionProfile';
 import TransactionSearch from './TransactionSearch/TransactionSearch';
 import TransactionMapChat from './TransactionMapChat/TransactionMapChat';
 import TransactionScanQr from './TransactionScanQr/TransactionScanQr';
 import TransactionFeedbackPage from './TransactionFeedbackPage/TransactionFeedbackPage';
 
-// import MainpageRange from './MainpageComponents/MainpageRange/MainpageRange';
-// import MainpageCheckbox from './MainpageComponents/MainpageCheckbox/MainpageCheckbox';
 import MainpageSearchMode from './MainpageComponents/MainpageSearchMode/MainpageSearchMode.jsx';
 import MainpageSaveMode from './MainpageComponents/MainpageSaveMode/MainpageSaveMode';
 import MainpageTransactionMode from './MainpageComponents/MainpageTransactionMode/MainpageTransactionMode';
 import MainpageFeedbackMode from './MainpageComponents/MainpageFeedbackMode/MainpageFeedbackMode';
+
+import MainpageHead from './MainpageComponents/MainpageHead/MainpageHead';
+import MainpageTail from './MainpageComponents/MainpageTail/MainpageTail';
 
 import { 
     watchPosition,
@@ -47,8 +38,6 @@ import {
 } from '../../../functions/map';
 
 const MainpageStyle = styled.div`
-    &> :first-child{
-    }
     position: absolute;
     top: 0;
     left: 0;
@@ -58,14 +47,14 @@ const MainpageStyle = styled.div`
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
-    background-color: aqua;
-`
+    background-color: #ffffff;
+`;
 
 const mainpageRender = {
-    REDIRECT_TO_PROFILE: 'profile',
+    REDIRECT_TO_PROFILE: <TransactionProfile />,
     REDIRECT_TO_HISTORY: 'history',
     REDIRECT_TO_NOTIFICATION: 'notification',
     REDIRECT_TO_TRANSACTION_SEARCH  : <TransactionSearch />,
@@ -117,7 +106,7 @@ const Mainpage = () => {
                     socket,
                 });
                 watchPosition({ onSuccess, onError });
-                serviceWorkerRegistration({ socket, email } );
+                // serviceWorkerRegistration({ socket, email } );
             } else {
                 window.alert('Not able to login or it is a sign up');
             }
@@ -134,7 +123,10 @@ const Mainpage = () => {
     },[])
     return (
         <MainpageStyle>
+            <MainpageHead />
             { currentModeRender[currentMode] }
+            <MainpageTail />
+
             { mainpageRender[mainpagePageState] }
         </MainpageStyle>
   );
