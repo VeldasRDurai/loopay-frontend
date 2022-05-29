@@ -20,6 +20,7 @@ import {
 
 import TransactionProfile from './TransactionProfile/TransactionProfile';
 import TransactionHistory from './TransactionHistory/TransactionHistory'
+import TransactionNotification from './TransactionNotification/TransactionNotification';
 
 import TransactionSearch from './TransactionSearch/TransactionSearch';
 import TransactionMapChat from './TransactionMapChat/TransactionMapChat';
@@ -59,7 +60,7 @@ const MainpageStyle = styled.div`
 const mainpageRender = {
     REDIRECT_TO_PROFILE: <TransactionProfile />,
     REDIRECT_TO_HISTORY: <TransactionHistory />,
-    REDIRECT_TO_NOTIFICATION: 'notification',
+    REDIRECT_TO_NOTIFICATION: <TransactionNotification />,
     REDIRECT_TO_TRANSACTION_SEARCH  : <TransactionSearch />,
     REDIRECT_TO_TRANSACTION_MAP_CHAT: <TransactionMapChat />,
     REDIRECT_TO_TRANSACTION_SCAN_QR : <TransactionScanQr />,
