@@ -7,6 +7,7 @@ import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { redirectToMainpage } from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 import slideInRight from '../../../../animation/slideInRight';
+import TransactionHistoryDetails from './TransactionHistoryDetails/TransactionHistoryDetails';
 
 const MainpageHistoryStyle = styled.div`
     position: absolute;
@@ -22,6 +23,10 @@ const MainpageHistoryStyle = styled.div`
     background-color: #000000;
     animation: ${slideInRight} 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 `;
+const Heading = styled.div`
+    margin-left: 10px;
+    font-size: 20px;
+`
 
 const BackButton = styled.div`
     height: 10vh;
@@ -62,6 +67,8 @@ const TransactionTile = styled.div`
 
     box-sizing: border-box;
     border: 1px solid white;
+    border-radius: 10px;
+    margin-bottom: 15px;
     /* background-color: #ff00ff; */
 `
 const MainpageHistory = () => {
@@ -72,6 +79,8 @@ const MainpageHistory = () => {
     } = useSelector( state => state.mainpageReducer );
     const [ loading, setLoading ] = useState(true);
     const [ history, setHistory ] = useState([]);
+    const [ showHistoryDetails, setShowHistoryDetails ] = useState(false);
+    const [ selectedHistory, setSelectedHistory ] = useState(undefined);
     useEffect( () => {
         socket.emit('transaction-history',{ email });
     },[]);
@@ -86,21 +95,35 @@ const MainpageHistory = () => {
         setLoading(false);
     })
 
+    const onClickTransactionTile = item => {
+        setSelectedHistory(item);
+        setShowHistoryDetails(true);
+    }
+
     return (
         <MainpageHistoryStyle>
             <BackButton onClick={ () => dispatch( redirectToMainpage() ) } > 
                 <IoChevronBackCircleOutline style={logoStyle} />
-                <div> Transaction history </div>
+                <Heading> Transaction history </Heading>
             </BackButton>
             <HistoryBody>
                 {
                     loading ? 'Loading...!!!':
                         history.length === 0 ? 'No transactions yet...':
                     history.map( item => 
-                        <TransactionTile key={item.transactionNo}> {item.transactionNo} </TransactionTile>
+                        <TransactionTile key={item.transactionNo}
+                            onClick={() => onClickTransactionTile(item)}> 
+                                {item.transactionNo} 
+                        </TransactionTile>
                     )
                 }
             </HistoryBody>
+
+            { showHistoryDetails && 
+                <TransactionHistoryDetails 
+                    onClick={ () => setShowHistoryDetails(false) }
+                    selectedHistory={selectedHistory} /> }
+
         </MainpageHistoryStyle>
   );
 }
