@@ -9,7 +9,7 @@ import { GrHomeRounded } from "react-icons/gr";
 
 import { 
     redirectToProfile, 
-    // redirectToHistory 
+    redirectToHistory 
 } from '../../mainpageActions';
 
 const MainpageTailStyle = styled.div`
@@ -54,7 +54,7 @@ const MainpageTail = () => {
             <LogoButton selected={true} >
                 <GrHomeRounded style={logoStyleHome} />
             </LogoButton>
-            <LogoButton>
+            <LogoButton onClick={ () => dispatch( redirectToHistory() ) } >
                 <AiOutlineTransaction style={logoStyle} />
             </LogoButton>
             

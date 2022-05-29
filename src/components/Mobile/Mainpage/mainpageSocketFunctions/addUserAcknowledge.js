@@ -27,6 +27,10 @@ const addUserAcknowledge = ({
     transactionActivated,
     transactionEndTime,
     mainpageTransactionEndTime,
+
+    //6
+    notifications,
+    mainpageNotification,
     
     email,
     socket,
@@ -71,6 +75,9 @@ const addUserAcknowledge = ({
         currentTransaction,
         transactionActivated,
         transactionEndTime
+    }) );
+    dispatch( mainpageNotification({
+        notifications
     }) )
 };
 

@@ -22,7 +22,8 @@ import {
     MAINPAGE_REQUEST_RECEIVED,
 
     MAINPAGE_UPDATE_CONSTANTS,
-    MAINPAGE_TRANSACTION_END_TIME
+    MAINPAGE_TRANSACTION_END_TIME,
+    MAINPAGE_NOTIFICATION
 } from './mainpageTypes';
 
 const typeSetter = type => ({type});
@@ -91,6 +92,11 @@ const mainpageTransactionEndTime = ({ transactionEndTime, currentTransaction, tr
     currentTransaction,
 })
 
+const mainpageNotification = ({ notifications }) => ({
+    ...typeSetter(MAINPAGE_NOTIFICATION),
+    notifications
+});
+
 export {
     editmainpagePageState,
     // ---------- //
@@ -120,4 +126,5 @@ export {
     mainpageRequestReceived,
 
     mainpageTransactionEndTime,
+    mainpageNotification
 };

@@ -23,7 +23,8 @@ import {
     MAINPAGE_REQUEST_RECEIVED,
 
     MAINPAGE_UPDATE_CONSTANTS,
-    MAINPAGE_TRANSACTION_END_TIME
+    MAINPAGE_TRANSACTION_END_TIME,
+    MAINPAGE_NOTIFICATION
 } from './mainpageTypes';
 
 const initialState = {
@@ -58,6 +59,7 @@ const initialState = {
     transactionActivated: false,
     transactionEndTime: undefined,
 
+    notifications : [],
     // // searches
     // // transactions : [ mongoose.ObjectId ],
 }
@@ -142,6 +144,11 @@ const mainpageReducer = ( state = initialState, action ) => {
                 transactionEndTime : action.transactionEndTime,
                 transactionActivated : action.transactionActivated,
                 currentTransaction : action.currentTransaction,
+            }
+        
+        case MAINPAGE_NOTIFICATION:
+            return { ...state,
+                notifications: action.notifications
             }
         default :
             return state;

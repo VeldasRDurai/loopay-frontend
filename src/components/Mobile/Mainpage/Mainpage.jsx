@@ -13,11 +13,14 @@ import {
     mainpageLastSearchSavedUpto,
     mainpageRequestReceived,
     mainpageUpdateConstants,
-    mainpageTransactionEndTime
+    mainpageTransactionEndTime,
+    mainpageNotification
 } from './mainpageActions';
 
 
 import TransactionProfile from './TransactionProfile/TransactionProfile';
+import TransactionHistory from './TransactionHistory/TransactionHistory'
+
 import TransactionSearch from './TransactionSearch/TransactionSearch';
 import TransactionMapChat from './TransactionMapChat/TransactionMapChat';
 import TransactionScanQr from './TransactionScanQr/TransactionScanQr';
@@ -55,7 +58,7 @@ const MainpageStyle = styled.div`
 
 const mainpageRender = {
     REDIRECT_TO_PROFILE: <TransactionProfile />,
-    REDIRECT_TO_HISTORY: 'history',
+    REDIRECT_TO_HISTORY: <TransactionHistory />,
     REDIRECT_TO_NOTIFICATION: 'notification',
     REDIRECT_TO_TRANSACTION_SEARCH  : <TransactionSearch />,
     REDIRECT_TO_TRANSACTION_MAP_CHAT: <TransactionMapChat />,
@@ -103,6 +106,7 @@ const Mainpage = () => {
                     mainpageRequestReceived,
                     // mainpageCurrentTransaction,
                     mainpageTransactionEndTime,
+                    mainpageNotification,
                     socket,
                 });
                 watchPosition({ onSuccess, onError });
