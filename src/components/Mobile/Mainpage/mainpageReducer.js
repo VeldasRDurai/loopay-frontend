@@ -75,6 +75,8 @@ const mainpageReducer = ( state = initialState, action ) => {
         case REDIRECT_TO_TRANSACTION_FEEDBACK_PAGE :
             return { ...state,
                 mainpagePageState : action.type,
+                // from transactionRedcer
+                rejectedUsers: []
             }
 
         // currentMode

@@ -92,8 +92,10 @@ const UserProfileTimer = () => {
     return <UserProfileTimerStyle>
         <CountdownCircleTimer
             isPlaying
-            duration={300}
-            initialRemainingTime={ initialRemainingTime > 0 ? initialRemainingTime : 0 }
+            duration={ initialRemainingTime>0 ? initialRemainingTime : 0  }
+
+            // duration={300}
+            // initialRemainingTime={ initialRemainingTime > 0 ? initialRemainingTime : 0 }
             colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
             colorsTime={[30, 28, 9, 0]}
             onComplete={onComplete}

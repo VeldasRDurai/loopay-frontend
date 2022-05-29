@@ -27,6 +27,7 @@ const transactionSearchReducer = ( state = initialState, action ) => {
                 transactionSearchPageState : undefined,
                 selectedUserDetails : undefined,
                 userProfileRequestState : USER_PROFILE_REQUEST_CANCEL,
+                // rejectedUsers : [],
                 requestTimerExpiesOn : undefined
             }
         case REDIRECT_TO_TRANSACTION_USER_PROFILE :

@@ -13,6 +13,7 @@ import {
 
 import MainpageAcceptButton from './MainpageButton/MainpageAcceptButton';
 import MainpageRejectButton from './MainpageButton/MainpageRejectButton';
+import MainpageSaveModeTimer from './MainpageSaveModeTimer/MainpageSaveModeTimer';
 
 const MainpageSaveModeStyle = styled.div`
     display: flex;
@@ -34,8 +35,8 @@ const MainpageSaveMode = () => {
     const dispatch = useDispatch();
     const { 
         lastSearch,
-        lastSearchSaved,
-        lastSearchUpto,
+        // lastSearchSaved,
+        // lastSearchUpto,
         requestFrom,
         requestFromUpto,
         socket,
@@ -78,6 +79,10 @@ const MainpageSaveMode = () => {
     
     const rejectOnClick = () => {
         socket.emit('receive-request-rejected',{ requestTo:email, requestFrom})
+        dispatch( mainpageRequestReceived({
+            requestFrom: undefined,
+            requestFromUpto: undefined,
+        }));
         setRejectedRequested(true);
     }
     const deleteOnClick = () =>
@@ -104,7 +109,8 @@ const MainpageSaveMode = () => {
         <div> amount : { lastSearch.amount } </div>
         <div> isSoft : { String(lastSearch.isSoftCash) } </div>
         <div> radius : { lastSearch.radius } </div>
-        <div> { lastSearchSaved && String(new Date(lastSearchUpto)) } </div>
+        {/* <div> { lastSearchSaved && String(new Date(lastSearchUpto)) } </div> */}
+        <MainpageSaveModeTimer />
         <div onClick={deleteOnClick} >
             Delete
         </div>

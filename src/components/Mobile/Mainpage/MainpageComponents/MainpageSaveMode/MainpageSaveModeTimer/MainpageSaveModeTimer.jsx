@@ -1,32 +1,26 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector, 
-    // useDispatch 
-} from 'react-redux';
-import { CountdownCircleTimer, useCountdown } from 'react-countdown-circle-timer';
+import { useSelector } from 'react-redux';
+import { useCountdown, CountdownCircleTimer } from "react-countdown-circle-timer";
 
-// import { 
-//     mainpageFeedbackMode,
-//     redirectToTransactionFeedbackpage 
-// } from '../../../../../mainpageActions';
+import "./styles.css";
 
-const TransactionTimerStyle = styled.div`
+const MainpageSaveTimerStyle = styled.div`
+
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
 `
 
-const TransactionTimer = () => {
-    // const dispatch = useDispatch();
-    const { 
+const MainpageSaveModeTimer = () => {
+    const {
         email,
-        currentTransaction,
-        transactionEndTime,
-        socket
+        lastSearchUpto, 
+        socket 
     } = useSelector( state => state.mainpageReducer );
     
-    const initialRemainingTime = (new Date( transactionEndTime ) - new Date()) / (1000);
+    const initialRemainingTime = (new Date(lastSearchUpto) - new Date()) / (1000);
     const renderTime = ({ remainingTime }) => {
         const currentTime = useRef(remainingTime);
         const prevTime = useRef(null);
@@ -75,26 +69,24 @@ const TransactionTimer = () => {
         strokeWidth:6 
     })
 
-    const onComplete = () => {
-            socket.emit('transaction-timer-expired',{ email, currentTransaction });
-            // dispatch(mainpageFeedbackMode());
-            // dispatch( redirectToTransactionFeedbackpage() );
-    }
+    const onComplete = () =>
+            socket.emit('save-search-delete',{ email });
 
-    return (
-        <TransactionTimerStyle>
-            <CountdownCircleTimer
-                isPlaying
-                duration={ initialRemainingTime>0 ? initialRemainingTime : 0  }
-                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                colorsTime={[30, 28, 9, 0]}
-                onComplete={onComplete}
-                size={size}
-                strokeWidth={strokeWidth} >
-            {renderTime}
-            </CountdownCircleTimer>
-        </TransactionTimerStyle>
-  );
+    return <MainpageSaveTimerStyle>
+        <CountdownCircleTimer
+            isPlaying
+            duration={ initialRemainingTime>0 ? initialRemainingTime : 0  }
+            // duration={ 300 }
+            // initialRemainingTime={ initialRemainingTime>0 ? initialRemainingTime : 0  }
+            colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+            colorsTime={[30, 28, 9, 0]}
+            onComplete={onComplete}
+            size={size}
+            strokeWidth={strokeWidth} >
+          {renderTime}
+        </CountdownCircleTimer>
+    </MainpageSaveTimerStyle>;
 }
 
-export default TransactionTimer;
+
+export default MainpageSaveModeTimer;

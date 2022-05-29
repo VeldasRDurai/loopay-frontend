@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useCountdown, CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import "./styles.css";
-
+ 
+import { mainpageRequestReceived } from '../../../../mainpageActions';
 // import { userProfileRequestTimerExpired } from '../../../TransactionSearchActions'
 
 const MainpageSaveTimerStyle = styled.div`
@@ -20,7 +21,7 @@ const MainpageSaveTimerStyle = styled.div`
 `
 
 const MainpageSaveTimer = () => {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch();
     // const { requestTimerExpiesOn } = useSelector( state => state.transactionSearchReducer );
     
     // const { selectedUserDetails } = useSelector( state => state.transactionSearchReducer );
@@ -77,19 +78,21 @@ const MainpageSaveTimer = () => {
         strokeWidth:6 
     })
 
-    // const onComplete = () => {
+    const onComplete = () => {
+        dispatch( mainpageRequestReceived({ requestFrom:undefined, requestFromUpto:undefined }) );
     //         socket.emit('request-timer-expired',{email});
     //         dispatch(userProfileRequestTimerExpired({ email:selectedUserDetails.email }));
-    // }
+    }
 
     return <MainpageSaveTimerStyle>
         <CountdownCircleTimer
             isPlaying
-            duration={ 300 }
-            initialRemainingTime={ initialRemainingTime>0 ? initialRemainingTime : 0  }
+            duration={ initialRemainingTime>0 ? initialRemainingTime : 0  }
+            // duration={ 300 }
+            // initialRemainingTime={ initialRemainingTime>0 ? initialRemainingTime : 0  }
             colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
             colorsTime={[30, 28, 9, 0]}
-            // onComplete={onComplete}
+            onComplete={onComplete}
             size={size}
             strokeWidth={strokeWidth}
         >

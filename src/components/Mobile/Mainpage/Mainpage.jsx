@@ -11,7 +11,8 @@ import {
     // redirectToNotification,
     // redirectToTransactionSearch,
     // redirectToTransactionMapChat,
-
+    redirectToTransactionFeedbackpage,
+    mainpageFeedbackMode,
     editCurrentMode,
 
     mainpageLastSearch,
@@ -116,9 +117,15 @@ const Mainpage = () => {
                 });
                 watchPosition({ onSuccess, onError });
             } else {
-                window.log('Not able to login or it is a sign up');
+                window.alert('Not able to login or it is a sign up');
             }
         });
+        socket.on('transaction-timer-expired-acknowledge', ({ acknowledge }) => {
+            if(acknowledge){
+                dispatch( mainpageFeedbackMode());
+                dispatch( redirectToTransactionFeedbackpage() );
+            }
+        })
         socket.on("connect_error", (err) => {
             console.log(`connect_error due to ${err.message}`);
         });

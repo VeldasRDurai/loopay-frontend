@@ -3,7 +3,7 @@ import {
     MAINPAGE_SAVED_MODE,
     MAINPAGE_TRANSACTION_MODE,
     // MAINPAGE_SHARE_MODE,
-    // MAINPAGE_FEEDBACK_MODE
+    MAINPAGE_FEEDBACK_MODE
 } from '../mainpageTypes';
 
 const addUserAcknowledge = ({
@@ -28,17 +28,24 @@ const addUserAcknowledge = ({
     transactionEndTime,
     mainpageTransactionEndTime,
     
-    socket
+    email,
+    socket,
 }) => {
-    dispatch( editCurrentMode(currentMode) );
-
+    dispatch( editCurrentMode(currentMode) );;
     if(currentMode === MAINPAGE_SAVED_MODE) {
-        if( lastSearchSaved &&  new Date(lastSearchUpto) < new Date() )
-                dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
+        if( lastSearchSaved &&  new Date(lastSearchUpto) < new Date() ){
+            dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
+            socket.emit('save-search-delete',{ email });
+        }
     } else if ( currentMode === MAINPAGE_TRANSACTION_MODE ){
         if( new Date(transactionEndTime) < new Date() ) 
             // false if transactionEndTime is undefined
             dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
+            socket.emit('transaction-timer-expired',{ email, currentTransaction })
+    } else if ( currentMode === MAINPAGE_FEEDBACK_MODE ){
+        dispatch( editCurrentMode(MAINPAGE_FEEDBACK_MODE) );
+    } else {
+        dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
     }
     
     lastSearch ? 

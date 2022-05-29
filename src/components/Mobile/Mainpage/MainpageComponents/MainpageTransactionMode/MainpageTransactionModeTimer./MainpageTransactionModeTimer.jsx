@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { 
+    // useDispatch, 
+useSelector } from 'react-redux';
 import { useCountdown, CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import "./styles.css";
 
-import { mainpageFeedbackMode } from '../../../mainpageActions';
+// import { mainpageFeedbackMode } from '../../../mainpageActions';
 
 const MainpageTransactionModeTimerStyle = styled.div`
     display: flex;
@@ -15,7 +17,7 @@ const MainpageTransactionModeTimerStyle = styled.div`
 `
 
 const MainpageTransactionModeTimer = () => {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     
     const { 
         email,
@@ -76,7 +78,7 @@ const MainpageTransactionModeTimer = () => {
 
     const onComplete = () => {
             socket.emit('transaction-timer-expired',{ email, currentTransaction });
-            dispatch(mainpageFeedbackMode());
+            // dispatch(mainpageFeedbackMode());
     }
 
     return <MainpageTransactionModeTimerStyle>
