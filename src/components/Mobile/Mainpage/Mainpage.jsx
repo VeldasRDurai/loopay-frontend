@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
 
+import serviceWorkerRegistration from '../../../functions/serviceWorkerRegistration';
 import addUserAcknowledge from './mainpageSocketFunctions/addUserAcknowledge';
 
 import { 
@@ -116,6 +117,7 @@ const Mainpage = () => {
                     socket,
                 });
                 watchPosition({ onSuccess, onError });
+                serviceWorkerRegistration({ socket, email } );
             } else {
                 window.alert('Not able to login or it is a sign up');
             }
