@@ -84,7 +84,7 @@ const Mainpage = () => {
     useEffect( () => {
         const socket = io(process.env.REACT_APP_BACKEND_DEVELOPMENT_URL);
         dispatch( mainpageUpdateConstants({ socket, email }) );
-        socket.on('connected', ()=> socket.emit('add-user', {email} ));
+        socket.on('connected', ()=> socket.emit('connected', {email} ));
         
         // Updating loaction
         const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => {

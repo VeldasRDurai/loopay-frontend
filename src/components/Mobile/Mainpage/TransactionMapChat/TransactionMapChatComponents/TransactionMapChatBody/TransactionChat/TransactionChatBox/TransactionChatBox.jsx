@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector, } from 'react-redux';
 
 import InduvidualChat from './InduvidualChat/InduvidualChat';
+import OnlineOfflineIndicator from './OnlineOfflineIndicator';
 
 const TransactionChatBoxStyle = styled.div`
     display: flex;
@@ -27,6 +28,7 @@ const TransactionChatBox = () => {
     });
     return (
         <TransactionChatBoxStyle ref={divRef} >
+            <OnlineOfflineIndicator />
             { chat.map( item => 
                     <InduvidualChat key={item.message} 
                         sender={item.sender}

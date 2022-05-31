@@ -42,10 +42,11 @@ const addUserAcknowledge = ({
             socket.emit('save-search-delete',{ email });
         }
     } else if ( currentMode === MAINPAGE_TRANSACTION_MODE ){
-        if( new Date(transactionEndTime) < new Date() ) 
+        if( new Date(transactionEndTime) < new Date() ) {
             // false if transactionEndTime is undefined
-            dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );
+            dispatch( editCurrentMode(MAINPAGE_FEEDBACK_MODE) );
             socket.emit('transaction-timer-expired',{ email, currentTransaction })
+        }
     } else if ( currentMode === MAINPAGE_FEEDBACK_MODE ){
         dispatch( editCurrentMode(MAINPAGE_FEEDBACK_MODE) );
     } else {
