@@ -1,0 +1,17 @@
+{
+    "short_name": "Loopay App",
+    "name": "Loopay Application",
+    "icons": [
+      {
+        "src": "/loopay-light.png",
+        "type": "image/png",
+        "sizes": "1280x1280"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#FFFFFF",
+    "display": "fullscreen",
+    "scope": "/",
+    "theme_color": "#000000",
+    "description": "To develop an application for payment transaction between users for ones who needs liquid cash in hand and other need soft cash in account."
+}

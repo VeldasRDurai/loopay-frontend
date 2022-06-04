@@ -47,7 +47,7 @@ const mainpageShareMode         = () => typeSetter(MAINPAGE_SHARE_MODE);
 const mainpageFeedbackMode      = () => typeSetter(MAINPAGE_FEEDBACK_MODE);
 
 // email, socket action
-const mainpageUpdateConstants = ({ socket, email, currentTransaction }) => ({
+const mainpageUpdateConstants = ({ socket, email }) => ({
     ...typeSetter(MAINPAGE_UPDATE_CONSTANTS),
     socket,
     email

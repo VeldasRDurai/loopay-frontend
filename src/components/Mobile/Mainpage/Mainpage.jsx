@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux';
 
+import serviceWorkerRegistration from '../../../functions/serviceWorkerRegistration';
 import addUserAcknowledge from './mainpageSocketFunctions/addUserAcknowledge';
 
 import { 
@@ -87,7 +88,7 @@ const Mainpage = () => {
         socket.on('connected', ()=> socket.emit('connected', {email} ));
         
         // Updating loaction
-        const onSuccess = ({ coords : {latitude, longitude}, timestamp }) => {
+        const onSuccess = ({ coords : {latitude, longitude},    timestamp }) => {
             console.log( {latitude, longitude} );
             socket.emit('update-location', 
                 { latitude, longitude, timestamp, email } );
@@ -98,7 +99,8 @@ const Mainpage = () => {
         socket.on('add-user-acknowledge', ({ acknowledge, user }) => {
             console.log( 'add-user-acknowledge', ({ acknowledge, user }) );
             if(acknowledge && user ){
-                addUserAcknowledge({
+                serviceWorkerRegistration({ socket, email } );
+                addUserAcknowledge({    
                     ...user,
                     dispatch,
                     editCurrentMode,
@@ -111,7 +113,6 @@ const Mainpage = () => {
                     socket,
                 });
                 watchPosition({ onSuccess, onError });
-                // serviceWorkerRegistration({ socket, email } );
             } else {
                 window.alert('Not able to login or it is a sign up');
             }

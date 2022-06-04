@@ -30,12 +30,12 @@ const addUserAcknowledge = ({
 
     //6
     notifications,
-    mainpageNotification,
-    
+    mainpageNotification, 
+
     email,
     socket,
 }) => {
-    dispatch( editCurrentMode(currentMode) );;
+    dispatch( editCurrentMode(currentMode) );
     if(currentMode === MAINPAGE_SAVED_MODE) {
         if( lastSearchSaved &&  new Date(lastSearchUpto) < new Date() ){
             dispatch( editCurrentMode(MAINPAGE_SEARCH_MODE) );

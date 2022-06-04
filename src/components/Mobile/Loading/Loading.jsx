@@ -8,9 +8,9 @@ import {
   // redirectToForgetUsername,
   // redirectToSignup
 //   redirectToSignupOtp,
-//   redirectToLogin,
+    redirectToLogin,
   // redirectToNewPassword
-  redirectToMainpage
+    redirectToMainpage
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
 import { profileLogIn } from '../../../reduxStore/profile/profileActions';
 
@@ -29,22 +29,22 @@ const Loading = () => {
     console.log('Loading');
     const dispatch = useDispatch();
     useEffect( () => {
-        const userAuthentication = async () => {
-            // try{
-            //     const response = await fetch( process.env.REACT_APP_BACKEND_DEVELOPMENT_URL,
-            //         { credentials:'include' });
-            //     console.log( response );
-            //     const result = await response.json();
-            //     console.log( result );
-            //     if( response.ok ){
-            //         dispatch( profileLogIn(result) );
-            //         dispatch( redirectToMainpage() );
-            //     } else {
-            //         dispatch( redirectToLogin() );
-            //     }
-            // } catch (e){ 
-            //     console.log(e); 
-            // }
+        // const userAuthentication = async () => {
+        //     try{
+        //         const response = await fetch( process.env.REACT_APP_BACKEND_DEVELOPMENT_URL,
+        //             { credentials:'include' });
+        //         console.log( response );
+        //         const result = await response.json();
+        //         console.log( result );
+        //         if( response.ok ){
+        //             dispatch( profileLogIn(result) );
+        //             dispatch( redirectToMainpage() );
+        //         } else {
+        //             dispatch( redirectToLogin() );
+        //         }
+        //     } catch (e){ 
+        //         console.log(e); 
+        //     }
             // await timeOut(20);
             // dispatch( redirectToForgetUsername() );
             // dispatch( redirectToSignup() );
@@ -56,8 +56,8 @@ const Loading = () => {
                 'das@gmail.com';
             dispatch( profileLogIn( {email} ) );
             dispatch( redirectToMainpage() );
-        } 
-        userAuthentication();
+        // } 
+        // userAuthentication();
     },[]);
     return (
         <LoadingStyled>

@@ -5,7 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IoChevronForwardCircleOutline } from "react-icons/io5";
 import slideInLeft from '../../../../animation/slideInLeft';
 
-import { redirectToMainpage } from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
+import { 
+    redirectToMainpage,
+    redirectToLoading 
+} from '../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
 const TransactionProfileStyle = styled.div`
     position: absolute;
@@ -89,11 +92,21 @@ const logoStyle = {
     marginRight:'15px'
 };
 
+
 const TransactionProfile = () => {
     const dispatch = useDispatch();
-
+    
     const { email } = useSelector( state => state.mainpageReducer );
-
+    
+    const logout = async () => {
+        try{
+            const response = await fetch( process.env.REACT_APP_BACKEND_DEVELOPMENT_URL+ '/logout',
+                { credentials:'include' });
+            if( response.ok ) dispatch( redirectToLoading() );
+        } catch (e){ 
+            console.log(e); 
+        }
+    }
     return (
         <TransactionProfileStyle>
             <BackButton onClick={ () => dispatch( redirectToMainpage() ) } > 
@@ -109,7 +122,7 @@ const TransactionProfile = () => {
                     <Button> Report bug and feedback </Button>
                     <Button> About </Button>
                 </Customercare>
-                <Button style={{ borderRadius:'7px' }} > 
+                <Button  onClick={ () => logout() } style={{ borderRadius:'7px' }} > 
                     Log out 
                 </Button>
             </ProfileContent>

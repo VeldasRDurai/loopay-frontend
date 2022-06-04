@@ -35,7 +35,6 @@ function urlB64ToUint8Array(base64String) {
 // }
 
 const serviceWorkerRegistration = async ({ socket, email }) => {
-
     let isSubscribed = false;
     let swRegistration = null;
     
@@ -85,4 +84,6 @@ const serviceWorkerRegistration = async ({ socket, email }) => {
 }
 export default serviceWorkerRegistration;
 
-// https://stackoverflow.com/a/69624651/14476642
+// REFERENCE
+
+// 1. https://stackoverflow.com/a/69624651/14476642

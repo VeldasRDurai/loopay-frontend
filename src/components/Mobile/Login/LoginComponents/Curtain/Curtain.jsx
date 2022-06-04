@@ -57,7 +57,7 @@ const Curtain = () => {
         <CurtainHeadingStyled> 
             Loopay 
         </CurtainHeadingStyled>
-        <CurtainCaptionStyled> Your perfect banking partner </CurtainCaptionStyled>
+        <CurtainCaptionStyled> Realising cashless economy </CurtainCaptionStyled>
     </CurtainStyled>;
 }
 
