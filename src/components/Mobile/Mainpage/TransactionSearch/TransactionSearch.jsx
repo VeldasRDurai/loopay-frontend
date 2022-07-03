@@ -10,6 +10,8 @@ import UserProfile from './UserProfile/UserProfile';
 import ResultTile from './TransactionSearchComponents/ResultTile/ResultTile';
 import TransactionSearchSave from './TransactionSearchComponents/TransacionSearchSave/TransacionSearchSave';
 
+import { IoChevronBackCircleOutline } from "react-icons/io5";
+
 const TransactionSearchStyle = styled.div`
     position: absolute;
     top: 0;
@@ -19,8 +21,30 @@ const TransactionSearchStyle = styled.div`
     height: 100vh;
     overflow: hidden;
     
-    background-color: yellow;
+    background-color: black;
 `
+
+const logoStyle = {
+    height:'20px',
+    width:'30px',
+    fill:'white',
+    marginLeft:'10px'
+};
+
+const Heading = styled.div`
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 900;
+`
+
+const BackButton = styled.div`
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+`;
 
 const TransactionSearchRender = {
     REDIRECT_TO_TRANSACTION_USER_PROFILE: <UserProfile />
@@ -49,19 +73,26 @@ const TransactionSearch = () => {
 
     return (
         <TransactionSearchStyle>
-            <div style={{ marginTop:'10px',marginBottom:'10px' }} 
+            <BackButton onClick={ () => dispatch( redirectToMainpage() ) } > 
+                <IoChevronBackCircleOutline style={logoStyle} />
+                <Heading> Search Result </Heading>
+            </BackButton>
+            {/* <div style={{ marginTop:'10px',marginBottom:'10px' }} 
                 onClick={ ()=> dispatch( redirectToMainpage() ) } >
                 back
-            </div>
+            </div> */}
             <TransactionSearchSave />
             <div style={{
-                maxHeight: '80vh',
+                height: '75vh',
                 overflow: 'hidden scroll',
                 margin: '10px 0px',
-                backgroundColor: 'aliceblue'
+                // backgroundColor: 'aliceblue'
+                color: 'white',
+                textAlign: 'center'
             }} >
                 { 
                     loading ? 'Loading': 
+                    lastSearchResults.length === 0 ? 'No users for your search':
                     lastSearchResults.map( item => {
                         const isRejected = !rejectedUsers.includes(item.email);
                         return <ResultTile key={item.email} 
@@ -73,7 +104,7 @@ const TransactionSearch = () => {
                     })
                 }
             </div>
-            { lastSearch.amount }
+            {/* { lastSearch.amount } */}
             {TransactionSearchRender[transactionSearchPageState]}
         </TransactionSearchStyle>
   );

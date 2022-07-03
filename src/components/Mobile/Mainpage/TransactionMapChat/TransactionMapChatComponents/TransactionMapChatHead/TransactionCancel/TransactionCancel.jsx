@@ -3,12 +3,19 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { redirectToTransactionFeedbackpage } from '../../../../mainpageActions';
-
+import { AiOutlineCloseCircle } from "react-icons/ai";
 const TransactionCancelStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
 `
+
+const logoStyle = {
+    height:'30px',
+    width:'30px',
+    // fill:'white',
+    marginLeft:'10px'
+};
 
 const TransactionCancel = () => {
     const dispatch = useDispatch();
@@ -32,7 +39,7 @@ const TransactionCancel = () => {
     });
     return (
         <TransactionCancelStyle onClick={onClick} >
-            Cancel
+           <AiOutlineCloseCircle style={logoStyle} />
         </TransactionCancelStyle>
   );
 }

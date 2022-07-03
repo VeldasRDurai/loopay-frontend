@@ -30,7 +30,6 @@ const MainpageSearchMode = () => {
     const dispatch = useDispatch();
     const { lastSearch } = useSelector( state => state.mainpageReducer );
     return <MainpageSearchModeStyle>
-        <div>mainpage</div>
         <MainpageComponentStyle>
             <div>{`Enter the amount`}</div>
                 <MainpageRange min={500} max={5000} 
@@ -61,6 +60,11 @@ const MainpageSearchMode = () => {
         </MainpageComponentStyle>
 
         <input 
+            style={{
+                height: '30px',
+                width: '120px',
+                fontFamily: 'Ubuntu Mono, monospace'
+            }}
             type="button" 
             value="Search"
             onClick={ ()=>dispatch(redirectToTransactionSearch()) } 

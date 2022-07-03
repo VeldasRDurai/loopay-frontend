@@ -13,7 +13,10 @@ const TransactionFoundStyle = styled.div`
     justify-content: center;
     align-items: center;
     margin-left: auto;
-    background-color: green;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    padding-left: 15px;
 `
 
 const TransactionFound = () => {

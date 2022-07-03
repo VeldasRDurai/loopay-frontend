@@ -5,7 +5,9 @@ import styled from 'styled-components';
 const ResultTileStyle = styled.div`
     min-height: 10vh;
     max-width: 100vw;
-    background-color: #800080a4;
+    color: black;
+    /* background-color: #800080a4; */
+    background-color: white;
     margin: 5px 10px;
 
     display: flex;

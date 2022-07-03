@@ -8,12 +8,15 @@ import {
 } from '../../../mainpageActions';
 
 const TransactionSearchSaveStyle = styled.div`
-    height: 10vh;
+    height: 15vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: white;
+    box-sizing: border-box;
+    border: 5px solid white;
 `
 
 const TransacionSearchSave = () => {
@@ -44,15 +47,20 @@ const TransacionSearchSave = () => {
     });
     return (
         <TransactionSearchSaveStyle>
-            <div> Status valid Upto hours : </div>
+            <div> Save status Upto hours : </div>
             <input 
                 type="range" 
                 max={24} 
                 min={1} 
+                defaultValue={1}
                 onChange={onChange}
             />
-            {`duration : ${duration}`}
-            <button onClick={onClick} >
+            {`Duration : ${duration}`}
+            <button style={{
+                height: '30px',
+                width: '120px',
+                fontFamily: 'Ubuntu Mono, monospace'
+            }} onClick={onClick} >
                 Save Button 
             </button> 
         </TransactionSearchSaveStyle>

@@ -4,11 +4,20 @@ import { useDispatch } from 'react-redux';
 
 import { redirectToMainpage } from '../../../../../../../reduxStore/page/authenticationPage/authenticationPageAction';
 
+import { IoChevronBackCircleOutline } from "react-icons/io5";
+
 const TransactionBackStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
 `
+const logoStyle = {
+    height:'30px',
+    width:'30px',
+    // fill:'white',
+    marginLeft:'10px'
+};
 
 const TransactionBack = () => {
     const dispatch = useDispatch();
@@ -17,7 +26,7 @@ const TransactionBack = () => {
     return (
         <TransactionBackStyle
             onClick={onClick} >
-            Back
+            <IoChevronBackCircleOutline style={logoStyle} />
         </TransactionBackStyle>
   );
 }

@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const UserProfileRequestButtonStyle = styled.button`
-    height: 30px;
-    width: 100px;
+    height: 50px;
+    border-radius: 30px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content:space-around;
     align-items: center;
-    background-color: green;
+    background-color: white;
 
     &:focus{ outline: none; }
 `

@@ -15,7 +15,7 @@ const TransactionChatStyle = styled.div`
     height: 90vh;
     width: 100vw;
 
-    background-color: #ff0000;
+    background-color: #000000;
     animation: ${slideInRight} 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 `
 

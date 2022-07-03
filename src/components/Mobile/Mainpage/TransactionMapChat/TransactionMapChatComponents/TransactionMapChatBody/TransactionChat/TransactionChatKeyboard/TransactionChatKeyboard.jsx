@@ -48,7 +48,7 @@ const TransactionChatSendButton = styled.button`
     border-radius: 3vh;
     box-sizing: border-box;
     border: 1px solid black;
-    background-color: green;
+    background-color: white;
 `
 
 const TransactionChatKeyboard = () => {

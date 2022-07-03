@@ -40,7 +40,7 @@ const initialState = {
 
     lastSearch : {
         amount:500,
-        isSoftCash:true,
+        isSoftCash:1,
         radius:100,
         timeStamp: undefined,
     },

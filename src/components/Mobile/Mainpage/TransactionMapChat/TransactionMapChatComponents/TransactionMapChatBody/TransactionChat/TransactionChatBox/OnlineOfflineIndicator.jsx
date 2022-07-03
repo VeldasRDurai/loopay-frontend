@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { useSelector, } from 'react-redux';
 
 const OnlineOfflineIndicatorStyle = styled.div`
-    position: absolute;
+    /* position: absolute;
     top: 0;
     left: 0;
-    right: 0;
+    right: 0; */
 
     height: 20px;
     width: 100vw;
@@ -16,6 +16,8 @@ const OnlineOfflineIndicatorStyle = styled.div`
 
     color: black;
     background-color: ${ ({isOnline}) => isOnline ? '#00FF00': '#FF0000' };
+    box-sizing: border-box;
+    border: 1px solid black;
 `
 
 
@@ -28,7 +30,7 @@ const OnlineOfflineIndicator = () => {
 
     return (
         <OnlineOfflineIndicatorStyle isOnline={isOnline} >
-            { isOnline ? 'online': 'offline' }
+            { isOnline ? 'Online': 'Offline' }
         </OnlineOfflineIndicatorStyle>
     );
 }

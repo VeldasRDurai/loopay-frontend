@@ -16,7 +16,7 @@ const TransactionChatBoxStyle = styled.div`
 
     overflow-x: hidden;
     overflow-y: scroll;
-    background-color: #ff0000;
+    background-color: #000000;
 `
 
 

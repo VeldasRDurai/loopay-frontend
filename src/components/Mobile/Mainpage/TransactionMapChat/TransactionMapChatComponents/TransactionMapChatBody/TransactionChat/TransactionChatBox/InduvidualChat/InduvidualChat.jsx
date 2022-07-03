@@ -13,9 +13,10 @@ const InduvidualChatStyle = styled.div`
     min-width: 30vw;
     align-items: ${ ({yourMessage}) => yourMessage ? 'flex-end' : 'flex-start' };;
 
-    background-color: #77ff00;
+    color: #000000;
+    background-color: #ffffff;
     padding: 10px 10px;
-    border-radius: 10px;
+    border-radius:${ ({yourMessage}) => yourMessage ? '20px 0px 20px 10px' : '0px 20px 10px 20px' };
     margin: 5px;
     align-self: ${ ({yourMessage}) => yourMessage ? 'flex-end' : 'flex-start' };
     justify-content: center;

@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const UserProfileBadgeStyle = styled.div`
-    height: 30px;
-    width: 100px;
-    border-radius: 15px;
+    height: 65px;
+    width: 40vw;
+    border-radius: 30px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content:space-around;
     align-items: center;
-    background-color: red;
     color: black;
+    background-color: white;
 
     &:focus{ outline: none; }
 `

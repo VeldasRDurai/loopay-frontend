@@ -17,6 +17,8 @@ import {
     mainpageTransactionEndTime,
 } from '../../mainpageActions';
 
+import { IoChevronBackCircleOutline } from "react-icons/io5";
+
 import UserProfileRequestButton from './UserProfileComponents/UserProfileRequestButton/UserProfileRequestButton';
 import UserProfileCancelButton from './UserProfileComponents/UserProfileCancelButton/UserProfileCancelButton';
 import UserProfileBadge from './UserProfileComponents/UserProfileBadge/UserProfileBadge';
@@ -42,13 +44,34 @@ const UserProfileStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 
-    background-color: green;
+    color: white;
+    background-color: black;
 `
-const UserProfileBackStyle = styled.div`
+
+const logoStyle = {
+    height:'20px',
+    width:'30px',
+    fill:'white',
+    marginLeft:'10px'
+};
+
+const Heading = styled.div`
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 900;
+`
+
+const BackButton = styled.div`
     opacity:${ ({opac})=> opac ? 1:0.5 };
-`
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+`;
 
 const UserProfile = () => {
     const dispatch = useDispatch();
@@ -116,16 +139,21 @@ const UserProfile = () => {
     }
     return (
         <UserProfileStyle>
-            <UserProfileBackStyle
+            {/* <UserProfileBackStyle
                 opac={ !(userProfileRequestState===USER_PROFILE_REQUEST_SEND) } 
                 onClick={ () =>
                     !(userProfileRequestState===USER_PROFILE_REQUEST_SEND) && onClick() } > 
                 Back 
-            </UserProfileBackStyle>
+            </UserProfileBackStyle> */}
 
-            <div>
-                email : { selectedUserDetails.email }
-            </div> 
+            <BackButton 
+                opac={ !(userProfileRequestState===USER_PROFILE_REQUEST_SEND) }
+                onClick={ () =>
+                    !(userProfileRequestState===USER_PROFILE_REQUEST_SEND) && onClick() } > 
+                <IoChevronBackCircleOutline style={logoStyle} />
+                <Heading> {selectedUserDetails.email} </Heading>
+            </BackButton>
+
             <div>
                 { selectedUserDetails.isOnline ? 'Online' : `Lastseen on ${selectedUserDetails.lastseen}` }
             </div>
