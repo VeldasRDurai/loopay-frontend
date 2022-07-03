@@ -19,6 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "addComp": "cd ${PWD}/ && mkdir $npm_config_name && cd $npm_config_name/ && touch $npm_config_name'Actions'.js $npm_config_name'Reducer'.js $npm_config_name'Types'.js $npm_config_name.jsx"
+    "addComp": "cd ${PWD}/ && mkdir $npm_config_name && cd $npm_config_name/ && touch $npm_config_name'Actions'.js $npm_config_name'Reducer'.js $npm_config_name'Types'.js $npm_config_name.jsx",
+    "lineOfCode": "git ls-files | xargs wc -l"
   }
 }
