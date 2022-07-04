@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 import { redirectToTransactionMapChat } from '../../mainpageActions';
-import MainpageTransactionModeTimer from './MainpageTransactionModeTimer./MainpageTransactionModeTimer';
+import MainpageTransactionModeTimer from './MainpageTransactionModeTimer/MainpageTransactionModeTimer';
 const MainpageTransactionModeStyle = styled.div`
     display: flex;
     flex-direction: column;
