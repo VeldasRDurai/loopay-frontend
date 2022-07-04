@@ -52,6 +52,7 @@ const GreenBall = styled.div`
 const MainpageHead = () => {
     const dispatch = useDispatch();
     const {
+        email,
         notifications
     } = useSelector( state => state.mainpageReducer );
     const [ showGreenBall, setShowGreenBall ] = useState(false);
@@ -69,7 +70,7 @@ const MainpageHead = () => {
     return (
         <MainpageHeadStyle>
             <HeadMessage>
-                Hello Name
+                Hello <b>{ email && email.split('@')[0] }</b>
             </HeadMessage>
             <NotificationButton onClick={onClick} >
                 { showGreenBall && <GreenBall /> }

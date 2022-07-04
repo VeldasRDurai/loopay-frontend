@@ -5,23 +5,19 @@ import { useDispatch } from 'react-redux';
 import './Loading.css'
 
 import { 
-  // redirectToForgetUsername,
-  // redirectToSignup
-//   redirectToSignupOtp,
-    // redirectToLogin,
-  // redirectToNewPassword
-    redirectToMainpage
+    redirectToMainpage,
+    redirectToLogin
 } from '../../../reduxStore/page/authenticationPage/authenticationPageAction';
 import { profileLogIn } from '../../../reduxStore/profile/profileActions';
 
-import timeOut  from '../../../functions/timeOut';
+// import timeOut  from '../../../functions/timeOut';
 
 const LoadingStyled = styled.div`
 	z-index:1000;
 	/* Should have the highest z-index */
     height: 100vh;
     width: 100vw;
-    background-color: #f1c40f;
+    /* background-color: #f1c40f; */
 	overflow: hidden;
 `;
 
@@ -46,11 +42,6 @@ const Loading = () => {
         //         console.log(e); 
         //     }
             // await timeOut(2000);
-            // dispatch( redirectToForgetUsername() );
-            // dispatch( redirectToSignup() );
-            // dispatch( redirectToSignupOtp() );
-            // dispatch( redirectToLogin() );
-            // dispatch( redirectToNewPassword() );
             let email = 
                 window.prompt("Enter email id") || 
                 'das@gmail.com';
